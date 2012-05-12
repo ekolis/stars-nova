@@ -53,6 +53,7 @@ namespace Nova.Common
         /// <param name="star">The <see cref="Star"/> to create the defense on.</param>
         public DefenseProductionUnit()
         {
+            Cost = RemainingCost = new Resources(0, 0, 0, Global.DefenceEnergyCost);
         }
 
         /// <summary>

@@ -97,6 +97,96 @@ namespace Nova.Common
         }
 
         /// <summary>
+        /// See if a resource set is equal to another.
+        /// </summary>
+        /// <param name="lhs"></param>
+        /// <param name="rhs"></param>
+        /// <returns></returns>
+        public static bool operator ==(Resources lhs, Resources rhs)
+        {
+            if ((object)lhs == null && (object)rhs == null)
+            {
+                return true;
+            }
+            else if ((object)lhs == null)
+            {
+                return false;
+            }
+            else
+            {
+                return lhs.Equals(rhs);
+            }
+        }
+
+        /// <summary>
+        /// See if a resource set is not equal to another.
+        /// </summary>
+        /// <param name="lhs"></param>
+        /// <param name="rhs"></param>
+        /// <returns></returns>
+        public static bool operator !=(Resources lhs, Resources rhs)
+        {
+            if ((object)lhs == null && (object)rhs == null)
+            {
+                return false;
+            }
+            if (lhs == null)
+            {
+                return true;
+            }
+            else
+            {
+                return !(lhs.Equals(rhs));
+            }
+        }
+
+        /// <summary>
+        /// Check if this is equal to the System.Object obj.
+        /// </summary>
+        /// <param name="obj">Any System.Object to compare.</param>
+        /// <returns>true if obj is a Resources and all commodities match.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+
+            Resources res = obj as Resources;
+            if ((object)res == null)
+            {
+                return false; // could not be cast
+            }
+            if (res.Ironium == Ironium && res.Boranium == Boranium && res.Germanium == Germanium && res.Energy == Energy)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Check if this is equal to the Resources res.
+        /// </summary>
+        /// <param name="obj">Any Resources to compare.</param>
+        /// <returns>Returns true if all commodities match.</returns>
+        public bool Equals(Resources res)
+        {
+            if (res == null) return false;
+
+            if (res.Ironium == Ironium && res.Boranium == Boranium && res.Germanium == Germanium && res.Energy == Energy)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Generate a hash from the commodities.
+        /// </summary>
+        /// <returns>Logical exclusive or of the commodities.</returns>
+        public override int GetHashCode()
+        {
+            return Ironium ^ Boranium ^ Germanium ^ Energy;
+        }
+
+        /// <summary>
         /// See if a resources set is less than another.
         /// </summary>
         public static bool operator <=(Resources lhs, Resources rhs)
