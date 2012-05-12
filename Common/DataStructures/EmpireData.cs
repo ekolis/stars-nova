@@ -590,16 +590,13 @@ namespace Nova.Common
             foreach (Star star in OwnedStars.Values)
             {
                 // Link the star to the race that owns it.
-                if (star.ThisRace == null)
+                if (star.Owner == Id)
                 {
-                    if (star.Owner == Id)
-                    {
-                        star.ThisRace = Race;
-                    }
-                    else
-                    {
-                        star.ThisRace = null;
-                    }
+                    star.ThisRace = Race;
+                }
+                else
+                {
+                    star.ThisRace = null;
                 }
 
                 if (star.Starbase != null)
