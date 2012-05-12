@@ -530,6 +530,10 @@ namespace Nova.Common
                 }
                 
                 design.Update();
+                if (design.Id >= designCounter)
+                {
+                    designCounter = design.Id + 1;
+                }
             }
             
             // Link enemy designs too
