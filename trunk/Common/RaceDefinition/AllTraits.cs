@@ -33,6 +33,10 @@ namespace Nova.Common
     /// </summary>
     public sealed class AllTraits 
     {
+        public TraitList All = new TraitList();
+        public TraitList Primary = new TraitList();
+        public TraitList Secondary = new TraitList();
+
         private static readonly object Padlock = new object();
         private static AllTraits instance;
 
@@ -84,7 +88,7 @@ namespace Nova.Common
         }
 
         public const int NumberOfPrimaryRacialTraits = 10;
-        public const int NumberOfSecondaryRacialTraits = 13;
+        public const int NumberOfSecondaryRacialTraits = 14;
       
         /// <summary>
         /// Provide a list of all trait keys. 
@@ -131,8 +135,6 @@ namespace Nova.Common
             "Regenerating Shields"
         };
 
-        public TraitList All = new TraitList();
-        public TraitList Primary = new TraitList();
-        public TraitList Secondary = new TraitList();
+
     }
 }
