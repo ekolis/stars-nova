@@ -49,7 +49,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Initialising constructor.
         /// </summary>
-        /// <param name="existing">Defence value of 1 defence of this type.</param>
+        /// <param name="existing">Defense value of 1 defence of this type.</param>
         public Defense(double existing)
         {
             this.Value = existing;

@@ -899,7 +899,7 @@ namespace Nova.Server
         /// <returns>Damage weapon is able to do.</returns>
         private double CalculateWeaponPower(ShipDesign ship, Weapon weapon, ShipDesign target)
         {
-            // TODO (priority 5) Stub - just return the base power of weapon. Also need to comment the return value of this function with what defences have been considered by this (when done).
+            // TODO (priority 5) Stub - just return the base power of weapon. Also need to comment the return value of this function with what defenses have been considered by this (when done).
             return weapon.Power;
             /*
            double weaponPower = weapon.GetPower(ship);
