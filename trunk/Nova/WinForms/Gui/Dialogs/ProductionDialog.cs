@@ -79,10 +79,15 @@ namespace Nova.WinForms.Gui
             item.Text = "Factory";
             item.Tag = new FactoryProductionUnit(clientState.EmpireState.Race);
             designList.Items.Add(item);
-            
+
             item = new ListViewItem();
             item.Text = "Mine";
             item.Tag = new MineProductionUnit(clientState.EmpireState.Race);
+            designList.Items.Add(item);
+
+            item = new ListViewItem();
+            item.Text = "Defense";
+            item.Tag = new DefenseProductionUnit();
             designList.Items.Add(item);
 
             Fleet starbase = queueStar.Starbase;
