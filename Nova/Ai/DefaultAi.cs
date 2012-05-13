@@ -74,6 +74,10 @@ namespace Nova.Ai
                     {
                         int factoryBuildCostGerm = clientState.EmpireState.Race.HasTrait("CF") ? 3 : 4;
                         int factoriesToBuild = (int)((star.ResourcesOnHand.Germanium - 50) / factoryBuildCostGerm);
+                        if (factoriesToBuild > (star.GetOperableFactories() - star.Factories))
+                        {
+                            factoriesToBuild = star.GetOperableFactories() - star.Factories;
+                        }
 
                         ProductionOrder factoryOrder = new ProductionOrder(factoriesToBuild, new FactoryProductionUnit(clientState.EmpireState.Race), false);
                         ProductionCommand factoryCommand = new ProductionCommand(CommandMode.Add, factoryOrder, star.Key);
