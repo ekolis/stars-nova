@@ -37,7 +37,7 @@ namespace Nova.WinForms.Gui
         /// <summary>
         /// This holds the commands to be applied when the ProductionDialog presses OK.
         /// </summary>
-        public Stack<ICommand> ProductionCommands = new Stack<ICommand>();
+        public Queue<ICommand> ProductionCommands = new Queue<ICommand>();
         
         
         /// <summary>
@@ -88,7 +88,7 @@ namespace Nova.WinForms.Gui
         public ListViewItem InsertProductionOrder(ProductionOrder productionOrder, int index)
         {
             ICommand command = new ProductionCommand(CommandMode.Add, productionOrder, starKey, index-1);
-            ProductionCommands.Push(command);
+            ProductionCommands.Enqueue(command);
             
             ListViewItem item = new ListViewItem();
             item.Text = productionOrder.Name;
@@ -119,7 +119,7 @@ namespace Nova.WinForms.Gui
             }
             
             ICommand command = new ProductionCommand(CommandMode.Edit, productionOrder, starKey, index-1);
-            ProductionCommands.Push(command);
+            ProductionCommands.Enqueue(command);
             
             Items[index].SubItems.Clear();
             Items[index].Text = productionOrder.Name;
@@ -145,7 +145,7 @@ namespace Nova.WinForms.Gui
             }
             
             ICommand command = new ProductionCommand(CommandMode.Delete, null, starKey, index-1);
-            ProductionCommands.Push(command);
+            ProductionCommands.Enqueue(command);
             
             Items.RemoveAt(index);
             
@@ -165,7 +165,7 @@ namespace Nova.WinForms.Gui
             }
             
             ICommand command = new ProductionCommand(CommandMode.Edit, null, starKey, Items.IndexOf(item)-1);
-            ProductionCommands.Push(command);
+            ProductionCommands.Enqueue(command);
             
             // Can't remove the header!
             if (Items[0] == item)
