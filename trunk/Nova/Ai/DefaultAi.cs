@@ -232,8 +232,19 @@ namespace Nova.Ai
                             targetResearchField = field;
                         }
                     }
-                    clientState.EmpireState.ResearchTopics.Zero();
-                    clientState.EmpireState.ResearchTopics[targetResearchField] = 1;                        
+
+                    //Generate a research command to describe the changes.
+                    ResearchCommand command = new ResearchCommand();
+                    command.Budget = 0;
+                    command.Topics.Zero();
+                    command.Topics[targetResearchField] = 1;
+
+                    if (command.isValid(clientState.EmpireState))
+                    {
+                        clientState.Commands.Push(command);
+                        command.ApplyToState(clientState.EmpireState);
+                    }
+  
                 }
             }
         }
