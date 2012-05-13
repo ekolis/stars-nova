@@ -115,7 +115,11 @@ namespace Nova.Common
        public const int FactoriesPerFactoryProductionUnit   = 10;
        public const int ColonistsPerOperableMiningUnit      = 10000;
        public const int MinesPerMineProductionUnit          = 10;
-       public const int DefenceEnergyCost                   = 5;
+
+       public const int DefenseIroniumCost = 5;
+       public const int DefenseBoraniumCost = 5;
+       public const int DefenseGermaniumCost = 5;
+       public const int DefenseEnergyCost = 15;
         
        // Research constants
        public const int DefaultResearchPercentage = 10;

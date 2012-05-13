@@ -84,20 +84,18 @@ namespace Nova.Ai
                         }
                     }
 
-                    // build defenses - TODO (priority 4) - need DefenseProductionUnit to be finished first.
-                    /*
-                    int defenceToBuild = Global.MaxDefenses - star.Defenses;
-                    if (defenceToBuild > 0)
+                    // build defenses
+                    int defenseToBuild = Global.MaxDefenses - star.Defenses;
+                    if (defenseToBuild > 0)
                     {
-                        ProductionOrder defenceOrder = new ProductionOrder(defenceToBuild, new DefenseProductionUnit(), false);
-                        ProductionCommand defenceCommand = new ProductionCommand(CommandMode.Add, defenceOrder, star.Key);
-                        if (defenceCommand.isValid(clientState.EmpireState))
+                        ProductionOrder defenseOrder = new ProductionOrder(defenseToBuild, new DefenseProductionUnit(), false);
+                        ProductionCommand defenseCommand = new ProductionCommand(CommandMode.Add, defenseOrder, star.Key);
+                        if (defenseCommand.isValid(clientState.EmpireState))
                         {
-                            defenceCommand.ApplyToState(clientState.EmpireState);
-                            clientState.Commands.Push(defenceCommand);
+                            defenseCommand.ApplyToState(clientState.EmpireState);
+                            clientState.Commands.Push(defenseCommand);
                         }
                     }
-                     */
                 }
             }
         }

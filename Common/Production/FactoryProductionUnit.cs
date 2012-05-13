@@ -68,23 +68,17 @@ namespace Nova.Common
             XmlNode mainNode = node.FirstChild;
             while (mainNode != null)
             {
-                try
+                switch (mainNode.Name.ToLower())
                 {
-                    switch (mainNode.Name.ToLower())
-                    {
-                        case "cost":
-                            cost = new Resources(mainNode);
-                            break;
-                            
-                        case "remainingcost":
-                            remainingCost = new Resources(mainNode);
-                            break;                            
-                    }
+                    case "cost":
+                        cost = new Resources(mainNode);
+                        break;
+
+                    case "remainingcost":
+                        remainingCost = new Resources(mainNode);
+                        break;
                 }
-                catch (Exception e)
-                {
-                    Report.Error(e.Message);
-                }
+
                 mainNode = mainNode.NextSibling;
             }
         }

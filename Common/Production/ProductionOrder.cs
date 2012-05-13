@@ -149,11 +149,15 @@ namespace Nova.Common
                         case "factoryunit":
                             Unit = new FactoryProductionUnit(subnode);
                         break;
-                        
+
                         case "mineunit":
-                            Unit = new MineProductionUnit(subnode);
+                        Unit = new MineProductionUnit(subnode);
                         break;
-                        
+
+                        case "defenseunit":
+                        Unit = new DefenseProductionUnit(subnode);
+                        break;
+
                         case "shipunit":
                             Unit = new ShipProductionUnit(subnode);
                         break;
