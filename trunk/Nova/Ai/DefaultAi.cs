@@ -41,21 +41,34 @@ namespace Nova.Ai
         /// </summary>
         private void HandleProduction()
         {
+            // Clear the current manufacturing queue
+            Queue<ProductionCommand> clearProductionList = new Queue<ProductionCommand>();
             foreach (Star star in clientState.EmpireState.OwnedStars.Values)
             {
                 if (star.Owner == clientState.EmpireState.Id)
                 {
-                    // Clear the current manufacturing queue
                     foreach (ProductionOrder productionOrderToclear in star.ManufacturingQueue.Queue)
                     {
                         ProductionCommand clearProductionCommand = new ProductionCommand(CommandMode.Delete, productionOrderToclear, star.Key);
                         if (clearProductionCommand.isValid(clientState.EmpireState))
                         {
                             //clearProductionCommand.ApplyToState(clientState.EmpireState); // FIXME - can't change the state inside the for each loop.
+                            clearProductionList.Enqueue(clearProductionCommand);
                             clientState.Commands.Push(clearProductionCommand);
                         }
                     }
+                }
+            }
 
+            foreach (ProductionCommand clearProductionCommand in clearProductionList)
+            {
+                clearProductionCommand.ApplyToState(clientState.EmpireState); 
+            }
+
+            foreach (Star star in clientState.EmpireState.OwnedStars.Values)
+            {
+                if (star.Owner == clientState.EmpireState.Id)
+                {
                     // build factories (limited by Germanium, and don't want to use it all)
                     if (star.ResourcesOnHand.Germanium > 50)
                     {

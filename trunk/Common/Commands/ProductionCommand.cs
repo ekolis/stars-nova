@@ -145,7 +145,7 @@ namespace Nova.Common.Commands
                 
                 case CommandMode.Delete:
                     // Check the order actually exists.                    
-                    if (!empire.OwnedStars[StarKey].ManufacturingQueue.Queue.Contains(ProductionOrder)) {return false;}
+                    // if (!empire.OwnedStars[StarKey].ManufacturingQueue.Queue.Contains(ProductionOrder)) {return false;} // FIXME (priority 5) - flase positive prevents deletion of production items.
                     break;
             }
             

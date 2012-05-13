@@ -345,6 +345,7 @@ namespace Nova.WinForms.Gui
                 if (numToRemove >= productionOrder.Quantity)
                 {
                     queueList.RemoveProductionOrder(s);
+                    // TODO (priority 3) - select the next item in the list so you can keep presing remove to remove all items.
                 }
                 else
                 {
@@ -493,12 +494,9 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OK_Click(object sender, System.EventArgs e)
         {   
-            //Reverse the stack, so that older production commands are on top.            
-            queueList.ProductionCommands = new Stack<ICommand>(queueList.ProductionCommands.ToArray());
-            
             while (queueList.ProductionCommands.Count > 0)
             {
-                ICommand command = queueList.ProductionCommands.Pop();
+                ICommand command = queueList.ProductionCommands.Dequeue();
                 if (command.isValid(clientState.EmpireState))
                 {
                     clientState.Commands.Push(command);
