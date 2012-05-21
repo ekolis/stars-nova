@@ -226,12 +226,15 @@ namespace Nova.Tests.UnitTests
         {
             Fleet stackA = zoneStacks[0] as Fleet;
             Fleet stackB = zoneStacks[1] as Fleet;
+            List<Fleet> battlingFleets = new List<Fleet>();
+            battlingFleets.Add(stackA);
+            battlingFleets.Add(stackB);
 
             double distanceS, distanceE;
 
             distanceS = PointUtilities.Distance(stackA.Position, stackB.Position);
 
-            battleEngine.DoBattle(zoneStacks);
+            battleEngine.DoBattle(zoneStacks, battlingFleets);
 
             distanceE = PointUtilities.Distance(stackA.Position, stackB.Position);
 
