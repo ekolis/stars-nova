@@ -177,7 +177,7 @@ namespace Nova.Server
                     battle.Stacks[stack.Key] = new Fleet(stack);
                 }
 
-                DoBattle(zoneStacks);
+                DoBattle(zoneStacks, battlingFleets);
                 ReportLosses();
 
                 serverState.AllBattles.Add(battle);
@@ -388,7 +388,7 @@ namespace Nova.Server
         /// destroyed or a pre-set maximum time has elapsed.   
         /// </summary>
         /// <param name="zoneStacks">All stacks in this battle.</param>
-        public void DoBattle(List<Fleet> zoneStacks)
+        public void DoBattle(List<Fleet> zoneStacks, List<Fleet> battlingFleets)
         {
             battleRound = 1;
             for (battleRound = 1; battleRound <= maxBattleRounds; ++battleRound)
@@ -400,7 +400,7 @@ namespace Nova.Server
                 }
 
                 MoveStacks(zoneStacks);
-                FireWeapons(zoneStacks);
+                FireWeapons(zoneStacks, battlingFleets);
             }
         }
 
@@ -615,7 +615,7 @@ namespace Nova.Server
         /// Fire weapons at selected targets.
         /// </summary>
         /// <param name="zoneStacks">All stacks in the battle.</param>
-        private void FireWeapons(List<Fleet> zoneStacks)
+        private void FireWeapons(List<Fleet> zoneStacks, List<Fleet> battlingFleets)
         {
             // First, identify all of the weapons and their characteristics for
             // every ship token present at the battle and who they are pointed at.
@@ -635,7 +635,7 @@ namespace Nova.Server
                         weapon.Weapon = weaponSystem;
 
                         allWeapons.Add(weapon);
-                        Attack(token, allWeapons);
+                        Attack(token, allWeapons, battlingFleets);
                     }
                 }
             }
@@ -649,7 +649,7 @@ namespace Nova.Server
         /// <param name="allWeapons">A list of the token's weapons.</param>
         /// FIXME (priority 6) - It seems this allows one ship to fire each of its weapons 
         /// before any other ship. Each weapon in the battle should fire in priority order.
-        private void Attack(ShipToken attacker, List<WeaponDetails> allWeapons)
+        private void Attack(ShipToken attacker, List<WeaponDetails> allWeapons, List<Fleet> battlingFleets)
         {
             // Sort the weapon list according to weapon system initiative and then
             // fire the weapons in that order.
@@ -658,7 +658,7 @@ namespace Nova.Server
 
             foreach (WeaponDetails weapon in allWeapons)
             {
-                Fire(attacker, weapon);
+                Fire(attacker, weapon, battlingFleets);
             }
         }
 
@@ -667,7 +667,7 @@ namespace Nova.Server
         /// </summary>
         /// <param name="ship">A token in the battle.</param>
         /// <param name="weapon">One of token's weapons.</param>
-        private void Fire(ShipToken attacker, WeaponDetails weapon)
+        private void Fire(ShipToken attacker, WeaponDetails weapon, List<Fleet> battlingFleets)
         {
             // First, check that the target stack we originally identified has not
             // been destroyed (actually, the stack still exists at this point but
@@ -704,7 +704,7 @@ namespace Nova.Server
 
             foreach (ShipToken target in targetStack.Composition.Values)
             {
-                DischargeWeapon(attacker, weapon, target);
+                DischargeWeapon(attacker, weapon, target, battlingFleets);
                 break;
             }
         }
@@ -715,7 +715,7 @@ namespace Nova.Server
         /// <param name="ship">The firing token.</param>
         /// <param name="details">The weapon being fired.</param>
         /// <param name="target">The target token.</param>
-        private void DischargeWeapon(ShipToken attacker, WeaponDetails details, ShipToken target)
+        private void DischargeWeapon(ShipToken attacker, WeaponDetails details, ShipToken target, List<Fleet> battlingFleets)
         {
             BattleStepTarget report = new BattleStepTarget();
             // FIXME:(priority 8) this will probably display yunk on the battle viewer!
@@ -758,7 +758,7 @@ namespace Nova.Server
 
             battle.Steps.Add(destroy);
 
-            foreach (Fleet fleet in serverState.IterateAllFleets())
+            foreach (Fleet fleet in battlingFleets)
             {
                 if (fleet.Composition.ContainsKey(target.Key))
                 {
