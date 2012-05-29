@@ -64,7 +64,7 @@ namespace Nova.Common
         public EmpireData EmpireState = new EmpireData();
         
         public List<Message> Messages = new List<Message>();
-        public List<BattleReport> Battles = new List<BattleReport>();
+        
         public List<ScoreRecord> AllScores = new List<ScoreRecord>();
         
         public Dictionary<long, Minefield> AllMinefields = new Dictionary<long, Minefield>();
@@ -82,7 +82,6 @@ namespace Nova.Common
         public void Clear()
         {
             AllMinefields.Clear();
-            Battles.Clear();
             Messages.Clear();
             EmpireState.Clear();
         }
@@ -126,11 +125,6 @@ namespace Nova.Common
                             Messages.Add(message);
                             break;
 
-                        case "battlereport":
-                            BattleReport battle = new BattleReport(xmlnode);
-                            Battles.Add(battle);
-                            break;
-
                         case "scorerecord":
                             ScoreRecord newScore = new ScoreRecord(xmlnode);
                             AllScores.Add(newScore);
@@ -171,15 +165,6 @@ namespace Nova.Common
                 foreach (Message message in Messages)
                 {
                     xmlelIntel.AppendChild(message.ToXml(xmldoc));
-                }
-            }
-
-            // Battles 
-            if (Battles.Count > 0)
-            {
-                foreach (BattleReport battle in Battles)
-                {
-                    xmlelIntel.AppendChild(battle.ToXml(xmldoc));
                 }
             }
 

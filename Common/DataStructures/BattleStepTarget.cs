@@ -1,7 +1,7 @@
 ﻿#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,28 +20,24 @@
 // ===========================================================================
 #endregion
 
-
 namespace Nova.Common.DataStructures
 {
-    #region Using Statements
     using System;
     using System.Xml;
-    #endregion
-    
+
     /// <summary>
     /// A class to record a new target.
     /// </summary>
     [Serializable]
     public class BattleStepTarget : BattleStep
     {
-        public string TargetShip;
+        public long StackKey {get; set;}
+        public long TargetKey {get; set;}
 
         public BattleStepTarget()
         {
             Type = "Target";
         }
-
-        #region Load Save Xml
 
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
@@ -57,8 +53,11 @@ namespace Nova.Common.DataStructures
                 {
                     switch (subnode.Name.ToLower())
                     {
-                        case "targetship":
-                            TargetShip = subnode.FirstChild.Value;
+                        case "stackkey":
+                            StackKey = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                            break;
+                        case "targetkey":
+                            TargetKey = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
                     }
                 }
@@ -80,11 +79,10 @@ namespace Nova.Common.DataStructures
             XmlElement xmlelBattleStepTarget = xmldoc.CreateElement("BattleStepTarget");
 
             xmlelBattleStepTarget.AppendChild(base.ToXml(xmldoc));
-            Global.SaveData(xmldoc, xmlelBattleStepTarget, "TargetShip", TargetShip);
+            Global.SaveData(xmldoc, xmlelBattleStepTarget, "StackKey", StackKey.ToString("X"));
+            Global.SaveData(xmldoc, xmlelBattleStepTarget, "TargetKey", TargetKey.ToString("X"));
 
             return xmlelBattleStepTarget;
         }
-
-        #endregion
     }
 }

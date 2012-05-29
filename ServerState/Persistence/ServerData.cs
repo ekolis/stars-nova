@@ -44,7 +44,6 @@ namespace Nova.Server
     public sealed class ServerData
     {
         public Dictionary<int, Stack<ICommand>> AllCommands     = new Dictionary<int, Stack<ICommand>>();
-        public List<BattleReport>               AllBattles      = new List<BattleReport>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Dictionary<int, int>             AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
         public Dictionary<int, EmpireData>      AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
@@ -102,15 +101,6 @@ namespace Nova.Server
                         
                         // The collections are retrieved via loops: we trust
                         // they are in the correct format.
-                        
-                        case "allbattles":
-                            textNode = xmlnode.FirstChild;
-                            while (textNode != null)
-                            {
-                                AllBattles.Add(new BattleReport(textNode));
-                                textNode = textNode.NextSibling;
-                            }
-                            break;
                         
                         case "allplayers":
                             textNode = xmlnode.FirstChild;
@@ -206,7 +196,6 @@ namespace Nova.Server
                 
                 // We need to copy the restored values
                 AllCommands     = restoredState.AllCommands;
-                AllBattles      = restoredState.AllBattles;
                 AllPlayers      = restoredState.AllPlayers;
                 AllTechLevels   = restoredState.AllTechLevels;
                 AllEmpires      = restoredState.AllEmpires;
@@ -329,14 +318,6 @@ namespace Nova.Server
             }
             xmlelServerState.AppendChild(xmlelAllMinefields);
             
-            // Store the battle reports
-            XmlElement xmlelAllBattles = xmldoc.CreateElement("AllBattles");
-            foreach (BattleReport battleReport in AllBattles)
-            {
-                xmlelAllBattles.AppendChild(battleReport.ToXml(xmldoc));
-            }
-            xmlelServerState.AppendChild(xmlelAllBattles);
-            
             // Store the Messages
             XmlElement xmlelAllMessages = xmldoc.CreateElement("AllMessages");
             foreach (Message message in AllMessages)
@@ -442,7 +423,6 @@ namespace Nova.Server
         public void Clear()
         {   
             AllCommands.Clear();
-            AllBattles.Clear();
             AllPlayers.Clear();  
             AllTechLevels.Clear();
             AllEmpires.Clear();

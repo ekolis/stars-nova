@@ -52,10 +52,8 @@ namespace Nova.Common
         /// To avoid issues with duplication cargo is traked at the fleet level only.
         /// </summary>
         public Cargo Cargo = new Cargo(); 
-
-        public Fleet Target = null;
+        
         public Mappable InOrbit = null;
-        public double BattleSpeed = 0; // used by a stack on the battle board
         public double Bearing = 0;
         public double Cloaked = 0;
         public double FuelAvailable = 0;
@@ -66,7 +64,7 @@ namespace Nova.Common
         { 
             Arrived, InTransit 
         }
-                
+        
         /// <summary>
         /// Return the total normal bombing capability.
         /// </summary>
@@ -464,34 +462,12 @@ namespace Nova.Common
             Id = id;
             Position = position;
         }
-
         
-        /// <summary>
-        /// Copy constructor. This is only used by the battle engine so only the fields
-        /// used by it in creating stacks need to be copied. Note that we copy the
-        /// ships as well. Be careful when using the copy. It is a different object.
-        /// </summary>
-        /// <param name="copy">The fleet to copy.</param>
         public Fleet(Fleet copy)
             : base(copy)
         {
-            BattleSpeed = copy.BattleSpeed;
-            BattlePlan = copy.BattlePlan;
-            Key = copy.Key;  // FIXME (priority 5): Why are we copying fleets? copying this ID worries me..
-                             // We are copying fleets as a step toward making battle stacks. 
-                             // It should not really be a copy as a stack contains only one ship design. 
-                             // Need to work out what happens when we have a fleet contianing multiple designs and then form stacks for the battle engine. 
-                             // To the best of my knowledge this has never happend in nova because merging fleets was not previously possible. Not sure if it is yet...
-                             // -- Dan 09 Jul 11
-            Target = copy.Target;
-            InOrbit = copy.InOrbit;
-       
-            foreach (ShipToken token in copy.tokens.Values)
-            {
-                tokens.Add(token.Key, token);
-            }
+            
         }
-
         
         /// <summary>
         /// Fleet construction based on a ShipToken and some parameters from a star (this is
@@ -665,18 +641,12 @@ namespace Nova.Common
                         case "fleetid":
                             Id = uint.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case "targetid":
-                            Target = new Fleet(long.Parse(mainNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
-                            break;
                         case "cargo":
                             Cargo = new Cargo(mainNode);
                             break;
                         case "inorbit":
                             InOrbit = new Star();
                             InOrbit.Name = mainNode.FirstChild.Value;
-                            break;
-                        case "battlespeed":
-                            BattleSpeed = double.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "bearing":
                             Bearing = double.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -733,36 +703,28 @@ namespace Nova.Common
             XmlElement xmlelFleet = xmldoc.CreateElement(nodeName);
 
             xmlelFleet.AppendChild(base.ToXml(xmldoc));
-
-            if (Target != null)
-            {
-                Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.Key.ToString("X"));
-            }
-            else
-            {
-                Global.SaveData(xmldoc, xmlelFleet, "TravelStatus", "InTransit");
-            }
+            
             if (InOrbit != null)
             {
                 Global.SaveData(xmldoc, xmlelFleet, "InOrbit", InOrbit.Name);
             }
 
-            if (BattleSpeed != 0)
-            {
-                Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            }
             Global.SaveData(xmldoc, xmlelFleet, "Bearing", this.Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            
             if (Cloaked != 0)
             {
                 Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
+            
             Global.SaveData(xmldoc, xmlelFleet, "FuelAvailable", this.FuelAvailable.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelFleet, "FuelCapacity", this.TotalFuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelFleet, "TargetDistance", this.TargetDistance.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            
             if (Cargo.Mass > 0)
             {
                 Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.TotalCargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
+            
             Global.SaveData(xmldoc, xmlelFleet, "BattlePlan", this.BattlePlan);
 
             xmlelFleet.AppendChild(Cargo.ToXml(xmldoc));

@@ -76,12 +76,6 @@ namespace Nova.Server
                     }
                 }
 
-                // Copy any battle reports
-                foreach (BattleReport report in serverState.AllBattles)
-                {
-                    turnData.Battles.Add(report);
-                }
-
                 // Don't try and generate a scores report on the very start of a new
                 // game.
 
