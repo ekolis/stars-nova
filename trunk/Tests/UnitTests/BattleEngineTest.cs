@@ -22,14 +22,15 @@
 
 namespace Nova.Tests.UnitTests
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Drawing;
+    
     using Nova.Common;
     using Nova.Common.Components;
     using Nova.Common.DataStructures;
     using Nova.Server;
     using Nova.WinForms.Console;
+    
     using NUnit.Framework;
 
     /// <summary>
@@ -77,7 +78,7 @@ namespace Nova.Tests.UnitTests
 
         private List<List<Fleet>> fleetPositions;
         private List<List<Fleet>> battlePositions;
-        private List<Fleet> zoneStacks;
+        private List<Stack> zoneStacks;
 
         /// <Summary>
         /// Initializes a new instance of the BattleEngineTest class.
@@ -193,8 +194,8 @@ namespace Nova.Tests.UnitTests
         {
             int numberOfTargets = battleEngine.SelectTargets(zoneStacks);
 
-            Fleet stackA = zoneStacks[0] as Fleet;
-            Fleet stackB = zoneStacks[1] as Fleet;
+            Stack stackA = zoneStacks[0];
+            Stack stackB = zoneStacks[1];
 
             Assert.AreEqual(2, numberOfTargets);
             Assert.AreEqual(stackA.Target.Name, stackB.Name);
@@ -234,7 +235,7 @@ namespace Nova.Tests.UnitTests
 
             distanceS = PointUtilities.Distance(stackA.Position, stackB.Position);
 
-            battleEngine.DoBattle(zoneStacks, battlingFleets);
+            battleEngine.DoBattle(zoneStacks);
 
             distanceE = PointUtilities.Distance(stackA.Position, stackB.Position);
 

@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -23,7 +23,6 @@
 namespace Nova.WinForms.Gui
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Windows.Forms;
     
@@ -42,9 +41,9 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the BattleReportDialog class.
         /// </Summary>
-        public BattleReportDialog(List<BattleReport> battles, EmpireData empireState)
+        public BattleReportDialog(EmpireData empireState)
         {
-            this.battles = battles;
+            this.battles = empireState.BattleReports;
             this.empireState = empireState;
             
             InitializeComponent();

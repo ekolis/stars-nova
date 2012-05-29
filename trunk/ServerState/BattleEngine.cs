@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,16 +20,11 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Deal with combat between races.
-// ===========================================================================
-#endregion
-
 namespace Nova.Server
 {
     using System;    
     using System.Collections.Generic;
+    using System.Linq;
     using System.Drawing;
 
     using Nova.Common;
@@ -38,7 +33,7 @@ namespace Nova.Server
     using Nova.Server;
 
     /// <summary>
-    /// Class to process conflicts.
+    /// Deal with combat between races.
     /// </summary>
     public class BattleEngine
     {
@@ -141,18 +136,18 @@ namespace Nova.Server
 
             foreach (List<Fleet> battlingFleets in engagements)
             {
-                List<Fleet> zoneStacks = GenerateStacks(battlingFleets);
+                List<Stack> battlingStacks = GenerateStacks(battlingFleets);
 
                 // If no targets get selected (for whatever reason) then there is
                 // no battle so we can give up here.
 
-                if (SelectTargets(zoneStacks) == 0)
+                if (SelectTargets(battlingStacks) == 0)
                 {
                     return;
                 }
 
                 stackId = 0;
-                Fleet sample = battlingFleets[0] as Fleet;
+                Fleet sample = battlingFleets.First() as Fleet;
 
                 if (sample.InOrbit != null)
                 {
@@ -163,7 +158,7 @@ namespace Nova.Server
                     battle.Location = "coordinates " + sample.Position.ToString();
                 }
 
-                PositionStacks(zoneStacks);
+                PositionStacks(battlingStacks);
 
                 // Copy the full list of stacks into the battle report. We need a
                 // full list to start with as the list in the battle engine will
@@ -171,16 +166,15 @@ namespace Nova.Server
                 // not) be fully populated by the time we serialise the
                 // report. Ensure we take a copy at this point as the "real" stack
                 // will mutate as processing proceeds and even ships may vanish.
-
-                foreach (Fleet stack in zoneStacks)
+                                
+                foreach (Stack stack in battlingStacks)
                 {
-                    battle.Stacks[stack.Key] = new Fleet(stack);
+                    battle.Stacks[stack.Key] = new Stack(stack);
                 }
 
-                DoBattle(zoneStacks, battlingFleets);
-                ReportLosses();
-
-                serverState.AllBattles.Add(battle);
+                DoBattle(battlingStacks);
+                
+                ReportBattle();
             }
         }
 
@@ -252,76 +246,68 @@ namespace Nova.Server
         }
 
         /// <summary>
-        /// Each ship present at the battle will form part of a token (AKA a stack), it
-        /// is possible to have a token comprised of just a single ship. Tokens are
-        /// always of ships of the same design. Each ship design in each fleet will
-        /// create a token (i.e. if multiple fleets are present there may be multiple
-        /// tokens of the same design present at the battle).
+        /// Extract a list of stacks from a fleet; each ship design present on
+        /// the fleet will form a distinct stack. If multiple fleets are present there may be multiple
+        /// stacks of the same design present at the battle. (Or if stack ship limits are exceeded
+        /// by a single fleet).
         /// </summary>
-        /// <param name="fleet">The <see cref="Fleet"/> to be converted to token stacks.</param>
-        /// <returns>A list of fleet stacks.</returns>
-        public List<Fleet> BuildFleetStacks(Fleet fleet)
+        /// <param name="fleet">The <see cref="Fleet"/> to be converted to stacks.</param>
+        /// <returns>A list of stacks extracted from the fleet.</returns>
+        public List<Stack> BuildFleetStacks(Fleet fleet)
         {
-            Dictionary<long, Fleet> fleetStacks = new Dictionary<long, Fleet>();
-            Fleet stack;
+            List<Stack> stackList = new List<Stack>();
+            
+            Stack newStack = null;
             
             foreach (ShipToken token in fleet.Composition.Values)
-            {
-                string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            {             
+                newStack = new Stack(fleet, stackId, token);
                 
-                stack = new Fleet(name, fleet.Owner, stackId++, fleet.Position);
-
-                stack.BattlePlan = fleet.BattlePlan;
-                stack.BattleSpeed = token.Design.BattleSpeed;
-                stack.Composition.Add(token.Key, token);
-               
-                fleetStacks[stack.Key] = stack;                
+                stackList.Add(newStack);
+                
+                stackId++;                
             }
 
-            List<Fleet> stackList = new List<Fleet>();
-            
-            foreach (Fleet thisFleet in fleetStacks.Values)
-            {
-                stackList.Add(thisFleet);
-            }
-
+            // Note that each of this Stacks has it's Key UNIQUE within this battle (separate from the
+            // Fleet's key),
+            // consisting of Owner + stackId. The token inside is still Keyed by design.Key.
             return stackList;
         }
 
         /// <summary>
-        /// Run through all of the fleets and convert them to stacks of the same ship
-        /// design and battle plan. We will return a complete list of all stacks at
-        /// this battle location.
+        /// Run through all of the fleets in an engagement and convert them to stacks of the
+        /// same ship design and battle plan. We will return a complete list of all stacks at
+        /// this engagement location.
         /// </summary>
         /// <param name="coLocatedFleets">A list of fleets at the given location.</param>
-        /// <returns>A list of token stacks representing the given fleets.</returns>
-        public List<Fleet> GenerateStacks(List<Fleet> coLocatedFleets)
+        /// <returns>A list of Fleets representing all stack in the engagement (1 fleet per unique stack).</returns>
+        public List<Stack> GenerateStacks(List<Fleet> coLocatedFleets)
         {
-            List<Fleet> zoneStacks = new List<Fleet>();
+            List<Stack> battlingStacks = new List<Stack>();
 
             foreach (Fleet fleet in coLocatedFleets)
             {
-                List<Fleet> fleetStacks = BuildFleetStacks(fleet);
+                List<Stack> fleetStacks = BuildFleetStacks(fleet);
 
-                foreach (Fleet stack in fleetStacks)
+                foreach (Stack stack in fleetStacks)
                 {
-                    zoneStacks.Add(stack);
+                    battlingStacks.Add(stack);
                 }
             }
 
-            return zoneStacks;
+            return battlingStacks;
         }
 
         /// <summary>
         /// Set the initial position of all of the stacks.
         /// </summary>
-        /// <param name="zoneStacks">All stacks in this battle.</param>
-        public void PositionStacks(List<Fleet> zoneStacks)
+        /// <param name="battlingStacks">All stacks in this battle.</param>
+        public void PositionStacks(List<Stack> battlingStacks)
         {
             Dictionary<int, int> empires = new Dictionary<int, int>();
             Dictionary<int, Point> racePositions = new Dictionary<int, Point>();
 
-            foreach (Fleet stack in zoneStacks)
+            foreach (Stack stack in battlingStacks)
             {
                 empires[stack.Owner] = stack.Owner;
             }
@@ -354,7 +340,7 @@ namespace Nova.Server
 
             // Place all stacks belonging to the same race at the same position.
 
-            foreach (Fleet stack in zoneStacks)
+            foreach (Stack stack in battlingStacks)
             {
                 stack.Position = racePositions[stack.Owner];
             }
@@ -362,7 +348,7 @@ namespace Nova.Server
             // Update the known designs of enemy ships.
             foreach (int empireId in empires.Values)
             {
-                foreach (Fleet stack in zoneStacks)
+                foreach (Stack stack in battlingStacks)
                 {
                     if (stack.Owner != empireId)
                     {
@@ -387,31 +373,39 @@ namespace Nova.Server
         /// Deal with a battle. This function will execute until all target fleets are
         /// destroyed or a pre-set maximum time has elapsed.   
         /// </summary>
-        /// <param name="zoneStacks">All stacks in this battle.</param>
-        public void DoBattle(List<Fleet> zoneStacks, List<Fleet> battlingFleets)
+        /// <param name="battlingStacks">All stacks in this battle.</param>
+        public void DoBattle(List<Stack> battlingStacks)
         {
             battleRound = 1;
             for (battleRound = 1; battleRound <= maxBattleRounds; ++battleRound)
             {
-                if (SelectTargets(zoneStacks) == 0)
+                if (SelectTargets(battlingStacks) == 0)
                 {
                     // no more targets
                     break;
                 }
 
-                MoveStacks(zoneStacks);
-                FireWeapons(zoneStacks, battlingFleets);
+                MoveStacks(battlingStacks);
+                
+                List<WeaponDetails> allAttacks = GenerateAttacks(battlingStacks);
+                
+                foreach (WeaponDetails attack in allAttacks)
+                {
+                    ProcessAttack(attack);
+                }
             }
         }
 
         /// <summary>
         /// Select targets (if any). Targets are set on a stack-by-stack basis.
         /// </summary>
-        /// <param name="zoneStacks">All stacks in this battle.</param>
+        /// <param name="battlingStacks">All stacks in this battle.</param>
         /// <returns>The number of targeted stacks.</returns>
-        public int SelectTargets(List<Fleet> zoneStacks)
+        public int SelectTargets(List<Stack> battlingStacks)
         {
-            foreach (Fleet wolf in zoneStacks)
+            int numberOfTargets = 0;
+            
+            foreach (Stack wolf in battlingStacks)
             {
                 wolf.Target = null;
 
@@ -422,7 +416,7 @@ namespace Nova.Server
 
                 double maxAttractiveness = 0;
 
-                foreach (Fleet lamb in zoneStacks)
+                foreach (Stack lamb in battlingStacks)
                 {
                     if (AreEnemies(wolf, lamb))
                     {
@@ -434,13 +428,8 @@ namespace Nova.Server
                         }
                     }
                 }
-            }
-
-            int numberOfTargets = 0;
-
-            foreach (Fleet stack in zoneStacks)
-            {
-                if (stack.Target != null)
+                
+                if (wolf.Target != null)
                 {
                     numberOfTargets++;
                 }
@@ -503,8 +492,8 @@ namespace Nova.Server
         /// Move stacks towards their targets (if any). Record each movement in the
         /// battle report.
         /// </summary>
-        /// <param name="zoneStacks">All stacks in the battle.</param>
-        public void MoveStacks(List<Fleet> zoneStacks)
+        /// <param name="battlingStacks">All stacks in the battle.</param>
+        public void MoveStacks(List<Stack> battlingStacks)
         {
             // Movement in Squares per Round
             //                  Round
@@ -521,14 +510,14 @@ namespace Nova.Server
             // repeats for rounds 9 - 16
 
             // In Stars! each round breaks movement into 3 phases.
-            // Phase 1: All tokens that can move 3 squares this round get to move 1 square.
-            // Phase 2: All tokens that can move 2 or more squares this round get to move 1 square.
-            // Phase 3: All tokens that can move this round get to move 1 square.
+            // Phase 1: All stacks that can move 3 squares this round get to move 1 square.
+            // Phase 2: All stacks that can move 2 or more squares this round get to move 1 square.
+            // Phase 3: All stacks that can move this round get to move 1 square.
             // TODO (priority 3) - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
             for (var phase = 1; phase <= movementPhasesPerRound; phase++)
             {
                 // TODO (priority 5) - Move in order of ship mass, juggle by 15%
-                foreach (Fleet stack in zoneStacks)
+                foreach (Stack stack in battlingStacks)
                 {
                     if (stack.Target != null)
                     {
@@ -601,7 +590,7 @@ namespace Nova.Server
 
                             // Update the battle report with these movements.
                             BattleStepMovement report = new BattleStepMovement();
-                            report.StackName = stack.Name;
+                            report.StackKey = stack.Key;
                             report.Position = stack.Position;
                             battle.Steps.Add(report);
                         }
@@ -614,118 +603,90 @@ namespace Nova.Server
         /// <summary>
         /// Fire weapons at selected targets.
         /// </summary>
-        /// <param name="zoneStacks">All stacks in the battle.</param>
-        private void FireWeapons(List<Fleet> zoneStacks, List<Fleet> battlingFleets)
+        /// <param name="battlingStacks">All stacks in the battle.</param>
+        private List<WeaponDetails> GenerateAttacks(List<Stack> battlingStacks)
         {
             // First, identify all of the weapons and their characteristics for
-            // every ship token present at the battle and who they are pointed at.
+            // every ship stack present at the battle and who they are pointed at.
 
-            List<WeaponDetails> allWeapons = new List<WeaponDetails>();
+            List<WeaponDetails> allAttacks = new List<WeaponDetails>();
 
-            foreach (Fleet stack in zoneStacks)
+            foreach (Stack stack in battlingStacks)
             {
-                foreach (ShipToken token in stack.Composition.Values)
+                // Each stack can only contain 1 token, so only consider those weapons.
+                foreach (Weapon weaponSystem in stack.Composition.First().Value.Design.Weapons)
                 {
-                    foreach (Weapon weaponSystem in token.Design.Weapons)
-                    {
-                        WeaponDetails weapon = new WeaponDetails();
+                    WeaponDetails weapon = new WeaponDetails();
 
-                        weapon.SourceStack = stack;
-                        weapon.TargetStack = stack.Target;
-                        weapon.Weapon = weaponSystem;
+                    weapon.SourceStack = stack;
+                    weapon.TargetStack = stack.Target;
+                    weapon.Weapon = weaponSystem;
 
-                        allWeapons.Add(weapon);
-                        Attack(token, allWeapons, battlingFleets);
-                    }
+                    allAttacks.Add(weapon);
                 }
             }
+            
+            // Sort the weapon list according to weapon system initiative.
+            allAttacks.Sort();
+            
+            return allAttacks;
         }
 
         /// <summary>
-        /// Launch the attack. We need the token object as the design may have components that
-        /// affect the hit power of a weapon discharge (capacitors and battle computers).
+        /// Attempt an attack.
         /// </summary>
-        /// <param name="ship">A single ship token.</param>
-        /// <param name="allWeapons">A list of the token's weapons.</param>
-        /// FIXME (priority 6) - It seems this allows one ship to fire each of its weapons 
-        /// before any other ship. Each weapon in the battle should fire in priority order.
-        private void Attack(ShipToken attacker, List<WeaponDetails> allWeapons, List<Fleet> battlingFleets)
-        {
-            // Sort the weapon list according to weapon system initiative and then
-            // fire the weapons in that order.
-
-            allWeapons.Sort();
-
-            foreach (WeaponDetails weapon in allWeapons)
-            {
-                Fire(attacker, weapon, battlingFleets);
-            }
-        }
-
-        /// <summary>
-        /// Fire a weapon against a target token
-        /// </summary>
-        /// <param name="ship">A token in the battle.</param>
-        /// <param name="weapon">One of token's weapons.</param>
-        private void Fire(ShipToken attacker, WeaponDetails weapon, List<Fleet> battlingFleets)
-        {
+        /// <param name="allAttacks">A list of WeaponDetails representing a round of attacks.</param>
+        private bool ProcessAttack(WeaponDetails attack)
+        {     
             // First, check that the target stack we originally identified has not
             // been destroyed (actually, the stack still exists at this point but
             // it may have no ship tokens left). In which case, don't bother trying to
             // fire this weapon system (we'll wait until the next battle clock
-            // "tick" and re-target then).
-
-            if (weapon.TargetStack == null)
+            // "tick" and re-target then).    
+            if (attack.TargetStack == null)
             {
-                return;
+                return false;
             }
 
-            Fleet targetStack = weapon.TargetStack;
-
-            if (targetStack.Composition.Count == 0)
+            if (attack.TargetStack.Composition.Count == 0)
             {
-                return;
+                return false;
             }
 
             // If the target stack is not within the range of this weapon system
-            // then there is no point in trying to fire it.
-
-            NovaPoint from = weapon.SourceStack.Position;
-            NovaPoint to = targetStack.Position;
-            double targetDistance = PointUtilities.Distance(from, to);
-
-            if (targetDistance > weapon.Weapon.Range)
+            // then there is no point in trying to fire it.       
+            if (PointUtilities.Distance(attack.SourceStack.Position, attack.TargetStack.Position) > attack.Weapon.Range)
             {
-                return;
+                return false;
             }
 
-            // Each stack SHOULD contain only ONE token of ships, so target the
-            // first token.
-
-            foreach (ShipToken target in targetStack.Composition.Values)
-            {
-                DischargeWeapon(attacker, weapon, target, battlingFleets);
-                break;
-            }
+            // Target is valid; execute attack. 
+            ExecuteAttack(attack);
+            
+            return true;
         }
 
         /// <summary>
-        /// DischargeWeapon. We know the weapon and we know the target token so attack.
+        /// DischargeWeapon. We know the weapon and we know the target stack so attack.
         /// </summary>
-        /// <param name="ship">The firing token.</param>
+        /// <param name="ship">The firing stack.</param>
         /// <param name="details">The weapon being fired.</param>
-        /// <param name="target">The target token.</param>
-        private void DischargeWeapon(ShipToken attacker, WeaponDetails details, ShipToken target, List<Fleet> battlingFleets)
+        /// <param name="target">The target stack.</param>
+        private void ExecuteAttack(WeaponDetails attack)
         {
+            // Handle the actual weapon discharge at the token level
+            ShipToken attacker = attack.SourceStack.Composition.First().Value;
+            ShipToken target = attack.TargetStack.Composition.First().Value;
+            
+            // But report at the Stack level.
             BattleStepTarget report = new BattleStepTarget();
-            // FIXME:(priority 8) this will probably display yunk on the battle viewer!
-            report.TargetShip = target.Design.Name;
+            report.StackKey = attack.SourceStack.Key;
+            report.TargetKey = attack.TargetStack.Key;
             battle.Steps.Add(report);
 
             // Identify the attack parameters that have to take into account
             // factors other than the base values (e.g. jammers, capacitors, etc.)
-
-            Weapon weapon = details.Weapon;
+            Weapon weapon = attack.Weapon;
             double hitPower = CalculateWeaponPower(attacker.Design, weapon, target.Design);
             double accuracy = CalculateWeaponAccuracy(attacker.Design, weapon, target.Design);
 
@@ -745,41 +706,30 @@ namespace Nova.Server
                 return;
             }
 
-            // All Defenses have gone. Remove the token from its stack (which
+            // All Defenses are gone. Remove the token from its stack (which
             // exists only during the battle and, more importantly, remove the
             // ship from its "real" fleet. Also, generate a "destroy" event to
             // update the battle visualisation display.
 
-            details.TargetStack.Composition.Remove(target.Key);
+            attack.TargetStack.Composition.Remove(target.Key);
 
             BattleStepDestroy destroy = new BattleStepDestroy();
-            destroy.ShipName = target.Design.Name;
-            destroy.StackName = details.TargetStack.Name;
+            destroy.StackKey = target.Key;
 
             battle.Steps.Add(destroy);
-
-            foreach (Fleet fleet in battlingFleets)
+                    
+            if (serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets.ContainsKey(attack.TargetStack.ParentKey))
             {
-                if (fleet.Composition.ContainsKey(target.Key))
+                serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets[attack.TargetStack.ParentKey].Composition.Remove(target.Key);
+                
+                if (serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets[attack.TargetStack.ParentKey].Composition.Count == 0)
                 {
-                    fleet.Composition.Remove(target.Key);
-                    
-                    if (serverState.AllEmpires[fleet.Owner].OwnedFleets.Contains(fleet))
-                    {
-                        serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Composition.Remove(target.Key);
-                        
-                        if (serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Composition.Count == 0)
-                        {
-                            serverState.AllEmpires[fleet.Owner].OwnedFleets.Remove(fleet.Key);                    
-                            serverState.AllEmpires[fleet.Owner].FleetReports.Remove(fleet.Key);
-                        }
-                    }
-                    
-                    break;
+                    serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets.Remove(attack.TargetStack.ParentKey);
+                    serverState.AllEmpires[attack.TargetStack.Owner].FleetReports.Remove(attack.TargetStack.ParentKey);
                 }
             }
-            
-            int targetEmpire = details.TargetStack.Owner;
+                        
+            int targetEmpire = attack.TargetStack.Owner;
             battle.Losses[targetEmpire] = battle.Losses[targetEmpire] + 1;
         }
 
@@ -795,14 +745,14 @@ namespace Nova.Server
             // shields then it will carry forward to attack Armor. If all we have
             // done is weaken the shields then that is the end of this shot.
 
-            hitPower = AttackShields(target, hitPower);
+            hitPower = DamageShields(target, hitPower);
 
             if (target.Shields > 0 || hitPower <= 0)
             {
                 return;
             }
 
-            AttackArmor(target, hitPower);
+            DamageArmor(target, hitPower);
         }
 
         /// <summary>
@@ -825,13 +775,13 @@ namespace Nova.Server
             if (accuracy >= probability)
             {      // A hit
                 double shieldsHit = hitPower / 2;
-                double armorHit = AttackShields(target, shieldsHit);
-                AttackArmor(target, armorHit);
+                double armorHit = DamageShields(target, shieldsHit);
+                DamageArmor(target, armorHit);
             }
             else
             {                              // A miss
                 double minDamage = hitPower * 0.125;
-                AttackShields(target, minDamage);
+                DamageShields(target, minDamage);
             }
         }
 
@@ -841,7 +791,7 @@ namespace Nova.Server
         /// <param name="target">Ship being fired on.</param>
         /// <param name="hitPower">Damage output of the weapon.</param>
         /// <returns>Residual damage after shields or zero.</returns>
-        private double AttackShields(ShipToken target, double hitPower)
+        private double DamageShields(ShipToken target, double hitPower)
         {
             if (target.Shields <= 0)
             {
@@ -863,7 +813,7 @@ namespace Nova.Server
             BattleStepWeapons fire = new BattleStepWeapons();
             fire.HitPower = hitPower;
             fire.Targeting = "Shields";
-            fire.WeaponTarget.TargetShip = target.Design.Name;
+            fire.WeaponTarget.StackKey = target.Key;
             battle.Steps.Add(fire);
 
             return hitPower;
@@ -874,14 +824,14 @@ namespace Nova.Server
         /// </summary>
         /// <param name="target">Target being fired on.</param>
         /// <param name="hitPower">Weapon damage.</param>
-        private void AttackArmor(ShipToken target, double hitPower)
+        private void DamageArmor(ShipToken target, double hitPower)
         {
             target.Armor -= (int)hitPower;
 
             BattleStepWeapons armor = new BattleStepWeapons();
             armor.HitPower = hitPower;
             armor.Targeting = "Armor";
-            armor.WeaponTarget.TargetShip = target.Design.Name;
+            armor.WeaponTarget.StackKey = target.Key;
             battle.Steps.Add(armor);
         }
 
@@ -950,9 +900,9 @@ namespace Nova.Server
         }
 
         /// <summary>
-        /// Report ship losses to each player.
+        /// Report the battle and losses to each player.
         /// </summary>
-        private void ReportLosses()
+        private void ReportBattle()
         {
             foreach (int empire in battle.Losses.Keys)
             {
@@ -973,6 +923,8 @@ namespace Nova.Server
                 }
 
                 serverState.AllMessages.Add(message);
+                
+                serverState.AllEmpires[empire].BattleReports.Add(battle);
             }
         }
     }

@@ -110,7 +110,12 @@ namespace Nova.Server
             }
             CleanupFleets();
 
-            serverState.AllBattles.Clear(); // remove battle from old turns
+            // remove battle from old turns
+            foreach (EmpireData empire in serverState.AllEmpires.Values)
+            {
+                empire.BattleReports.Clear();
+            }
+                                
             battleEngine.Run();
             
             CleanupFleets();            

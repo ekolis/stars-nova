@@ -1,7 +1,7 @@
 ﻿#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -31,9 +31,8 @@ namespace Nova.Common.DataStructures
     [Serializable]
     public class BattleStepDestroy : BattleStep
     {
-        public string ShipName = null; // ship in the real fleet
-        public string StackName = null; // stack in the battle engine
-
+        public long StackKey {get; set;}
+        
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -41,8 +40,6 @@ namespace Nova.Common.DataStructures
         {
             Type = "Destroy";
         }
-
-        #region Save Load Xml
 
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
@@ -58,12 +55,8 @@ namespace Nova.Common.DataStructures
                 {
                     switch (subnode.Name.ToLower())
                     {
-                        case "shipname":
-                            ShipName = subnode.FirstChild.Value;
-                            break;
-
-                        case "stackname":
-                            StackName = subnode.FirstChild.Value;
+                        case "stackkey":
+                            StackKey = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
                     }
                 }
@@ -85,12 +78,9 @@ namespace Nova.Common.DataStructures
             XmlElement xmlelBattleStepDestroy = xmldoc.CreateElement("BattleStepDestroy");
 
             xmlelBattleStepDestroy.AppendChild(base.ToXml(xmldoc));
-            Global.SaveData(xmldoc, xmlelBattleStepDestroy, "ShipName", ShipName);
-            Global.SaveData(xmldoc, xmlelBattleStepDestroy, "StackName", StackName);
+            Global.SaveData(xmldoc, xmlelBattleStepDestroy, "StackKey", StackKey.ToString("X"));
 
             return xmlelBattleStepDestroy;
         }
-
-        #endregion
     }
 }

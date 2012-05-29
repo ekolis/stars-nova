@@ -251,7 +251,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void BattlesReportMenu_Click(object sender, EventArgs e)
         {
-            BattleReportDialog battleReport = new BattleReportDialog(clientState.InputTurn.Battles, clientState.EmpireState);
+            BattleReportDialog battleReport = new BattleReportDialog(clientState.EmpireState);
             battleReport.ShowDialog();
             battleReport.Dispose();
         }

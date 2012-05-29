@@ -135,7 +135,7 @@ namespace Nova.Client
                     case "BattleReport":
                         // The message is loaded such that the Event is a string containing the BattleReport.Key.
                         // FIXME (priority 4) - linking battle messages to the right battle report is inefficient because the turnData.Battles does not have a meaningful key.
-                        foreach (BattleReport battle in clientState.InputTurn.Battles)
+                        foreach (BattleReport battle in clientState.EmpireState.BattleReports)
                         {
                             if (battle.Key == ((string)message.Event))
                             {

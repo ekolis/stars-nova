@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -23,12 +23,12 @@
 namespace Nova.WinForms.Gui
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
     using System.Text;
     using System.Windows.Forms;
+    
     using Nova.Common;
     using Nova.Common.DataStructures;
 
@@ -38,25 +38,25 @@ namespace Nova.WinForms.Gui
     public partial class BattleViewer : Form
     {
         private readonly BattleReport theBattle;
-        private readonly Dictionary<string, Fleet> myStacks = new Dictionary<string, Fleet>();
+        private readonly Dictionary<long, Stack> myStacks = new Dictionary<long, Stack>();
         private int eventCount;
 
         /// <Summary>
         /// Initializes a new instance of the BattleViewer class.
         /// </Summary>
         /// <param name="thisBattle">The <see cref="BattleReport"/> to be displayed.</param>
-        public BattleViewer(BattleReport thisBattle)
+        public BattleViewer(BattleReport report)
         {
             InitializeComponent();
-            this.theBattle = thisBattle;
-            this.eventCount = 0;
+            theBattle = report;
+            eventCount = 0;
 
             // Take a copy of all of the stacks so that we can mess with them
             // without disturbing the master copy in the global turn file.
 
-            foreach (Fleet stack in this.theBattle.Stacks.Values)
+            foreach (Stack stack in theBattle.Stacks.Values)
             {
-                this.myStacks[stack.Name] = new Fleet(stack);
+                myStacks[stack.Key] = new Stack(stack);
             }
         }
 
@@ -67,10 +67,10 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnLoad(object sender, EventArgs e)
         {
-            this.battleLocation.Text = this.theBattle.Location;
+            battleLocation.Text = theBattle.Location;
 
-            this.battlePanel.BackgroundImage = Nova.Properties.Resources.Plasma;
-            this.battlePanel.BackgroundImageLayout = ImageLayout.Stretch;
+            battlePanel.BackgroundImage = Nova.Properties.Resources.Plasma;
+            battlePanel.BackgroundImageLayout = ImageLayout.Stretch;
             SetStepNumber();
         }
 
@@ -85,14 +85,14 @@ namespace Nova.WinForms.Gui
             base.OnPaint(e); // added
 
             Graphics graphics = e.Graphics;
-            Size panelSize = this.battlePanel.Size;
+            Size panelSize = battlePanel.Size;
             float scalingFactor = (float)panelSize.Width /
                                      (float)Global.MaxWeaponRange;
 
             graphics.PageScale = scalingFactor;
             graphics.ScaleTransform(0.5F, 0.5F);
 
-            foreach (Fleet stack in this.myStacks.Values)
+            foreach (Stack stack in myStacks.Values)
             {
                 graphics.DrawImage(stack.Icon.Image, (Point)stack.Position);
             }
@@ -105,7 +105,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void NextStep_Click(object sender, EventArgs e)
         {
-            object thisStep = this.theBattle.Steps[this.eventCount];
+            object thisStep = theBattle.Steps[eventCount];
             SetStepNumber();
 
             if (thisStep is BattleStepMovement)
@@ -125,13 +125,13 @@ namespace Nova.WinForms.Gui
                 UpdateDestroy(thisStep as BattleStepDestroy);
             }
 
-            if (this.eventCount < this.theBattle.Steps.Count - 1)
+            if (eventCount < theBattle.Steps.Count - 1)
             {
-                this.eventCount++;
+                eventCount++;
             }
             else
             {
-                this.nextStep.Enabled = false;
+                nextStep.Enabled = false;
             }
 
         }
@@ -142,9 +142,9 @@ namespace Nova.WinForms.Gui
         /// <param name="movement">Movement to display.</param>
         private void UpdateMovement(BattleStepMovement movement)
         {
-            Fleet stack = this.myStacks[movement.StackName];
-            this.movedTo.Text = movement.Position.ToString();
-            this.stackOwner.Text = stack.Owner.ToString("X");
+            Stack stack = myStacks[movement.StackKey];
+            movedTo.Text = movement.Position.ToString();
+            stackOwner.Text = stack.Owner.ToString("X");
             stack.Position = movement.Position;
 
             // We have moved, clear out the other fields as they may change.
@@ -152,7 +152,7 @@ namespace Nova.WinForms.Gui
             UpdateTarget(null);
             UpdateWeapons(null);
 
-            this.battlePanel.Invalidate();
+            battlePanel.Invalidate();
         }
 
         /// <Summary>
@@ -167,8 +167,8 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                Fleet target = null;
-                // theBattle.Stacks.TryGetValue(targetKey.TargetShip, out target); // This target is a ship not a fleet?
+                Stack target = null;
+                theBattle.Stacks.TryGetValue(targetKey.TargetKey, out target);
 
                 if (target == null)
                 {
@@ -179,7 +179,6 @@ namespace Nova.WinForms.Gui
                     targetName.Text = target.Name;
                     targetOwner.Text = target.Owner.ToString("X");
 
-                    // FIXME (priority 6) - display shields and armor
                     targetShields.Text = target.TotalShieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     targetArmor.Text = target.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
@@ -191,10 +190,10 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         private void ClearTargetDetails()
         {
-            this.targetName.Text = "";
-            this.targetOwner.Text = "";
-            this.targetShields.Text = "";
-            this.targetArmor.Text = "";
+            targetName.Text = "";
+            targetOwner.Text = "";
+            targetShields.Text = "";
+            targetArmor.Text = "";
         }
 
         /// <Summary>
@@ -205,15 +204,15 @@ namespace Nova.WinForms.Gui
         {
             if (weapons == null)
             {
-                this.weaponPower.Text = "";
-                this.componentTarget.Text = "";
-                this.damage.Text = "";
+                weaponPower.Text = "";
+                componentTarget.Text = "";
+                damage.Text = "";
                 return;
             }
 
-            this.weaponPower.Text = weapons.HitPower.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            this.componentTarget.Text = weapons.Targeting;
-            this.damage.Text = "Ship damaged";
+            weaponPower.Text = weapons.HitPower.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            componentTarget.Text = weapons.Targeting;
+            damage.Text = "Ship damaged";
 
             UpdateTarget(weapons.WeaponTarget);
         }
@@ -221,30 +220,19 @@ namespace Nova.WinForms.Gui
 
         /// <Summary>
         /// Deal with a ship being destroyed. Remove it from the containing stack and,
-        /// if the stack fleet count drops to zero, destroy the whole stack.
+        /// if the token count drops to zero, destroy the whole stack.
         /// </Summary>
         /// <param name="destroy"></param>
         private void UpdateDestroy(BattleStepDestroy destroy)
         {
             damage.Text = "Ship destroyed";
 
-            Fleet stack = myStacks[destroy.StackName];
+            // Stacks have 1 token, so remove the stack at once.
 
-            // TODO (priority 3) Needs testing. Unknown if the constructed ship name will correctly match ships in the FleetShips list.
-            string shipName = stack.Owner + "/" + destroy.ShipName;
-
-            IEnumerable<ShipToken> tokens = stack.Composition.Values.Where(x => x.Design.Name == shipName);
-            if (tokens.Any())
-            {
-                stack.Composition.Remove(tokens.First().Key);
-            }
-
-            if (stack.Composition.Count == 0)
-            {
-                this.myStacks.Remove(stack.Name);
-                this.battlePanel.Invalidate();
-            }
+            myStacks.Remove(destroy.StackKey);
+            battlePanel.Invalidate();
         }
+        
 
         /// <Summary>
         /// Just display the currrent step number in the battle replay control panel.
@@ -255,10 +243,10 @@ namespace Nova.WinForms.Gui
 
             title.AppendFormat(
                 "Step {0} of {1}",
-                this.eventCount + 1,
-                this.theBattle.Steps.Count);
+                eventCount + 1,
+                theBattle.Steps.Count);
 
-            this.stepNumber.Text = title.ToString();
+            stepNumber.Text = title.ToString();
         }
     }
 }

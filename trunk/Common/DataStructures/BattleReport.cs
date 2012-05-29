@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,20 +20,11 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module contains the definition of a report on a battle;
-// ===========================================================================
-#endregion
-
 namespace Nova.Common.DataStructures
 {
-    #region Using Statements
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Xml;
-    #endregion
 
     [Serializable]
     public class BattleReport
@@ -52,7 +43,7 @@ namespace Nova.Common.DataStructures
             } 
         }
         public List<BattleStep> Steps = new List<BattleStep>();
-        public Dictionary<long, Fleet> Stacks = new Dictionary<long, Fleet>();
+        public Dictionary<long, Stack> Stacks = new Dictionary<long, Stack>();
         public Dictionary<long, int> Losses = new Dictionary<long, int>(); // empireId, lossCount
         
         /// <summary>
@@ -123,7 +114,7 @@ namespace Nova.Common.DataStructures
                             break;
 
                         case "fleet":
-                            Fleet newStack = new Fleet(subnode);
+                            Stack newStack = new Stack(subnode);
                             Stacks.Add(newStack.Key, newStack);
                             break;
                     }

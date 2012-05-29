@@ -28,6 +28,7 @@ namespace Nova.Common
     using System.Xml;
     
     using Nova.Common.Components;
+    using Nova.Common.DataStructures;
     using Nova.Common.Waypoints;
 
     public enum PlayerRelation
@@ -83,6 +84,8 @@ namespace Nova.Common
         public Dictionary<ushort, EmpireIntel>  EmpireReports   = new Dictionary<ushort, EmpireIntel>();
         
         public Dictionary<string, BattlePlan>   BattlePlans     = new Dictionary<string, BattlePlan>();
+        
+        public List<BattleReport> BattleReports = new List<BattleReport>();
         
         // See associated properties.
         private long        fleetCounter             = 0;
@@ -176,25 +179,32 @@ namespace Nova.Common
                     case "id":
                         empireId = ushort.Parse(mainNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                         break;
+                        
                     case "fleetcounter":
                         fleetCounter = long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
+                        
                     case "designcounter":
                         designCounter = long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
+                        
                     case "turnyear":
                         TurnYear = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
+                        
                     case "turnsubmitted":
                         TurnSubmitted = bool.Parse(mainNode.FirstChild.Value);
                         break;
+                        
                     case "lastturnsubmitted":
                         LastTurnSubmitted = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
+                        
                     case "race":
                         race = new Race();
                         Race.LoadRaceFromXml(mainNode);
                         break;
+                        
                     case "research":
                         subNode = mainNode.SelectSingleNode("Budget");
                         ResearchBudget = int.Parse(subNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -205,6 +215,7 @@ namespace Nova.Common
                         subNode = mainNode.SelectSingleNode("Topics");
                         ResearchTopics = new TechLevel(subNode);
                         break;
+                        
                     case "starreports":
                         subNode = mainNode.FirstChild;
                         while (subNode != null)
@@ -214,6 +225,7 @@ namespace Nova.Common
                             subNode = subNode.NextSibling;
                         }
                         break;
+                        
                     case "ownedstars":
                         subNode = mainNode.FirstChild;
                         while (subNode != null)
@@ -223,6 +235,7 @@ namespace Nova.Common
                             subNode = subNode.NextSibling;
                         }
                         break;
+                        
                     case "fleetreports":
                         subNode = mainNode.FirstChild;
                         while (subNode != null)
@@ -232,6 +245,7 @@ namespace Nova.Common
                             subNode = subNode.NextSibling;
                         }
                         break;
+                        
                     case "ownedfleets":
                         subNode = mainNode.FirstChild;
                         while (subNode != null)
@@ -241,6 +255,7 @@ namespace Nova.Common
                             subNode = subNode.NextSibling;
                         }
                         break;
+                        
                     case "otherempires":
                         subNode = mainNode.FirstChild;
                         while (subNode != null)
@@ -250,10 +265,12 @@ namespace Nova.Common
                             subNode = subNode.NextSibling;
                         }
                         break;
+                        
                     case "battleplan":
                         BattlePlan plan = new BattlePlan(mainNode);
                         BattlePlans[plan.Name] = plan;
-                        break;                        
+                        break; 
+                        
                     case "availablecomponents":
                         subNode = mainNode.FirstChild;
                         while (subNode != null)
@@ -262,6 +279,7 @@ namespace Nova.Common
                             subNode = subNode.NextSibling;
                         }
                         break;
+                        
                     case "designs":
                         subNode = mainNode.FirstChild;
                         while (subNode != null)
@@ -271,6 +289,11 @@ namespace Nova.Common
                             
                             subNode = subNode.NextSibling;
                         }
+                        break;
+                        
+                    case "battlereport":
+                        BattleReport battle = new BattleReport(mainNode);
+                        BattleReports.Add(battle);
                         break;
                 }
 
@@ -377,6 +400,15 @@ namespace Nova.Common
                 xmlelEmpireData.AppendChild(BattlePlans[key].ToXml(xmldoc));
             }
             
+            // Battles 
+            if (BattleReports.Count > 0)
+            {
+                foreach (BattleReport battle in BattleReports)
+                {
+                    xmlelEmpireData.AppendChild(battle.ToXml(xmldoc));
+                }
+            }
+            
             return xmlelEmpireData;
         }
         
@@ -402,6 +434,7 @@ namespace Nova.Common
             EmpireReports.Clear();
             
             BattlePlans.Clear();
+            BattleReports.Clear();
         }
         
         
@@ -530,6 +563,7 @@ namespace Nova.Common
                 }
                 
                 design.Update();
+                
                 if (design.Id >= designCounter)
                 {
                     designCounter = design.Id + 1;
@@ -575,6 +609,22 @@ namespace Nova.Common
                 }
             }
             
+            // Set designs in any Battle Reports
+            foreach (BattleReport battle in BattleReports)
+            {
+                foreach (Stack stack in battle.Stacks.Values)
+                {
+                    if (stack.Owner == empireId)
+                    {
+                        stack.Token.Design = Designs[stack.Token.Key];
+                    }
+                    else
+                    {
+                        stack.Token.Design = EmpireReports[stack.Owner].Designs[stack.Token.Key];
+                    }
+                }
+            }
+            
             // Link reports to Designs to get accurate data.
             foreach (FleetIntel report in FleetReports.Values)
             {
@@ -590,10 +640,10 @@ namespace Nova.Common
                     }
                 }   
             }
-
+            
+            // Link Star Races and Starbases
             foreach (Star star in OwnedStars.Values)
             {
-                // Link the star to the race that owns it.
                 if (star.Owner == Id)
                 {
                     star.ThisRace = Race;

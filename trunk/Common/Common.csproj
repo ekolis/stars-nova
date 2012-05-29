@@ -142,6 +142,7 @@
     <Compile Include="GameObjects\KeyExtensions.cs" />
     <Compile Include="GameObjects\Mappable.cs" />
     <Compile Include="GameObjects\ShipToken.cs" />
+    <Compile Include="GameObjects\Stack.cs" />
     <Compile Include="PasswordUtility.cs" />
     <Compile Include="Production\AlchemyProductionUnit.cs" />
     <Compile Include="Production\DefenseProductionUnit.cs" />
