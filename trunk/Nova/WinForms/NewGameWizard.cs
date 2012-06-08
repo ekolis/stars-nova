@@ -85,6 +85,9 @@ namespace Nova.WinForms
             // Setup initial button states
             UpdatePlayerDetails();
             UpdatePlayerListButtons();
+
+            // Default the game folder.
+            gameFolder.Text = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + Path.DirectorySeparatorChar + "Stars! Nova" + Path.DirectorySeparatorChar + gameName.Text;
         }
 
         
@@ -94,27 +97,16 @@ namespace Nova.WinForms
         private bool CreateGame()
         {
             // New game dialog was OK, create a game
-            // Get a location to save the game:
-            FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
-            gameFolderBrowser.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-            // string newGameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-            string newGameFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + Path.DirectorySeparatorChar + "Stars! Nova" + Path.DirectorySeparatorChar + gameName.Text;
-
-            Directory.CreateDirectory(newGameFolder);
-
-            gameFolderBrowser.SelectedPath = newGameFolder;
-            gameFolderBrowser.Description = "Choose New Game Folder";
-            DialogResult gameFolderBrowserResult = gameFolderBrowser.ShowDialog(this);
-
-            // Check for cancel being pressed (in the new game save file dialog).
-            if (gameFolderBrowserResult != DialogResult.OK)
+            
+            // Make sure the location to save the game exists:
+            if (!Directory.Exists(gameFolder.Text))
             {
-                return false;
+                Directory.CreateDirectory(gameFolder.Text);
             }
    
             try
             {
-                GameInitialiser game = new GameInitialiser(gameFolderBrowser.SelectedPath);
+                GameInitialiser game = new GameInitialiser(gameFolder.Text);
                 
                 game.GenerateEmpires(Players, KnownRaces);
                 game.GenerateStarMap();
@@ -555,6 +547,22 @@ namespace Nova.WinForms
 
         private void MapDensity_ValueChanged(object sender, EventArgs e)
         {
+        }
+
+        private void gamefolderBrowseButton_Click(object sender, EventArgs e)
+        {
+            // Get a location to save the game:
+            FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
+            gameFolderBrowser.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+            gameFolderBrowser.SelectedPath = gameFolder.Text;
+            gameFolderBrowser.Description = "Choose New Game Folder";
+            DialogResult gameFolderBrowserResult = gameFolderBrowser.ShowDialog(this);
+
+            // Check for cancel being pressed (in the new game save file dialog).
+            if (gameFolderBrowserResult == DialogResult.OK)
+            {
+                gameFolder.Text = gameFolderBrowser.SelectedPath;
+            }
         }
 
     }

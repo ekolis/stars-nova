@@ -94,6 +94,9 @@ namespace Nova.WinForms
           this.label8 = new System.Windows.Forms.Label();
           this.label7 = new System.Windows.Forms.Label();
           this.tabVictoryConditions = new System.Windows.Forms.TabPage();
+          this.gamefolderBrowseButton = new System.Windows.Forms.Button();
+          this.gameFolder = new System.Windows.Forms.TextBox();
+          this.groupBox8 = new System.Windows.Forms.GroupBox();
           this.groupBox1.SuspendLayout();
           this.groupBox2.SuspendLayout();
           ((System.ComponentModel.ISupportInitialize)(this.minimumGameTime)).BeginInit();
@@ -113,6 +116,7 @@ namespace Nova.WinForms
           this.groupBox5.SuspendLayout();
           this.groupBox4.SuspendLayout();
           this.tabVictoryConditions.SuspendLayout();
+          this.groupBox8.SuspendLayout();
           this.SuspendLayout();
           // 
           // label2
@@ -386,6 +390,7 @@ namespace Nova.WinForms
           // 
           // tabGameOptions
           // 
+          this.tabGameOptions.Controls.Add(this.groupBox8);
           this.tabGameOptions.Controls.Add(this.groupBox7);
           this.tabGameOptions.Controls.Add(this.groupBox6);
           this.tabGameOptions.Controls.Add(this.groupBox3);
@@ -402,7 +407,7 @@ namespace Nova.WinForms
           this.groupBox7.Controls.Add(this.acceleratedStart);
           this.groupBox7.Location = new System.Drawing.Point(8, 271);
           this.groupBox7.Name = "groupBox7";
-          this.groupBox7.Size = new System.Drawing.Size(364, 141);
+          this.groupBox7.Size = new System.Drawing.Size(364, 82);
           this.groupBox7.TabIndex = 2;
           this.groupBox7.TabStop = false;
           this.groupBox7.Text = "Game Options";
@@ -886,6 +891,35 @@ namespace Nova.WinForms
           this.tabVictoryConditions.Text = "Victory Conditions";
           this.tabVictoryConditions.UseVisualStyleBackColor = true;
           // 
+          // gamefolderBrowseButton
+          // 
+          this.gamefolderBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+          this.gamefolderBrowseButton.Location = new System.Drawing.Point(284, 17);
+          this.gamefolderBrowseButton.Name = "gamefolderBrowseButton";
+          this.gamefolderBrowseButton.Size = new System.Drawing.Size(75, 23);
+          this.gamefolderBrowseButton.TabIndex = 6;
+          this.gamefolderBrowseButton.Text = "Browse";
+          this.gamefolderBrowseButton.UseVisualStyleBackColor = true;
+          this.gamefolderBrowseButton.Click += new System.EventHandler(this.gamefolderBrowseButton_Click);
+          // 
+          // gameFolder
+          // 
+          this.gameFolder.Location = new System.Drawing.Point(6, 19);
+          this.gameFolder.Name = "gameFolder";
+          this.gameFolder.Size = new System.Drawing.Size(272, 20);
+          this.gameFolder.TabIndex = 7;
+          // 
+          // groupBox8
+          // 
+          this.groupBox8.Controls.Add(this.gamefolderBrowseButton);
+          this.groupBox8.Controls.Add(this.gameFolder);
+          this.groupBox8.Location = new System.Drawing.Point(8, 360);
+          this.groupBox8.Name = "groupBox8";
+          this.groupBox8.Size = new System.Drawing.Size(365, 47);
+          this.groupBox8.TabIndex = 3;
+          this.groupBox8.TabStop = false;
+          this.groupBox8.Text = "Game Folder";
+          // 
           // NewGameWizard
           // 
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -925,6 +959,8 @@ namespace Nova.WinForms
           this.groupBox4.ResumeLayout(false);
           this.groupBox4.PerformLayout();
           this.tabVictoryConditions.ResumeLayout(false);
+          this.groupBox8.ResumeLayout(false);
+          this.groupBox8.PerformLayout();
           this.ResumeLayout(false);
 
         }
@@ -993,5 +1029,8 @@ namespace Nova.WinForms
        private System.Windows.Forms.Label label16;
        private System.Windows.Forms.GroupBox groupBox7;
        private System.Windows.Forms.CheckBox acceleratedStart;
+       private System.Windows.Forms.Button gamefolderBrowseButton;
+       private System.Windows.Forms.TextBox gameFolder;
+       private System.Windows.Forms.GroupBox groupBox8;
    }
 }
