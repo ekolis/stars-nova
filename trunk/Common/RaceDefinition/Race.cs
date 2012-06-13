@@ -61,6 +61,8 @@ namespace Nova.Common
         public int MineProductionRate;   // defined in the Race Designer as the amount of minerals (kT) mined by every 10 mines
         public int OperableMines;
 
+        public string LeftoverPointTarget;
+
         // Growth goes from 3 to 20 and is not normalized here.
         public double GrowthRate;
 
@@ -397,6 +399,13 @@ namespace Nova.Common
             // GrowthRate
             Global.SaveData(xmldoc, xmlelRace, "GrowthRate", GrowthRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
+            // LeftoverPointTarget
+            if ("".Equals(LeftoverPointTarget) || LeftoverPointTarget == null)
+            {
+                LeftoverPointTarget = "Surface minerals";
+            }
+            Global.SaveData(xmldoc, xmlelRace, "LeftoverPoints", LeftoverPointTarget.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
             return xmlelRace;
         }
 
@@ -489,6 +498,9 @@ namespace Nova.Common
                         case "growthrate":
                             GrowthRate = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
+                        case "leftoverpoints":
+                            this.LeftoverPointTarget = xmlnode.FirstChild.Value;
+                            break;
 
                         default: break;
                     }
@@ -499,6 +511,12 @@ namespace Nova.Common
                 }
 
                 xmlnode = xmlnode.NextSibling;
+            }
+
+            // if an old version of the race file is loaded and there is no leftover point target then select standard leftover point target.
+            if ("".Equals(LeftoverPointTarget) || LeftoverPointTarget == null)
+            {
+                this.LeftoverPointTarget = "Surface minerals";
             }
         }
 
