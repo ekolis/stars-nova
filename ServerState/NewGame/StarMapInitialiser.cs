@@ -37,6 +37,8 @@ namespace Nova.Server.NewGame
         private ServerData serverState;
         private StarMapGenerator map;
         private NameGenerator nameGenerator = new NameGenerator();
+        private Resources homeStarDefaultMineralConcentration = new Resources();
+        private Resources homeStarDefaultSurfaceMinerals = new Resources();
         
         public StarMapInitialiser(ServerData serverState)
         {
@@ -104,6 +106,7 @@ namespace Nova.Server.NewGame
                 string player = empire.Race.Name;
                 
                 PrepareDesigns(empire, player);
+                PrepareResources();
                 InitialiseHomeStar(empire, player);
             }
 
@@ -298,7 +301,19 @@ namespace Nova.Server.NewGame
                     break;
             */
         }
-  
+
+        private void PrepareResources()
+        {
+            Random random = new Random();
+
+            this.homeStarDefaultSurfaceMinerals.Boranium = random.Next(300, 500);
+            this.homeStarDefaultSurfaceMinerals.Ironium = random.Next(300, 500);
+            this.homeStarDefaultSurfaceMinerals.Germanium = random.Next(300, 500);
+
+            this.homeStarDefaultMineralConcentration.Boranium = random.Next(50, 100);
+            this.homeStarDefaultMineralConcentration.Ironium = random.Next(50, 100);
+            this.homeStarDefaultMineralConcentration.Germanium = random.Next(50, 100);
+        }
         
         /// <summary>
         /// Allocate a "home" star system for each player giving it some colonists and
@@ -403,7 +418,7 @@ namespace Nova.Server.NewGame
             star.Starbase = starbaseFleet;
             empire.AddOrUpdateFleet(starbaseFleet);
         }
-  
+
         
         /// <summary>
         /// Allocate an initial set of resources to a player's "home" star system. for
@@ -433,21 +448,22 @@ namespace Nova.Server.NewGame
             
             star.Colonists = empire.Race.GetStartingPopulation();
 
-            star.ResourcesOnHand.Boranium = random.Next(300, 500);
-            star.ResourcesOnHand.Ironium = random.Next(300, 500);
-            star.ResourcesOnHand.Germanium = random.Next(300, 500);
+            star.ResourcesOnHand.Boranium = this.homeStarDefaultSurfaceMinerals.Boranium; // ToDo: leftover advantage points
+            star.ResourcesOnHand.Ironium = this.homeStarDefaultSurfaceMinerals.Ironium;
+            star.ResourcesOnHand.Germanium = this.homeStarDefaultSurfaceMinerals.Germanium;
             star.Mines = 10;
             star.Factories = 10;
             star.ResourcesOnHand.Energy = star.GetResourceRate();
 
-            star.MineralConcentration.Boranium = random.Next(50, 100);
-            star.MineralConcentration.Ironium = random.Next(50, 100);
-            star.MineralConcentration.Germanium = random.Next(50, 100);
-
+            star.MineralConcentration.Boranium = this.homeStarDefaultMineralConcentration.Boranium;
+            star.MineralConcentration.Ironium = this.homeStarDefaultMineralConcentration.Ironium;
+            star.MineralConcentration.Germanium = this.homeStarDefaultMineralConcentration.Germanium;
 
             star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
             star.DefenseType = "SDI"; // TODO (priority 4) get from component list
             star.ScanRange = 50; // TODO (priority 4) get from component list
+
+            HomeStarLeftoverpointsAdjuster.Adjust(star, empire.Race);
         }
     }
 }

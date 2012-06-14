@@ -98,6 +98,7 @@
     <Compile Include="UnitTests\GlobalTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\RaceAdvantagePointCalculatorTest.cs" />
+    <Compile Include="UnitTests\StarMapInitialiserTest.cs" />
     <Compile Include="UnitTests\StarTest.cs" />
     <Compile Include="IntegrationTests\TestControls.cs" />
   </ItemGroup>

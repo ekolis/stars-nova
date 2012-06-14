@@ -35,7 +35,7 @@ namespace Nova.Common
     /// the loading ans saving of race data to a file.
     /// </summary>
     [Serializable]
-    public sealed class Race
+    public class Race
     {
         public EnvironmentTolerance GravityTolerance        = new GravityTolerance();
         public EnvironmentTolerance RadiationTolerance      = new RadiationTolerance();
@@ -181,10 +181,18 @@ namespace Nova.Common
             return HabitalValue(star);
         }
 
-        public int GetAdvantagePoints()
+        public virtual int GetAdvantagePoints()
         {
             RaceAdvantagePointCalculator calculator = new RaceAdvantagePointCalculator();
             return calculator.calculateAdvantagePoints(this);
+        }
+
+        public int GetLeftoverAdvantagePoints()
+        {
+            int advantagePoints = GetAdvantagePoints();
+            advantagePoints = Math.Max(0, advantagePoints); // return Advantage Points only if >= 0
+            advantagePoints = Math.Min(50, advantagePoints); // return not more than 50
+            return advantagePoints;
         }
 
         private int GetMaxMalus()
