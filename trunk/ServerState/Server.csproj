@@ -82,6 +82,7 @@
     <Compile Include="BattleEngine.cs" />
     <Compile Include="Bombing.cs" />
     <Compile Include="CheckForMinefields.cs" />
+    <Compile Include="NewGame\HomeStarLeftoverpointsAdjuster.cs" />
     <Compile Include="Persistence\IntelWriter.cs" />
     <Compile Include="Manufacture.cs" />
     <Compile Include="Persistence\OrderReader.cs" />
