@@ -106,13 +106,7 @@ namespace Nova.WinForms
    
             try
             {
-                GameInitialiser game = new GameInitialiser(gameFolder.Text);
-                
-                game.GenerateEmpires(Players, KnownRaces);
-                game.GenerateStarMap();
-                game.GenerateAssets();
-                game.GenerateIntel();                
-                game.ServerState.Save();
+                GameInitialiser.Initialize(gameFolder.Text, Players, KnownRaces);
                 GameSettings.Save();
             }
             catch (Exception e)
