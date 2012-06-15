@@ -43,9 +43,20 @@ namespace Nova.Server.NewGame
                 return serverState;
             }
         }
+
+
+        public static void Initialize(string gameFolderPath, List<PlayerSettings> players, Dictionary<string, Race> knownRaces)
+        {
+            GameInitialiser game = new GameInitialiser(gameFolderPath);
+            game.GenerateEmpires(players, knownRaces);
+            game.GenerateStarMap();
+            game.GenerateAssets();
+            game.GenerateIntel();
+            game.ServerState.Save();
+        } 
+
         
-        
-        public GameInitialiser(string gameFolderPath)
+        private GameInitialiser(string gameFolderPath)
         {
             serverState = new ServerData();
             
@@ -74,9 +85,9 @@ namespace Nova.Server.NewGame
             
             starMapInitialiser = new StarMapInitialiser(serverState);
         }
-        
-        
-        public void GenerateEmpires(List<PlayerSettings> players, Dictionary<string, Race> knownRaces)
+
+
+        private void GenerateEmpires(List<PlayerSettings> players, Dictionary<string, Race> knownRaces)
         {
             // Copy the player & race data to the ServerState
             serverState.AllPlayers = players;
@@ -132,21 +143,21 @@ namespace Nova.Server.NewGame
 
             }
         }
-        
-        
-        public void GenerateStarMap()
+
+
+        private void GenerateStarMap()
         {
             starMapInitialiser.GenerateStars();   
         }
-        
-        
-        public void GenerateAssets()
+
+
+        private void GenerateAssets()
         {
             starMapInitialiser.GeneratePlayerAssets();   
         }
-        
-        
-        public void GenerateIntel()
+
+
+        private void GenerateIntel()
         {
             TurnGenerator firstTurn = new TurnGenerator(serverState);
                 
