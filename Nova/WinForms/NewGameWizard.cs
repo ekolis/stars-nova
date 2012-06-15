@@ -64,8 +64,9 @@ namespace Nova.WinForms
             Random rand = new Random();            
             List<string> racenames = new List<string>(KnownRaces.Keys);
 
-            // Add 2 players to a new game
-            for (int i = 0; i < 2; ++i) 
+            // Add 2 players to a new game, but not more than available if the user changes the race folder
+            int maxPlayers = Math.Min(2, racenames.Count);
+            for (int i = 0; i < maxPlayers; ++i) 
             {
                 // add known race to list of players
                 string racename = racenames[rand.Next(racenames.Count)];
@@ -358,11 +359,20 @@ namespace Nova.WinForms
                 if (result == DialogResult.OK)
                 {
                     Race race = new Race(fd.FileName);
+                    if (KnownRaces.ContainsKey(race.Name))
+                    {
+                        race.Name = race.Name + " from File " + System.IO.Path.GetFileName(fd.FileName);
+                    }
+
                     if (!KnownRaces.ContainsKey(race.Name))
                     {
                         KnownRaces.Add(race.Name, race);
                         raceSelectionBox.Items.Add(race.Name);
                         raceSelectionBox.SelectedIndex = raceSelectionBox.Items.Count - 1;
+                    }
+                    else
+                    {
+                        Report.Error("Error opening race file.");
                     }
                 }
             }
