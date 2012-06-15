@@ -2,22 +2,25 @@
 <ROOT>
   <Race>
     <GravityTolerance>
-      <EnvironmentTolerance>
-        <Min>0</Min>
-        <Max>10</Max>
-      </EnvironmentTolerance>
+      <MinInternal>15</MinInternal>
+      <MaxInternal>85</MaxInternal>
+      <MinTolerance>0,23g</MinTolerance>
+      <MaxTolerance>4,40g</MaxTolerance>
+      <Immune>True</Immune>
     </GravityTolerance>
     <RadiationTolerance>
-      <EnvironmentTolerance>
-        <Min>70</Min>
-        <Max>100</Max>
-      </EnvironmentTolerance>
+      <MinInternal>70</MinInternal>
+      <MaxInternal>100</MaxInternal>
+      <MinTolerance>70mR</MinTolerance>
+      <MaxTolerance>100mR</MaxTolerance>
+      <Immune>False</Immune>
     </RadiationTolerance>
     <TemperatureTolerance>
-      <EnvironmentTolerance>
-        <Min>-200</Min>
-        <Max>200</Max>
-      </EnvironmentTolerance>
+      <MinInternal>0</MinInternal>
+      <MaxInternal>100</MaxInternal>
+      <MinTolerance>-200°C</MinTolerance>
+      <MaxTolerance>200°C</MaxTolerance>
+      <Immune>False</Immune>
     </TemperatureTolerance>
     <Tech>
       <Biotechnology>150</Biotechnology>
@@ -44,5 +47,6 @@
     <OperableMines>6</OperableMines>
     <MaxPopulation>1000000</MaxPopulation>
     <GrowthRate>10</GrowthRate>
+    <LeftoverPoints>Mineral concentration</LeftoverPoints>
   </Race>
 </ROOT>

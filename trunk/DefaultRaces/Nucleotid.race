@@ -2,22 +2,25 @@
 <ROOT>
   <Race>
     <GravityTolerance>
-      <EnvironmentTolerance>
-        <Min>0</Min>
-        <Max>10</Max>
-      </EnvironmentTolerance>
+      <MinInternal>15</MinInternal>
+      <MaxInternal>85</MaxInternal>
+      <MinTolerance>0,23g</MinTolerance>
+      <MaxTolerance>4,40g</MaxTolerance>
+      <Immune>True</Immune>
     </GravityTolerance>
     <RadiationTolerance>
-      <EnvironmentTolerance>
-        <Min>0</Min>
-        <Max>100</Max>
-      </EnvironmentTolerance>
+      <MinInternal>0</MinInternal>
+      <MaxInternal>100</MaxInternal>
+      <MinTolerance>0mR</MinTolerance>
+      <MaxTolerance>100mR</MaxTolerance>
+      <Immune>False</Immune>
     </RadiationTolerance>
     <TemperatureTolerance>
-      <EnvironmentTolerance>
-        <Min>-152</Min>
-        <Max>152</Max>
-      </EnvironmentTolerance>
+      <MinInternal>12</MinInternal>
+      <MaxInternal>88</MaxInternal>
+      <MinTolerance>-152°C</MinTolerance>
+      <MaxTolerance>152°C</MaxTolerance>
+      <Immune>False</Immune>
     </TemperatureTolerance>
     <Tech>
       <Biotechnology>150</Biotechnology>
@@ -28,8 +31,9 @@
       <Construction>150</Construction>
     </Tech>
     <PRT>SS</PRT>
-    <LRT>ARM</LRT>
     <LRT>ISB</LRT>
+    <LRT>ARM</LRT>
+    <LRT>ExtraTech</LRT>
     <MineBuildCost>15</MineBuildCost>
     <PluralName>Nucleotids</PluralName>
     <Name>Nucleotid</Name>
@@ -43,5 +47,6 @@
     <OperableMines>5</OperableMines>
     <MaxPopulation>1000000</MaxPopulation>
     <GrowthRate>10</GrowthRate>
+    <LeftoverPoints>Factories</LeftoverPoints>
   </Race>
 </ROOT>
