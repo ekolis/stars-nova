@@ -367,10 +367,10 @@ namespace Nova.Common.RaceDefinition
             int researchStat;
             foreach (int tech in race.ResearchCosts)
             {
-                if (tech == 150) researchStat = 2;         // expensive / +75% research cost
-                else if (tech == 100) researchStat = 1;    // normal
-                else /*if (tech == 50)*/ researchStat = 0; // cheap / -50% research cost
-                tmpPoints += (researchStat - 1);
+                if (tech == 175 || tech == 150 /*deprecated, for backward compability / old race files only*/) researchStat = -1;         // expensive / +75% research cost
+                else if (tech == 100) researchStat = 0;    // normal
+                else /*if (tech == 50)*/ researchStat = +1; // cheap / -50% research cost
+                tmpPoints += researchStat;
             }
             if (tmpPoints > 0)
             {

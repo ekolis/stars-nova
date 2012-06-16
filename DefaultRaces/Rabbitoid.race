@@ -25,9 +25,9 @@
     <Tech>
       <Biotechnology>50</Biotechnology>
       <Electronics>100</Electronics>
-      <Energy>150</Energy>
+      <Energy>175</Energy>
       <Propulsion>50</Propulsion>
-      <Weapons>150</Weapons>
+      <Weapons>175</Weapons>
       <Construction>100</Construction>
     </Tech>
     <PRT>IT</PRT>

@@ -23,7 +23,7 @@
       <Immune>True</Immune>
     </TemperatureTolerance>
     <Tech>
-      <Biotechnology>150</Biotechnology>
+      <Biotechnology>175</Biotechnology>
       <Electronics>100</Electronics>
       <Energy>100</Energy>
       <Propulsion>50</Propulsion>
