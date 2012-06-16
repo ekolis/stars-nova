@@ -27,7 +27,7 @@
       <Electronics>50</Electronics>
       <Energy>50</Energy>
       <Propulsion>50</Propulsion>
-      <Weapons>150</Weapons>
+      <Weapons>175</Weapons>
       <Construction>50</Construction>
     </Tech>
     <PRT>SD</PRT>

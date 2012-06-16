@@ -23,12 +23,12 @@
       <Immune>False</Immune>
     </TemperatureTolerance>
     <Tech>
-      <Biotechnology>150</Biotechnology>
-      <Electronics>150</Electronics>
-      <Energy>150</Energy>
-      <Propulsion>150</Propulsion>
-      <Weapons>150</Weapons>
-      <Construction>150</Construction>
+      <Biotechnology>175</Biotechnology>
+      <Electronics>175</Electronics>
+      <Energy>175</Energy>
+      <Propulsion>175</Propulsion>
+      <Weapons>175</Weapons>
+      <Construction>175</Construction>
     </Tech>
     <PRT>SS</PRT>
     <LRT>ISB</LRT>

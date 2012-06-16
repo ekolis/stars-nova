@@ -159,18 +159,15 @@ namespace Nova.ControlLibrary
         private void Research_CheckChanged(object sender, EventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
-            int value = 0;
 
             if (radioButton.Checked)
             {
                 if (radioButton.Name == "extraCost")
                 {
-                    value = 49;
-                    this.researchFactor = 150;
+                    this.researchFactor = 175;
                 }
                 else if (radioButton.Name == "lessCost")
                 {
-                    value = -43;
                     this.researchFactor = 50;
                 }
                 else
@@ -178,19 +175,8 @@ namespace Nova.ControlLibrary
                     this.researchFactor = 100;
                 }
             }
-            else
-            {
-                if (radioButton.Name == "extraCost")
-                {
-                    value = -49;
-                }
-                else if (radioButton.Name == "lessCost")
-                {
-                    value = 43;
-                }
-            }
 
-            SelectionChanged(this, value);
+            SelectionChanged(this, this.researchFactor);
         }
 
         #endregion Event Methods
@@ -222,7 +208,8 @@ namespace Nova.ControlLibrary
                         this.standardCost.Checked = true;
                         this.extraCost.Checked = false;
                         break;
-                    case 150:
+                    case 150: // deprecated, for backward compability / old race files only
+                    case 175:
                         this.lessCost.Checked = false;
                         this.standardCost.Checked = false;
                         this.extraCost.Checked = true;
