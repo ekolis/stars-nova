@@ -25,8 +25,10 @@ namespace Nova.ControlLibrary
     using System;
     using System.Collections.Generic;
     using System.Windows.Forms;
-    
+
+    using Nova.Client;
     using Nova.Common;
+    using Nova.Common.Commands;
     using Nova.Common.Waypoints;
 
     /// <summary>
@@ -37,21 +39,26 @@ namespace Nova.ControlLibrary
         private Fleet fleet;
         private Cargo fleetCargo;
         private Cargo starCargo;
+        private ClientData clientData;
         
         public Dictionary<CargoMode, CargoTask> Tasks {get; private set;}
 
         /// <summary>
         /// Initializes a new instance of the CargoDialog class.
         /// </summary>
-        public CargoDialog()
+        public CargoDialog(Fleet fleet, ClientData clientData)
         {
             InitializeComponent();
             cargoIron.ValueChanged += CargoIron_ValueChanged;
             cargoBoran.ValueChanged += CargoBoran_ValueChanged;
             cargoGerman.ValueChanged += CargoGermanium_ValueChanged;
             cargoColonistsInKilotons.ValueChanged += CargoColonists_ValueChanged;
-            
+
             Tasks = new Dictionary<CargoMode, CargoTask>();
+
+            SetTarget(fleet);
+
+            this.clientData = clientData;
         }
 
         public void CargoIron_ValueChanged(int newValue)
@@ -170,6 +177,29 @@ namespace Nova.ControlLibrary
                 }
                 
                 Tasks[mode].Amount[commodity.Key] = Math.Abs(fleetCargo[commodity.Key] - fleet.Cargo[commodity.Key]);
+            }
+
+            WaypointCommand command;
+            foreach (CargoTask task in Tasks.Values)
+            {
+                if (task.Amount.Mass != 0)
+                {
+                    Waypoint waypoint = new Waypoint(fleet.Waypoints[0]); // copy first Waypoint
+                    waypoint.Task = task;
+                    command = new WaypointCommand(CommandMode.Add, waypoint, fleet.Key, 0); // insert always instead of first waypoint. Todo should be: add task always to actual waypoint zero.
+
+                    clientData.Commands.Push(command);
+
+                    if (command.isValid(clientData.EmpireState))
+                    {
+                        command.ApplyToState(clientData.EmpireState);
+                        // Also perform it here, to update client state for manual xfer.
+                        if (command.Waypoint.Task.isValid(fleet, fleet.InOrbit, clientData.EmpireState, null))
+                        {
+                            command.Waypoint.Task.Perform(fleet, fleet.InOrbit, clientData.EmpireState, null); // Load, Unload
+                        }
+                    }
+                }
             }
         }
 

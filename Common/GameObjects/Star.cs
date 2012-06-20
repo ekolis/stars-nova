@@ -23,6 +23,7 @@
 namespace Nova.Common
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Xml;
     
@@ -69,6 +70,8 @@ namespace Nova.Common
         /// This is a convinience for the server. It will be null for races other than the player's race in the client.
         /// </summary>
         public Race ThisRace = null;
+
+        private HashSet<IStarObserver> ObserverList = new HashSet<IStarObserver>();
 
         /// <summary>
         /// Default constructor.
@@ -467,6 +470,42 @@ namespace Nova.Common
                     Report.Debug("Max defenses exceeded.");
                     return Global.MaxDefenses;
                 }
+            }
+        }
+
+        public void Add(Cargo cargo)
+        {
+            this.ResourcesOnHand.Ironium += cargo.Ironium;
+            this.ResourcesOnHand.Boranium += cargo.Boranium;
+            this.ResourcesOnHand.Germanium += cargo.Germanium;
+            this.Colonists += cargo.ColonistNumbers;
+            this.NotifyObserver();
+        }
+
+        public void Remove(Cargo cargo)
+        {
+            this.ResourcesOnHand.Ironium -= cargo.Ironium;
+            this.ResourcesOnHand.Boranium -= cargo.Boranium;
+            this.ResourcesOnHand.Germanium -= cargo.Germanium;
+            this.Colonists -= cargo.ColonistNumbers;
+            this.NotifyObserver();
+        }
+
+        public void AddObserver(IStarObserver observer)
+        {
+            ObserverList.Add(observer);
+        }
+
+        public void RemoveObserver(IStarObserver observer)
+        {
+            ObserverList.Remove(observer);
+        }
+
+        public void NotifyObserver()
+        {
+            foreach (IStarObserver observer in ObserverList)
+            {
+                observer.Update(this);
             }
         }
 

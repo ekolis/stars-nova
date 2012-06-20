@@ -191,10 +191,8 @@ namespace Nova.Common.Waypoints
             message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at " + star.Name + ".";
             Messages.Add(message);
 
-            star.ResourcesOnHand += fleet.Cargo.ToResource();
-            star.Colonists += fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
-            
-            fleet.Cargo.Clear();
+            star.Add(Amount);
+            fleet.Cargo.Remove(Amount);
             
             return true;    
         }
@@ -212,11 +210,7 @@ namespace Nova.Common.Waypoints
             Messages.Add(message);            
 
             fleet.Cargo.Add(Amount);
-            
-            star.ResourcesOnHand.Ironium -= Amount.Ironium;
-            star.ResourcesOnHand.Boranium -= Amount.Boranium;
-            star.ResourcesOnHand.Germanium -= Amount.Germanium;
-            star.Colonists -= Amount.ColonistNumbers;
+            star.Remove(Amount);
             
             return true;      
         }

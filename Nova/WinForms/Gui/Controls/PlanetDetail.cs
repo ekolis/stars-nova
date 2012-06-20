@@ -333,9 +333,8 @@ namespace Nova.WinForms.Gui
             {
                 try
                 {
-                    using (CargoDialog cargoDialog = new CargoDialog())
+                    using (CargoDialog cargoDialog = new CargoDialog(fleet, clientState))
                     {
-                        cargoDialog.SetTarget(fleet);
                         cargoDialog.ShowDialog(); 
                         UpdateFields();
                     }

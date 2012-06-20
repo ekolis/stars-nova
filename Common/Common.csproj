@@ -138,6 +138,7 @@
     <Compile Include="Files\AllShipIcons.cs" />
     <Compile Include="Files\Config.cs" />
     <Compile Include="Files\Orders.cs" />
+    <Compile Include="GameObjects\IStarObserver.cs" />
     <Compile Include="GameObjects\ItemType.cs" />
     <Compile Include="GameObjects\KeyExtensions.cs" />
     <Compile Include="GameObjects\Mappable.cs" />
@@ -329,8 +330,5 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <RegisterForComInterop>False</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Waypoints" />
-    <Folder Include="Production" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
