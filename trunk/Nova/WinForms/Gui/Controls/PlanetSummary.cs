@@ -34,7 +34,7 @@ namespace Nova.WinForms.Gui
     /// <Summary>
     /// The Star system Summary panel.
     /// </Summary>
-    public class PlanetSummary : System.Windows.Forms.UserControl
+    public class PlanetSummary : System.Windows.Forms.UserControl, IStarObserver
     {
         // List of the Star reports.
         private readonly EmpireData empireState;        
@@ -472,7 +472,14 @@ namespace Nova.WinForms.Gui
                 }
                 else
                 {
-                    this.population.Text = "Population: " + empireState.StarReports[value.Name].Colonists;
+                    if (value.Owner == empireState.Id)
+                    {
+                        this.population.Text = "Population: " + empireState.OwnedStars[value.Name].Colonists;
+                    }
+                    else
+                    {
+                        this.population.Text = "Population: " + empireState.StarReports[value.Name].Colonists;
+                    }
                 }
 
                 if (reportYear == empireState.TurnYear)
@@ -493,6 +500,7 @@ namespace Nova.WinForms.Gui
                     this.ironiumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Ironium;
                     this.boraniumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Boranium;
                     this.germaniumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Germanium;
+                    empireState.OwnedStars[value.Name].AddObserver((IStarObserver)this);
                 }
                 else
                 {
@@ -546,6 +554,11 @@ namespace Nova.WinForms.Gui
                     this.temperatureGauge.BottomValue = empireState.Race.TemperatureTolerance.MinimumValue;
                 }
             }
+        }
+
+        public void Update(Star star)
+        {
+            this.Value = star.GenerateReport(ScanLevel.Owned, empireState.TurnYear);
         }
         
         private void PopulationToolTipShow(object sender, MouseEventArgs e)

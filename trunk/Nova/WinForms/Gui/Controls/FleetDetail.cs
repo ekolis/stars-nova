@@ -41,6 +41,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetDetail : System.Windows.Forms.UserControl
     {
+        private ClientData clientData;
         private readonly EmpireData empireState;
         private Stack<ICommand> commands;
 
@@ -93,6 +94,7 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public FleetDetail(ClientData clientState)
         {
+            this.clientData = clientState;
             this.empireState = clientState.EmpireState;
             this.commands = clientState.Commands;
             
@@ -180,40 +182,9 @@ namespace Nova.WinForms.Gui
         {
             try
             {
-                WaypointCommand command;
-                
-                using (CargoDialog cargoDialog = new CargoDialog())
+                using (CargoDialog cargoDialog = new CargoDialog(selectedFleet, clientData))
                 {
-                    cargoDialog.SetTarget(selectedFleet);
-                    cargoDialog.ShowDialog();
-                    
-                    if(cargoDialog.DialogResult == DialogResult.OK)
-                    {
-                        foreach (CargoTask task in cargoDialog.Tasks.Values)
-                        {
-                            if(task.Amount.Mass != 0)
-                            {
-                                int index = wayPoints.SelectedIndices[0];            
-                                Waypoint waypoint = new Waypoint(selectedFleet.Waypoints[index]);
-                                waypoint.Task = task;
-                                command = new WaypointCommand(CommandMode.Add, selectedFleet.Key, index);
-                                command.Waypoint = waypoint;
-                                
-                                commands.Push(command);
-                                
-                                if (command.isValid(empireState))
-                                {
-                                    command.ApplyToState(empireState);
-                                    // Also perform it here, to update client state for manual xfer.
-                                    if (command.Waypoint.Task.isValid(selectedFleet, selectedFleet.InOrbit, empireState, null))
-                                    {
-                                        command.Waypoint.Task.Perform(selectedFleet, selectedFleet.InOrbit, empireState, null);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
+                    cargoDialog.ShowDialog();                    
                     UpdateCargoMeters();
                     Invalidate();
                 }
