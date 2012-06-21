@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -45,16 +45,16 @@ namespace Nova.WinForms.Gui
         /// selection information. Mostly used to assert where it is
         /// a fleet or a Star.
         /// </Summary>
-        public event RequestSelection RequestSelectionEvent;
+        public event EventHandler<SelectionArgs> SelectionRequested; 
         
         /// <Summary>
         /// These events should be fired when the users changes the
         /// selection in the map with the mouse. Use it to report
         /// selection changes to other components of the GUI.
-        /// </Summary>
-        public event SummarySelectionChanged SummarySelectionChangedEvent;        
-        public event DetailSelectionChanged DetailSelectionChangedEvent;
-        public event WaypointChanged WaypointChangedEvent;
+        /// </Summary>    
+        public event EventHandler<SelectionArgs> SelectionChanged;        
+       
+        public event EventHandler<EventArgs> WaypointChanged;
 
         private readonly Point[] triangle = 
         { 
@@ -703,7 +703,7 @@ namespace Nova.WinForms.Gui
             // Try and scroll map back to location
             ScrollToDisplayLocation(preserveDisplayLocation, preserveLogicalLocation);
 
-            this.RefreshStarMap();
+            this.RefreshStarMap(this, EventArgs.Empty);
         }
 
         internal void CenterMapOnPoint(NovaPoint pointToCentre)
@@ -733,7 +733,7 @@ namespace Nova.WinForms.Gui
         private void MapScrollH(object sender, ScrollEventArgs e)
         {
             scrollOffset.X = e.NewValue;
-            RefreshStarMap();
+            RefreshStarMap(this, EventArgs.Empty);
         }
 
         /// <Summary>
@@ -744,7 +744,7 @@ namespace Nova.WinForms.Gui
         private void MapScrollV(object sender, ScrollEventArgs e)
         {
             scrollOffset.Y = e.NewValue;
-            RefreshStarMap();
+            RefreshStarMap(this, EventArgs.Empty);
         }
 
         /// <Summary>
@@ -786,7 +786,10 @@ namespace Nova.WinForms.Gui
         /// <param name="snapToObject"></param>
         private void LeftShiftMouse(MouseEventArgs e, bool snapToObject)
         {
-            Mappable item = RequestSelectionEvent();
+            SelectionArgs args = new SelectionArgs(null);       
+            OnSelectionRequested(args);
+           
+            Mappable item = args.Selection;
 
             if (item == null || !(item is Fleet))
             {
@@ -840,11 +843,11 @@ namespace Nova.WinForms.Gui
                 command.ApplyToState(clientState.EmpireState);
             }
 
-            RefreshStarMap();
+            RefreshStarMap(this, EventArgs.Empty);
 
-            if (WaypointChangedEvent != null)
+            if (WaypointChanged != null)
             {
-                WaypointChangedEvent(this);
+                WaypointChanged(this, new EventArgs());
             }
         }
 
@@ -888,7 +891,7 @@ namespace Nova.WinForms.Gui
 
             SetCursor(item.Position);
             
-            NotifyListeners(item);
+            OnSelectionChanged(new SelectionArgs(item));
         }
 
         private void RightMouse(MouseEventArgs e)
@@ -943,9 +946,10 @@ namespace Nova.WinForms.Gui
             {
                 return;
             }
+            
             SetCursor(item.Position);
 
-            NotifyListeners(item);
+            OnSelectionChanged(new SelectionArgs(item));
         }
 
         /// <Summary>
@@ -955,7 +959,7 @@ namespace Nova.WinForms.Gui
         public void SetCursor(NovaPoint position)
         {
             cursorPosition = position;
-            RefreshStarMap();
+            RefreshStarMap(this, EventArgs.Empty);
         }
 
         /// <Summary>
@@ -1017,7 +1021,7 @@ namespace Nova.WinForms.Gui
         private void ToggleNames_CheckedChanged(object sender, EventArgs e)
         {
             displayStarNames = toggleNames.Checked;
-            RefreshStarMap();
+            RefreshStarMap(this, EventArgs.Empty);
         }
         
         /// <Summary>
@@ -1028,7 +1032,7 @@ namespace Nova.WinForms.Gui
         private void ToggleBackground_CheckedChanged(object sender, EventArgs e)
         {
             displayBackground = toggleBackground.Checked;
-            RefreshStarMap();
+            RefreshStarMap(this, EventArgs.Empty);
         }
         
         /// <Summary>
@@ -1039,7 +1043,7 @@ namespace Nova.WinForms.Gui
         private void ToggleBorders_CheckedChanged(object sender, EventArgs e)
         {
             displayBorders = toggleBorders.Checked;
-            RefreshStarMap();
+            RefreshStarMap(this, EventArgs.Empty);
         }
         
         /// <Summary>
@@ -1047,12 +1051,12 @@ namespace Nova.WinForms.Gui
         /// changes the selection. StarMap can react accordingly and
         /// update it's cursor withour exposing internal variables.
         /// </Summary>
-        public void ChangeCursor(object sender, CursorArgs e)
+        public void SetCursor(object sender, SelectionArgs e)
         {
-            SetCursor(e.Point);
+            SetCursor(e.Selection.Position);
         }
         
-        public void RefreshStarMap()
+        public void RefreshStarMap(object sender, EventArgs e)
         {
             MapPanel.Invalidate();
         }
@@ -1076,45 +1080,21 @@ namespace Nova.WinForms.Gui
             }
             scrollOffset.X = horizontalScrollBar.Value;
             scrollOffset.Y = verticalScrollBar.Value;
-            RefreshStarMap();
+            RefreshStarMap(this, EventArgs.Empty);
         }
-        
-        private void NotifyListeners(Item newSelection)
+
+        protected virtual void OnSelectionRequested(SelectionArgs e)
         {
-            SummarySelectionArgs    summaryArgs;
-            DetailSelectionArgs     detailArgs;
-            
-            if (newSelection.Type == ItemType.FleetIntel)
-            {
-                summaryArgs = new SummarySelectionArgs(newSelection as FleetIntel);
-
-                if (newSelection.Owner == clientState.EmpireState.Id)
-                {
-                    detailArgs = new DetailSelectionArgs(clientState.EmpireState.OwnedFleets[newSelection.Key]);
-                    if (DetailSelectionChangedEvent != null)
-                    {
-                        DetailSelectionChangedEvent(this, detailArgs);
-                    }
-                }
-            }
-            else
-            {
-                summaryArgs = new SummarySelectionArgs(newSelection as StarIntel);
-                
-                if (newSelection.Owner == clientState.EmpireState.Id)
-                {
-                    detailArgs = new DetailSelectionArgs(clientState.EmpireState.OwnedStars[newSelection.Name]);
-                    if (DetailSelectionChangedEvent != null)
-                    {
-                        DetailSelectionChangedEvent(this, detailArgs);
-                    }
-                }
-            }
-
-            if (SummarySelectionChangedEvent != null)
-            {
-                SummarySelectionChangedEvent(this, summaryArgs);
+            if (SelectionRequested != null) {
+                SelectionRequested(this, e);
             }
         }
+
+        protected virtual void OnSelectionChanged(SelectionArgs e)
+        {
+            if (SelectionChanged != null) {
+                SelectionChanged(this, e);
+            }
+        }        
     }
 }

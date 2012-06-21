@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -22,12 +22,11 @@
 
 namespace Nova.WinForms.Gui
 {
-    using System.Collections.Generic;
-    using System.Drawing;
+    using System;
     using System.Windows.Forms;
     
     using Nova.Client;
-    using Nova.Common;
+    using Nova.Common; 
 
     /// <Summary>
     /// Control to act as a container to hold the appropriate Detail control of a
@@ -35,19 +34,28 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class SelectionDetail : UserControl
     {
-        private readonly EmpireData empireState;
-        
-        private Mappable selectedItem = null;
-        private UserControl selectedControl = null;
-        
-        public PlanetDetail PlanetDetail; 
-        public FleetDetail FleetDetail;
-        
         // FIXME:(priority 3) this should not be here. It is only needed to pass it
         // down to the PlanetDetail (Who passes it to ProductionDialog). In any case,
         // ProductionDialog shouldn't need the whole state either. Must refactor this.
         private ClientData clientState;
-
+        
+        private readonly EmpireData empireState;
+        
+        private UserControl selectedControl = null;
+        
+        public PlanetDetail PlanetDetail
+        {
+            get { return planetDetail; }
+            set { planetDetail = value; }
+        }
+        
+        public FleetDetail FleetDetail
+        {
+            get { return fleetDetail; }
+            set { fleetDetail = value; }
+        }
+        
+        
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
@@ -58,25 +66,22 @@ namespace Nova.WinForms.Gui
             // FIXME: (priority 3) see declaration.
             this.clientState = clientState;
             
-            PlanetDetail = new PlanetDetail(empireState, clientState);
-            FleetDetail = new FleetDetail(clientState);
-            
             InitializeComponent();
         }
 
+        
         /// <Summary>
         /// Display planet Detail
         /// </Summary>
         /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
         private void DisplayPlanet(Star star)
         {
-            PlanetDetail.Value = star;
-            
+            PlanetDetail.Value = star;            
             selectedControl = PlanetDetail;
-            Controls.Clear();
-            Controls.Add(PlanetDetail);
-
-            selectedItem = star;
+            
+            PlanetDetail.Show();
+            FleetDetail.Hide();  
+            Invalidate();
         }
 
 
@@ -87,12 +92,11 @@ namespace Nova.WinForms.Gui
         private void DisplayFleet(Fleet fleet)
         {
             FleetDetail.Value = fleet;
-
             selectedControl = FleetDetail;
-            Controls.Clear();
-            Controls.Add(FleetDetail);
-
-            selectedItem = fleet;
+            
+            FleetDetail.Show();
+            PlanetDetail.Hide(); 
+            Invalidate();
         }
 
 
@@ -103,7 +107,7 @@ namespace Nova.WinForms.Gui
         /// to be displayed).
         /// </Summary>
         /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
-        private void SetItem(Item item)
+        private void SetItem(Mappable item)
         {
             if (item == null)
             {
@@ -113,7 +117,6 @@ namespace Nova.WinForms.Gui
 
             // To avoid confusion when another race's fleet or planet is selected
             // grey out (disable) the Detail panel.
-
             if (item.Owner == empireState.Id)
             {
                 Enabled = true;
@@ -124,43 +127,59 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            // Detail panel works with owned objects, so retrieve them from their reports.
-            if (item is Fleet)
+            // Detail panel works with owned objects, so retrieve them from their collections.
+            if (item is FleetIntel || item is Fleet)
             {
-                DisplayFleet(item as Fleet);
+                DisplayFleet(empireState.OwnedFleets[item.Key]);
             }
             else
             {
-                DisplayPlanet(item as Star);
+                // We should use item.Key here, but we know stars are keyed by Name and
+                // we save two casts (star and starintel, which are not polymorphic)
+                DisplayPlanet(empireState.OwnedStars[item.Name]);
             }
         }
+
         
-        public Mappable ReportItem()
+        /// <summary>
+        /// Updates the selected Mappable when it has changed from other panels (Like the Starmap).
+        /// </summary>
+        /// <param name="sender">The source of the selection change</param>
+        /// <param name="e">The new selection</param>
+        public void DetailChangeSelection(object sender, SelectionArgs e)
         {
-            return selectedItem;
+            this.Value = e.Selection;
         }
 
-        public void DetailChangeSelection(object sender, DetailSelectionArgs e)
-        {
-            this.Value = e.Detail;
-        }
-
+        
         /// <Summary>
-        /// Property to access the selected Item (Fleet or Star).
+        /// Property to set the Mappable to display (Fleet or Star).
         /// </Summary>
-        public Item Value
+        public Mappable Value
         {
             set { SetItem(value); }
-            get { return selectedItem; }
         }
 
 
         /// <Summary>
-        /// Property to access the actual Detail control being displayed.
+        /// Checks if we are showing a Planet or a Fleet.
         /// </Summary>
-        public UserControl Control
+        public bool isPlanetDetail()
         {
-            get { return selectedControl; }
+            return (selectedControl == PlanetDetail);
+        }
+        
+        public void CurrentSelection(object sender, SelectionArgs e)
+        {
+            e.Selection = Reload();
+        }            
+        
+        /// <summary>
+        /// Reloads the currently selected item's data, for updating.
+        /// </summary>
+        public Mappable Reload()
+        {
+            return isPlanetDetail() ? PlanetDetail.Value as Mappable : FleetDetail.Value as Mappable;
         }
     }
 }

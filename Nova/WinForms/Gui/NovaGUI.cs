@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -43,7 +43,7 @@ namespace Nova.WinForms.Gui
         public int CurrentTurn;      // control turnvar used for to decide to load new turn... (Thread)
         public string CurrentRace;   // control var used for to decide to load new turn... (Thread)
         protected ClientData clientState;
-
+        
         /// <Summary>
         /// Construct the main window.
         /// </Summary>
@@ -58,18 +58,18 @@ namespace Nova.WinForms.Gui
             
              // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
             // for now so it works again
-            SelectionDetail.FleetDetail.DetailSelectionChangedEvent += DetailChangeSelection;
-            SelectionDetail.FleetDetail.RefreshStarMapEvent += MapControl.RefreshStarMap;
-            SelectionDetail.FleetDetail.SummarySelectionChangedEvent += SummaryChangeSelection;
-            SelectionDetail.PlanetDetail.CursorChangedEvent += MapControl.ChangeCursor;
-            SelectionDetail.PlanetDetail.DetailSelectionChangedEvent += DetailChangeSelection;
-            SelectionDetail.PlanetDetail.SummarySelectionChangedEvent += SummaryChangeSelection;
-            
 
-            MapControl.RequestSelectionEvent += SelectionDetail.ReportItem;
-            MapControl.SummarySelectionChangedEvent += SelectionSummary.SummaryChangeSelection;
-            MapControl.DetailSelectionChangedEvent += SelectionDetail.DetailChangeSelection;
-            MapControl.WaypointChangedEvent += SelectionDetail.FleetDetail.WaypointListChanged;
+            SelectionDetail.FleetDetail.StarmapChanged += MapControl.RefreshStarMap;
+            SelectionDetail.FleetDetail.FleetSelectionChanged += MapControl.SetCursor;
+            SelectionDetail.PlanetDetail.PlanetSelectionChanged += MapControl.SetCursor;
+            
+            SelectionDetail.FleetDetail.FleetSelectionChanged += SelectionSummary.SummaryChangeSelection;
+            SelectionDetail.PlanetDetail.PlanetSelectionChanged += SelectionSummary.SummaryChangeSelection;
+            MapControl.SelectionChanged += SelectionSummary.SummaryChangeSelection;            
+
+            MapControl.SelectionRequested += SelectionDetail.CurrentSelection;            
+            MapControl.SelectionChanged += SelectionDetail.DetailChangeSelection;
+            MapControl.WaypointChanged += SelectionDetail.FleetDetail.UpdateWaypointList;
         }
 
         public SelectionDetail SelectionDetail
@@ -215,7 +215,7 @@ namespace Nova.WinForms.Gui
         private void DesignManagerMenuItem_Click(object sender, EventArgs e)
         {
             DesignManager designManager = new DesignManager(clientState);
-            designManager.RefreshStarMapEvent += new RefreshStarMap(this.MapControl.RefreshStarMap);
+            designManager.StarmapChanged += MapControl.RefreshStarMap;
             designManager.ShowDialog();
             designManager.Dispose();
         }
@@ -308,9 +308,9 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">
         /// A <see cref="System.Object"/>The source of the event.</param>
         /// <param name="e">A <see cref="FleetSelectionArgs"/> that contains the event data.</param>
-        public void DetailChangeSelection(object sender, DetailSelectionArgs e)
+        public void DetailChangeSelection(object sender, SelectionArgs e)
         {
-            this.SelectionDetail.Value = e.Detail;
+            this.SelectionDetail.Value = e.Selection;
         }
         
         /// <Summary>
@@ -319,9 +319,9 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">
         /// A <see cref="System.Object"/>The source of the event.</param>
         /// <param name="e">A <see cref="FleetSelectionArgs"/> that contains the event data.</param>
-        public void SummaryChangeSelection(object sender, SummarySelectionArgs e)
+        public void SummaryChangeSelection(object sender, SelectionArgs e)
         {
-            this.SelectionSummary.Value = e.Summary;
+            this.SelectionSummary.Value = e.Selection;
         }
         
         /// <Summary>
@@ -345,7 +345,7 @@ namespace Nova.WinForms.Gui
                 {
                     MapControl.SetCursor(report.Position);
                     MapControl.CenterMapOnPoint(report.Position);
-                    SelectionDetail.Value = clientState.EmpireState.OwnedStars[report.Name];
+                    SelectionDetail.Value = report;
                     SelectionSummary.Value = report;
                     break;
                 }
@@ -388,10 +388,9 @@ namespace Nova.WinForms.Gui
         /// </returns>
         private bool UpdateResearchBudgets()
         {
-            if (this.SelectionDetail.Control == this.SelectionDetail.PlanetDetail)
+            if (SelectionDetail.isPlanetDetail())
             {
-                // Ugly hack so panel updates right away.
-                this.SelectionDetail.Value = this.SelectionDetail.Value;
+                SelectionDetail.Value = SelectionDetail.Reload();
                 return true;
             }
             

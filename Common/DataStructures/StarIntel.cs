@@ -1,6 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2011 The Stars-Nova Project
+// Copyright (C) 2011-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -42,6 +42,14 @@ namespace Nova.Common
         public bool         HasFleetsInOrbit        { get; set; }
         public Fleet        Starbase                { get; set; }
 
+        /// <summary>
+        /// Stars are Keyed by name, so overload.
+        /// </summary>
+        public new String Key
+        {
+            get { return base.Name; }
+        }
+        
         /// <summary>
         /// Default constructor. Sets sensible but meaningless default values for this report.
         /// </summary>

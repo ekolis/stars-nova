@@ -610,7 +610,7 @@ namespace Nova.WinForms.Gui
             base.Dispose(disposing);
         }
 
-        public ComboBox WaypointTasks;
+        private ComboBox WaypointTasks;
         private Label label14;
         private Label warpText;
         private Label label8;

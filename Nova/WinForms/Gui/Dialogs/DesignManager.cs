@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011, 2012 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -19,7 +19,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
 // ===========================================================================
 #endregion
-
 
 namespace Nova.WinForms.Gui
 {
@@ -43,7 +42,8 @@ namespace Nova.WinForms.Gui
         /// This event should be fired when a waypoint is deleted,
         /// so the StarMap updates right away.
         /// </Summary>
-        public event RefreshStarMap RefreshStarMapEvent;
+        public event EventHandler StarmapChanged;
+        
         
         /// <Summary>
         /// Initializes a new instance of the DesignManager class.
@@ -195,7 +195,7 @@ Are you sure you want to do this?";
             // Ensure the Star map is updated in case we've completely removed any
             // fleets that are being displayed.
 
-            RefreshStarMapEvent();
+            OnStarmapChanged(EventArgs.Empty);
 
         }
 
@@ -334,6 +334,13 @@ Are you sure you want to do this?";
                 this.capacityType.Text = "Fuel Capacity";
                 this.capacityUnits.Text = "mg";
                 this.maxCapacity.Text = design.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            }
+        }
+        
+        protected virtual void OnStarmapChanged(EventArgs e)
+        {
+            if (StarmapChanged != null) {
+                StarmapChanged(this, e);
             }
         }
     }
