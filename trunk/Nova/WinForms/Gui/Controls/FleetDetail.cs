@@ -23,18 +23,15 @@
 namespace Nova.WinForms.Gui
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.Windows.Forms;
-
+    
     using Nova.Client;
     using Nova.Common;
     using Nova.Common.Commands;
-    using Nova.Common.Components;
     using Nova.Common.Waypoints;
     using Nova.ControlLibrary;
-    using Nova.WinForms.Gui.Dialogs;
+    using Nova.WinForms.Gui.Dialogs;     
 
     /// <Summary>
     /// Ship Detail display panel.
@@ -47,27 +44,18 @@ namespace Nova.WinForms.Gui
 
         private Fleet selectedFleet;
         private Dictionary<long, Fleet> fleetsAtLocation = new Dictionary<long, Fleet>();
-
-        /// <Summary>
-        /// This event should be fired when the selected Fleet
-        /// changes.
-        /// </Summary>
-        public event SummarySelectionChanged SummarySelectionChangedEvent;
-
-        public event DetailSelectionChanged DetailSelectionChangedEvent;
         
-        /// <Summary>
-        /// This event should be fired in addition to
-        /// FleetSelectionChangedEvent to reflect the new selection's
-        /// cursor position.
-        /// </Summary>
-        public event CursorChanged CursorChangedEvent;
         
+        /// <summary>
+        /// Signals that the Fleet being displayed has changed.
+        /// </summary>
+        public event EventHandler<SelectionArgs> FleetSelectionChanged;        
+                
         /// <Summary>
         /// This event should be fired when a waypoint is deleted,
         /// so the StarMap updates right away.
         /// </Summary>
-        public event RefreshStarMap RefreshStarMapEvent;
+        public event EventHandler StarmapChanged;
 
         
         /// <Summary>
@@ -204,7 +192,7 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        public void OnKeyPress(object sender, KeyPressEventArgs e)
+        private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (wayPoints.SelectedItems.Count <= 0)
             {
@@ -229,11 +217,11 @@ namespace Nova.WinForms.Gui
             }
             
             // Refresh the waypoint list on the GUI.
-            WaypointListChanged(this);                     
+            UpdateWaypointList(this, new EventArgs());
 
-            if (RefreshStarMapEvent != null)
+            if (StarmapChanged != null)
             {
-                RefreshStarMapEvent();
+                OnStarmapChanged(EventArgs.Empty);
             }
         }
 
@@ -259,11 +247,11 @@ namespace Nova.WinForms.Gui
                     }
                     
                     // Refresh the waypoint list on the GUI.
-                    WaypointListChanged(this);
+                    UpdateWaypointList(this, new EventArgs());
                     
-                    if (RefreshStarMapEvent != null)
+                    if (StarmapChanged != null)
                     {
-                        RefreshStarMapEvent();
+                        OnStarmapChanged(EventArgs.Empty);
                     }
                 }
                 e.Handled = true;
@@ -353,7 +341,8 @@ namespace Nova.WinForms.Gui
 
             selectedFleet = empireState.OwnedFleets.GetNext(empireState.OwnedFleets[selectedFleet.Key]);
             
-            UpdateListeners(selectedFleet);
+            // Signal the change.
+            OnFleetSelectionChanged(new SelectionArgs(selectedFleet));
         }
 
 
@@ -376,7 +365,8 @@ namespace Nova.WinForms.Gui
 
             selectedFleet = empireState.OwnedFleets.GetPrevious(empireState.OwnedFleets[selectedFleet.Key]);
 
-            UpdateListeners(selectedFleet);
+            // Signal the change.
+            OnFleetSelectionChanged(new SelectionArgs(selectedFleet));
         }
 
         /// <Summary>
@@ -384,7 +374,7 @@ namespace Nova.WinForms.Gui
         /// time, etc. required for this leg.
         /// </Summary>
         /// <param name="index">Index of the waypoint to display.</param>
-        public void DisplayLegDetails(int index)
+        private void DisplayLegDetails(int index)
         {
             Waypoint thisWaypoint = selectedFleet.Waypoints[index];
 
@@ -577,7 +567,7 @@ namespace Nova.WinForms.Gui
         {
             if (selectedFleet != null && selectedFleet.InOrbit != null)
             {
-                UpdateListeners(selectedFleet.InOrbit);
+                OnFleetSelectionChanged(null);
             }
         }
 
@@ -586,7 +576,7 @@ namespace Nova.WinForms.Gui
             Fleet newFleet = GetSelectedFleetAtLocation();
 
             // Inform of the selection change to all listening objects.
-            UpdateListeners(newFleet);
+            OnFleetSelectionChanged(new SelectionArgs(selectedFleet));
         }
 
         private void ButtonMerge_Click(object sender, EventArgs e)
@@ -673,7 +663,8 @@ namespace Nova.WinForms.Gui
                     selectedFleet = (otherFleet == null) ? selectedFleet : otherFleet;
                 }
                 
-                ReselectFleetToUpdateUi();
+                // Signal the change.
+                OnFleetSelectionChanged(new SelectionArgs(selectedFleet));
             }
         }
 
@@ -707,58 +698,36 @@ namespace Nova.WinForms.Gui
                 if (dia.ShowDialog() == DialogResult.OK)
                 {
                     selectedFleet.Name = dia.FleetName;
-                    // Reselect fleet to update all UI
-                    ReselectFleetToUpdateUi();
+
+                    Invalidate();
+                    //TODO (priority 2) - Implement a command for this.
                 }
             }
         }
 
-        // DEPRECATED. Left here in case things ASPLODE!
-        private void ReselectFleetToUpdateUi()
-        {
-            DetailSelectionArgs detailArgs = new DetailSelectionArgs(selectedFleet);
-            if (DetailSelectionChangedEvent != null)
-            {
-                DetailSelectionChangedEvent(this, detailArgs);
-            }
-        }
         
-        private void UpdateListeners(Mappable item)
+        protected virtual void OnFleetSelectionChanged(SelectionArgs e)
         {
-            if (DetailSelectionChangedEvent != null && item.Owner == empireState.Id)
-            {
-                DetailSelectionChangedEvent(this, new DetailSelectionArgs(item));
-            }
+            SetFleetDetails(selectedFleet);
             
-            if (SummarySelectionChangedEvent != null)
-            {
-                SummarySelectionArgs summaryArgs;
-                
-                if (item.Type == ItemType.Fleet)
-                {
-                    summaryArgs = new SummarySelectionArgs(empireState.FleetReports[item.Key]);
-                }
-                else
-                {
-                    summaryArgs = new SummarySelectionArgs(empireState.StarReports[item.Name]);
-                }
-                
-                SummarySelectionChangedEvent(this, summaryArgs);
+            if (FleetSelectionChanged != null) {
+                FleetSelectionChanged(this, e);
             }
-            
-            if (CursorChangedEvent != null)
-            {
-                CursorChangedEvent(this, new CursorArgs((Point)item.Position));
-            }    
-        }
+        }        
 
-        // Handles updating of the waypointList in the GUI when waypoints
-        // are added, removed, or edited.
-        public void WaypointListChanged(object sender)
+        // Updates WaypointList when waypoints are changed from the StarMap (or other).
+        public void UpdateWaypointList(object sender, EventArgs e)
         {
             ((CurrencyManager)wayPoints.BindingContext[wayPoints.DataSource]).Refresh();
             
             wayPoints.SelectedIndex = wayPoints.Items.Count - 1;
+        }
+        
+        protected virtual void OnStarmapChanged(EventArgs e)
+        {
+            if (StarmapChanged != null) {
+                StarmapChanged(this, e);
+            }
         }
     }
 }

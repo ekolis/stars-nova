@@ -44,23 +44,14 @@ namespace Nova.WinForms.Gui
         // down to the ProductionDialog. In any case, ProductionDialog shouldn't need
         // the whole state either. Must refactor this.
         private ClientData clientState;
-        
-        /// <Summary>
-        /// This event should be fired when the selection changes.
-        /// </Summary>
-        public event SummarySelectionChanged SummarySelectionChangedEvent;
-
-        public event DetailSelectionChanged DetailSelectionChangedEvent;
-        
-        /// <Summary>
-        /// This event should be fired in addition to
-        /// StarSelectionChangedEvent to reflect the new selection's
-        /// cursor position.
-        /// </Summary>
-        public event CursorChanged CursorChangedEvent;
 
         private Dictionary<string, Fleet> fleetsInOrbit = new Dictionary<string, Fleet>();
 
+        /// <summary>
+        /// Signals that the selected Star has changed.
+        /// </summary>
+        public event EventHandler<SelectionArgs> PlanetSelectionChanged;
+        
         /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
         /// </Summary>
@@ -111,8 +102,7 @@ namespace Nova.WinForms.Gui
             selectedStar = empireState.OwnedStars.GetNext(empireState.OwnedStars[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
-            FireStarSelectionChangedEvent();
-            FireCursorChangedEvent();
+            OnPlanetSelectionChanged(new SelectionArgs(selectedStar));
         }
 
 
@@ -136,24 +126,7 @@ namespace Nova.WinForms.Gui
             selectedStar = empireState.OwnedStars.GetPrevious(empireState.OwnedStars[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
-            FireStarSelectionChangedEvent();
-            FireCursorChangedEvent();
-        }
-
-        private void FireCursorChangedEvent()
-        {
-            if (CursorChangedEvent != null)
-            {
-                CursorChangedEvent(this, new CursorArgs((Point)selectedStar.Position));
-            }
-        }
-
-        private void FireStarSelectionChangedEvent()
-        {
-            if (DetailSelectionChangedEvent != null)
-            {
-                DetailSelectionChangedEvent(this, new DetailSelectionArgs(selectedStar));
-            }
+            OnPlanetSelectionChanged(new SelectionArgs(selectedStar));
         }
 
         /// <Summary>
@@ -322,7 +295,7 @@ namespace Nova.WinForms.Gui
             Fleet fleet = GetSelectedFleetInOrbit();
             if (fleet != null)
             {
-                UpdateListeners(fleet);
+                OnPlanetSelectionChanged(new SelectionArgs(selectedStar));
             }
         }
 
@@ -348,31 +321,14 @@ namespace Nova.WinForms.Gui
             }
         }
         
-        private void UpdateListeners(Mappable item)
+        
+        protected virtual void OnPlanetSelectionChanged(SelectionArgs e)
         {
-            if (DetailSelectionChangedEvent != null && item.Owner == empireState.Id)
-            {
-                DetailSelectionChangedEvent(this, new DetailSelectionArgs(item));
-            }
-            if (SummarySelectionChangedEvent != null)
-            {
-                SummarySelectionArgs summaryArgs;
+            SetStarDetails(selectedStar);
                 
-                if (item.Type == ItemType.Fleet)
-                {
-                    summaryArgs = new SummarySelectionArgs(empireState.FleetReports[item.Key]);
-                }
-                else
-                {
-                    summaryArgs = new SummarySelectionArgs(empireState.StarReports[item.Name]);
-                }
-                
-                SummarySelectionChangedEvent(this, summaryArgs);
+            if (PlanetSelectionChanged != null) {
+                PlanetSelectionChanged(this, e);
             }
-            if (CursorChangedEvent != null)
-            {
-                CursorChangedEvent(this, new CursorArgs((Point)item.Position));
-            }    
-        }
+        }       
     }
 }
