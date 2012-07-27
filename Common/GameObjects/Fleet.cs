@@ -512,6 +512,20 @@ namespace Nova.Common
             
         }
 
+
+        public TravelStatus GetTravelStatus()
+        {
+            Waypoint target = Waypoints[0];
+            if (Position == target.Position)
+            {
+                return TravelStatus.Arrived;
+            }
+            else
+            {
+                return TravelStatus.InTransit;
+            }
+        }
+
         
         /// <summary>
         /// Move the fleet towards the waypoint at the top of the list. Fuel is consumed
@@ -523,12 +537,12 @@ namespace Nova.Common
         /// <returns>A TravelStatus indicating arrival or in-transit.</returns>
         public TravelStatus Move(ref double availableTime, Race race)
         {
-            Waypoint target = Waypoints[0];
-
-            if (Position == target.Position)
+            if (GetTravelStatus() == TravelStatus.Arrived)
             {
                 return TravelStatus.Arrived;
             }
+
+            Waypoint target = Waypoints[0];
 
             InOrbit = null;
 

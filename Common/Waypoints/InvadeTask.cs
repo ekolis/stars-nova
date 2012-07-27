@@ -63,7 +63,7 @@ namespace Nova.Common.Waypoints
             }    
         }
         
-        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             Message message = new Message();
             Messages.Add(message);
@@ -140,7 +140,7 @@ namespace Nova.Common.Waypoints
             return true;          
         }
         
-        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             Star star = (Star)target;
             
@@ -166,7 +166,7 @@ namespace Nova.Common.Waypoints
             }
 
             double defenderBonus = 1.0;
-            if (reciever.Race.HasTrait("IS"))
+            if (receiver.Race.HasTrait("IS"))
             {
                 defenderBonus *= 2.0;
             }
@@ -205,7 +205,7 @@ namespace Nova.Common.Waypoints
                 int attackersKilled = troops - remainingAttackers;
                 star.Colonists = remainingAttackers;
                 
-                reciever.OwnedStars.Remove(star);
+                receiver.OwnedStars.Remove(star);
                 star.Owner = fleet.Owner;
                 sender.OwnedStars.Add(star);
                 sender.StarReports[star.Key].Update(star, ScanLevel.Owned, sender.TurnYear);

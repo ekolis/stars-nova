@@ -130,7 +130,7 @@ namespace Nova.Common.Waypoints
 
         
         /// <inheritdoc />
-        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             if (fleet.InOrbit == null || target == null || !(target is Star))
             {
@@ -150,9 +150,9 @@ namespace Nova.Common.Waypoints
                 
                 InvadeTask invade = new InvadeTask();
                 
-                if (invade.isValid(fleet, target, sender, reciever))
+                if (invade.isValid(fleet, target, sender, receiver))
                 {
-                    toReturn = invade.Perform(fleet, target, sender, reciever);
+                    toReturn = invade.Perform(fleet, target, sender, receiver);
                 }
                 
                 Messages.AddRange(invade.Messages);
@@ -165,15 +165,15 @@ namespace Nova.Common.Waypoints
         
         
         /// <inheritdoc />
-        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {            
             switch(Mode)
             {
                 case CargoMode.Load:
-                    return Load(fleet, target, sender, reciever);
+                    return Load(fleet, target, sender, receiver);
                     
                 case CargoMode.Unload:
-                    return Unload(fleet, target, sender, reciever);
+                    return Unload(fleet, target, sender, receiver);
             }
             
             return false;
@@ -183,7 +183,7 @@ namespace Nova.Common.Waypoints
         /// <summary>
         /// Performs concrete unloading.
         /// </summary>
-        private bool Unload(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        private bool Unload(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             Star star = target as Star;
             
@@ -201,7 +201,7 @@ namespace Nova.Common.Waypoints
         /// <summary>
         /// Performs concrete loading.
         /// </summary>
-        private bool Load(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        private bool Load(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             Star star = target as Star;
             
