@@ -176,6 +176,7 @@ namespace Nova.Common
         /// <param name="node">An XmlNode containing a EmpireData representation (from a save file).</param>
         public EmpireData(XmlNode node)
         {
+            Initialize();
             XmlNode mainNode = node.FirstChild;
             XmlNode subNode;
             while (mainNode != null)
