@@ -56,9 +56,9 @@ namespace Nova.Common.Waypoints
         /// <param name="fleet">The fleet that carries out the Task</param>
         /// <param name="target">The Mappable (Fleet/Star) target of the Task</param>
         /// <param name="sender">The EmpireData that owns the fleet</param>
-        /// <param name="reciever">The EmpireData (if any) that owns the target</param>
+        /// <param name="receiver">The EmpireData (if any) that owns the target</param>
         /// <returns>True if the task can be performed</returns>
-        bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever = null);
+        bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver = null);
         
         /// <summary>
         /// Performs the Waypoint Task at hand.
@@ -66,9 +66,9 @@ namespace Nova.Common.Waypoints
         /// <param name="fleet">The fleet that carries out the Task</param>
         /// <param name="target">The Mappable (Fleet/Star) target of the Task</param>
         /// <param name="sender">The EmpireData that owns the fleet</param>
-        /// <param name="reciever">The EmpireData (if any) that owns the target</param>
+        /// <param name="receiver">The EmpireData (if any) that owns the target</param>
         /// <returns>True if the task was succesful</returns>
-        bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever = null);   
+        bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver = null);   
         
         /// <summary>
         /// Save: Generate an XmlElement representation of this object for saving.

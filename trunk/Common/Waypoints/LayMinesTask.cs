@@ -63,7 +63,7 @@ namespace Nova.Common.Waypoints
             }    
         }
         
-        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             Message message = new Message();
             Messages.Add(message);            
@@ -80,7 +80,7 @@ namespace Nova.Common.Waypoints
             return true;           
         }
         
-        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             // See if a Minefield is already here (owned by us). We allow a
             // certaintolerance in distance because it is unlikely that the

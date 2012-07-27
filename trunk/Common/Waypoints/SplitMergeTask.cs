@@ -185,7 +185,7 @@ namespace Nova.Common.Waypoints
 
         
         /// <inheritdoc />
-        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             // fleet is the original fleet to split, or the recipient of a merge.
             // target (as Fleet) is the new fleet in a split, or the fleet to be merged into FirstFleet.           
@@ -198,7 +198,7 @@ namespace Nova.Common.Waypoints
         
         
         /// <inheritdoc />
-        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         { 
             Fleet secondFleet = null;
             
@@ -206,9 +206,9 @@ namespace Nova.Common.Waypoints
             if (OtherFleetKey != 0)
             {
                 // This allows to merge with other empires if desired at some point.
-                if(reciever.OwnedFleets.ContainsKey(OtherFleetKey))
+                if(receiver.OwnedFleets.ContainsKey(OtherFleetKey))
                 {
-                    secondFleet = reciever.OwnedFleets[OtherFleetKey];
+                    secondFleet = receiver.OwnedFleets[OtherFleetKey];
                 }
                 else if (sender.OwnedFleets.ContainsKey(OtherFleetKey)) // Do we own the key?
                 {

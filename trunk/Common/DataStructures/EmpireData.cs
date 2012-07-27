@@ -69,7 +69,7 @@ namespace Nova.Common
         public TechLevel    ResearchResources       = new TechLevel(); // current cumulative resources on technologies
         public TechLevel    ResearchTopics          = new TechLevel(); // order of researching
         
-        public RaceComponents   AvailableComponents = new RaceComponents();
+        public RaceComponents   AvailableComponents;
         public Dictionary<long, ShipDesign> Designs     = new Dictionary<long, ShipDesign>(); 
         
         public StarList OwnedStars = new StarList();
@@ -151,7 +151,13 @@ namespace Nova.Common
         /// </summary>
         public EmpireData() 
         {
+            Initialize();
             BattlePlans.Add("Default", new BattlePlan());
+        }
+
+        protected virtual void Initialize()
+        {
+            AvailableComponents = new RaceComponents();
         }
 
         /// <summary>
