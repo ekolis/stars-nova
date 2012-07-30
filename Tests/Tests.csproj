@@ -101,6 +101,7 @@
     <Compile Include="UnitTests\StarMapInitialiserTest.cs" />
     <Compile Include="UnitTests\StarTest.cs" />
     <Compile Include="IntegrationTests\TestControls.cs" />
+    <Compile Include="UnitTests\TurnGeneratorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

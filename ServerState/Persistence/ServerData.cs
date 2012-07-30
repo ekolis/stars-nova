@@ -41,7 +41,7 @@ namespace Nova.Server
     /// but it's just convenient to keep all "global" data in one place.
     /// </summary>
     [Serializable]
-    public sealed class ServerData
+    public class ServerData
     {
         public Dictionary<int, Stack<ICommand>> AllCommands     = new Dictionary<int, Stack<ICommand>>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
@@ -465,5 +465,61 @@ namespace Nova.Server
         {
             return AllStars.Values.Select(star => star as Mappable).Concat(AllEmpires.Values.SelectMany(empire => empire.OwnedFleets.Values.Select(fleet => fleet as Mappable)));
         }
+
+        /// <summary>
+        /// Remove fleets that no longer have ships.
+        /// This needs to be done after each time the fleet list is processed, as fleets can not be destroyed until the itterator complets.
+        /// </summary>
+        public void CleanupFleets()
+        {
+            // create a list of all fleets that have been destroyed
+            List<long> destroyedFleets = new List<long>();
+
+            foreach (Fleet fleet in IterateAllFleets())
+            {
+                if (fleet.Composition.Count == 0)
+                {
+                    destroyedFleets.Add(fleet.Key);
+                }
+            }
+
+            foreach (long key in destroyedFleets)
+            {
+                foreach (EmpireData empire in AllEmpires.Values)
+                {
+                    empire.RemoveFleet(key);
+                }
+            }
+
+            // And remove stations too.
+            List<string> destroyedStations = new List<string>();
+            foreach (Star star in AllStars.Values)
+            {
+                if (star.Starbase != null && star.Starbase.Composition.Count == 0)
+                {
+                    destroyedStations.Add(star.Name);
+                }
+            }
+            foreach (string key in destroyedStations)
+            {
+                AllStars[key].Starbase = null;
+
+            }
+
+            // Get fleets out of limbo.
+            foreach (EmpireData empire in AllEmpires.Values)
+            {
+                if (empire.TemporaryFleets.Count > 0)
+                {
+                    foreach (Fleet newFleet in empire.TemporaryFleets)
+                    {
+                        empire.AddOrUpdateFleet(newFleet);
+                    }
+                }
+            }
+        }
+
+
+
     }
 }
