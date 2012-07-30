@@ -97,18 +97,24 @@ namespace Nova.Server
             // For now, just copy the command stacks right away.
             // TODO (priority 6): Integrity check the new turn before
             // updating the state (cheats, errors).
-            orderReader.ReadOrders();
-            
+            ReadOrders();
+
+            // for all commands of all empires: command.ApplyToState(empire);
+            // for WaypointCommand: Add Waypoints to Fleets.
             ParseCommands();
 
             // Do all fleet movement and actions 
             // TODO (priority 4) - split this up into waypoint zero and waypoint 1 actions
-            
+
+            // ToDo: Step 1 --> Scrap Fleet if waypoint 0 order; here, and only here.
+            // ToDo: ScrapFleetStep / foreach ITurnStep for waypoint 0. Own TurnStep-List for Waypoint 0?
+            new ScrapFleetStep().Process(serverState);
+
             foreach (Fleet fleet in serverState.IterateAllFleets())
             {
-                ProcessFleet(fleet);
+                ProcessFleet(fleet); // ToDo: don't scrap fleets here at waypoint 1
             }
-            CleanupFleets();
+            CleanupFleets(serverState);
 
             // remove battle from old turns
             foreach (EmpireData empire in serverState.AllEmpires.Values)
@@ -118,7 +124,7 @@ namespace Nova.Server
                                 
             battleEngine.Run();
             
-            CleanupFleets();            
+            CleanupFleets(serverState);            
 
             victoryCheck.Victor();
 
@@ -135,7 +141,7 @@ namespace Nova.Server
                 turnStep.Process(serverState);    
             }
             
-            intelWriter.WriteIntel();
+            WriteIntel();
 
             // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
             serverState.AllMessages = new List<Message>();
@@ -143,10 +149,20 @@ namespace Nova.Server
             CleanupOrders();
         }
 
+        protected virtual void WriteIntel()
+        {
+            intelWriter.WriteIntel();
+        }
+
+        protected virtual void ReadOrders()
+        {
+            orderReader.ReadOrders();
+        }
+
         /// <summary>
         /// Validates and applies all commands sent by the clients and read for this turn.
         /// </summary>
-        private void ParseCommands()
+        protected virtual void ParseCommands()
         {
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
@@ -173,64 +189,20 @@ namespace Nova.Server
                 }
             }
         }
-        
+
         /// <summary>
         /// Remove fleets that no longer have ships.
         /// This needs to be done after each time the fleet list is processed, as fleets can not be destroyed until the itterator complets.
         /// </summary>
-        private void CleanupFleets()
+        private void CleanupFleets(ServerData serverData)
         {
-            // create a list of all fleets that have been destroyed
-            List<long> destroyedFleets = new List<long>();
-            
-            foreach (Fleet fleet in serverState.IterateAllFleets())
-            {
-                if (fleet.Composition.Count == 0)
-                {
-                    destroyedFleets.Add(fleet.Key);
-                }
-            }
-            
-            foreach (long key in destroyedFleets)
-            {
-                foreach (EmpireData empire in serverState.AllEmpires.Values)
-                {
-                    empire.RemoveFleet(key);
-                }
-            }
-
-            // And remove stations too.
-            List<string> destroyedStations = new List<string>();
-            foreach (Star star in serverState.AllStars.Values)
-            {
-                if (star.Starbase != null && star.Starbase.Composition.Count == 0)
-                {
-                    destroyedStations.Add(star.Name);
-                }
-            }
-            foreach (string key in destroyedStations)
-            {
-                serverState.AllStars[key].Starbase = null;
-
-            }
-
-            // Get fleets out of limbo.
-            foreach (EmpireData empire in serverState.AllEmpires.Values)
-            {
-                if (empire.TemporaryFleets.Count > 0)
-                {
-                    foreach (Fleet newFleet in empire.TemporaryFleets)
-                    {
-                        empire.AddOrUpdateFleet(newFleet);
-                    }
-                }
-            }            
+            serverData.CleanupFleets();
         }
         
         /// <summary>
         /// Delete order files, done after turn generation.
         /// </summary>
-        private void CleanupOrders()
+        protected virtual void CleanupOrders()
         {
             // Delete orders on turn generation.
             // Copy each file into it’s new directory.
@@ -247,7 +219,7 @@ namespace Nova.Server
         /// <summary>
         /// Copy all turn files to a sub-directory prior to generating the new turn.
         /// </summary>
-        private void BackupTurn()
+        protected virtual void BackupTurn()
         {
             // TODO (priority 3) - Add a setting to control the number of backups.
             int currentTurn = serverState.TurnYear;
@@ -445,11 +417,15 @@ namespace Nova.Server
             double availableTime = 1.0;
             Random rand = new Random(); // FIXME (priority 4) - There should be only one random number source for the server.
 
-            while (fleet.Waypoints.Count > 0)
+            while (fleet.Waypoints.Count > 0) // stops when the actual waypoint target is not reached
             {
                 Waypoint waypointZero = fleet.Waypoints[0];
-
+                   
                 Fleet.TravelStatus fleetMoveResult;
+
+                // -------------------
+                // Move
+                // -------------------
 
                 // Check for Cheap Engines failing to start
                 if (waypointZero.WarpFactor > 6 && race.Traits.Contains("CE") && rand.Next(10) == 1)
@@ -497,9 +473,13 @@ namespace Nova.Server
                         serverState.AllEmpires.TryGetValue(target.Owner, out reciever);
                     }
                     
+                    // -------------------------
+                    // Waypoint 1 Tasks
+                    // -------------------------
+
                     if (waypointZero.Task.isValid(fleet, target, sender, reciever))
                     {
-                        waypointZero.Task.Perform(fleet, target, sender, reciever);
+                        waypointZero.Task.Perform(fleet, target, sender, reciever); // ToDo: scrapping fleet may be performed as waypoint 1 task here which is not correct.
                     }
                     
                     serverState.AllMessages.AddRange(waypointZero.Task.Messages);
