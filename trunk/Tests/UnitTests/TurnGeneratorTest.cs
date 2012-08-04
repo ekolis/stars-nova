@@ -153,5 +153,28 @@ namespace Nova.Tests.UnitTests
             // Assert.AreEqual(fleets.First().Composition.Count(), 1);
             Assert.IsNotEmpty(serverData.IterateAllFleets().ToList());
         }
+
+        [Test]
+        public void SetFleetOrbit()
+        {
+            Fleet fleet = new Fleet(1);
+            fleet.InOrbit = null;
+
+            Star star = new Star();
+            star.Name = "Star1";
+            NovaPoint starPoint = new NovaPoint(0, 0);
+
+            serverData = new SimpleServerData();
+            serverData.AllStars.Add(star.Key, star);
+
+            NovaPoint fleetPoint = new NovaPoint(0, 0);
+            fleet.Position = fleetPoint;
+            serverData.SetFleetOrbit(fleet);
+            Assert.AreEqual(star.Name, fleet.InOrbit.Name);
+
+            fleet.Position.X = 1;
+            serverData.SetFleetOrbit(fleet);
+            Assert.AreEqual(null, fleet.InOrbit);
+        }
     }
 }

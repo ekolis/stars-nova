@@ -188,6 +188,12 @@ namespace Nova.Common.DataStructures
             this.Y += y;
         }
 
+        // returns a unique string for each distinct NovaPoint
+        public string ToHashString()
+        {
+            return X.ToString() + "#" + Y.ToString();
+        }
+
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>

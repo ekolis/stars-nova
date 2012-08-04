@@ -56,6 +56,8 @@ namespace Nova.Server
         public int TurnYear             = Global.StartingYear;
         public string GameFolder        = null; // The path&folder where client files are held.
         public string StatePathName     = null; // path&file name to the saved state data
+
+        private Dictionary<string, Star> starForPosition = null;
         
         /// <summary>
         /// Creates a new fresh server state.
@@ -519,7 +521,31 @@ namespace Nova.Server
             }
         }
 
+        // See if the fleet is orbiting a star
+        public void SetFleetOrbit(Fleet fleet)
+        {
+            try
+            {
+                fleet.InOrbit = GetStarForPosition(fleet.Position);
+            }
+            catch (KeyNotFoundException e)
+            {
+                fleet.InOrbit = null;
+            }
+        }
 
+        public Star GetStarForPosition(NovaPoint position)
+        {
+            if (starForPosition == null)
+            {
+                starForPosition = new Dictionary<string, Star>();
+                foreach (Star star in AllStars.Values)
+                {
+                    starForPosition.Add(star.Position.ToHashString(), star);
+                }
+            }
 
+            return starForPosition[position.ToHashString()];
+        }
     }
 }
