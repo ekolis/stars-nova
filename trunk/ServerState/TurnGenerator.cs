@@ -47,6 +47,7 @@ namespace Nova.Server
         // Used to order turn steps.
         private const int FIRSTSTEP = 00;
         private const int STARSTEP = 12;
+        private const int BOMBINGSTEP = 19;
         private const int SCANSTEP = 99;
         
         // TODO: (priority 5) refactor all these into ITurnStep(s).
@@ -82,6 +83,7 @@ namespace Nova.Server
             victoryCheck = new VictoryCheck(this.serverState, this.scores);
             
             turnSteps.Add(SCANSTEP, new ScanStep());
+            turnSteps.Add(BOMBINGSTEP, new BombingStep());
             turnSteps.Add(STARSTEP, new StarUpdateStep());
         }
         
@@ -114,7 +116,7 @@ namespace Nova.Server
             {
                 ProcessFleet(fleet); // ToDo: don't scrap fleets here at waypoint 1
             }
-            CleanupFleets(serverState);
+            serverState.CleanupFleets();
 
             // remove battle from old turns
             foreach (EmpireData empire in serverState.AllEmpires.Values)
@@ -123,8 +125,8 @@ namespace Nova.Server
             }
                                 
             battleEngine.Run();
-            
-            CleanupFleets(serverState);            
+
+            serverState.CleanupFleets();
 
             victoryCheck.Victor();
 
@@ -188,15 +190,6 @@ namespace Nova.Server
                     serverState.AllStars[star.Key] = star;
                 }
             }
-        }
-
-        /// <summary>
-        /// Remove fleets that no longer have ships.
-        /// This needs to be done after each time the fleet list is processed, as fleets can not be destroyed until the itterator complets.
-        /// </summary>
-        private void CleanupFleets(ServerData serverData)
-        {
-            serverData.CleanupFleets();
         }
         
         /// <summary>
@@ -292,13 +285,6 @@ namespace Nova.Server
                 message.Audience = fleet.Owner;
                 message.Text = fleet.Name + " has ran out of fuel.";
                 serverState.AllMessages.Add(message);
-            }
-
-            // See if we need to bomb this place.
-
-            if (fleet.InOrbit != null && fleet.HasBombers)
-            {
-                bombing.Bomb(fleet, serverState.AllStars[fleet.InOrbit.Name]);
             }
 
             // ??? (priority 4) - why does this always return false?
