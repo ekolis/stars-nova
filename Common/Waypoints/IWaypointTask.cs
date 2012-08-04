@@ -28,12 +28,6 @@ namespace Nova.Common.Waypoints
     
     using Nova.Common;
     
-    public enum CargoMode
-    {
-        Load = 0,
-        Unload
-    }
-    
     /// <summary>
     /// Interface for common Waypoint Tasks functionality
     /// </summary>
