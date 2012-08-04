@@ -40,9 +40,9 @@ namespace Nova.Server
     /// </summary>
     public class TurnGenerator
     {
-        private ServerData serverState;
-        
+        private ServerData serverState;        
         private SortedList<int, ITurnStep> turnSteps;
+        private Random rand;
         
         // Used to order turn steps.
         private const int FIRSTSTEP = 00;
@@ -65,9 +65,9 @@ namespace Nova.Server
         /// </summary>
         public TurnGenerator(ServerData serverState)
         {
-            this.serverState = serverState;
-            
+            this.serverState = serverState;            
             turnSteps = new SortedList<int, ITurnStep>();
+            rand = new Random();
             
             // Now that there is a state, comopose the turn processor.
             // TODO ??? (priority 4): Use dependency injection for this? It would
@@ -264,15 +264,7 @@ namespace Nova.Server
                 return true;
             }
 
-            // See if the fleet is orbiting a star
-            fleet.InOrbit = null;
-            foreach (Star star in serverState.AllStars.Values)
-            {
-                if (star.Position.X == fleet.Position.X && star.Position.Y == fleet.Position.Y)
-                {
-                    fleet.InOrbit = star;
-                }
-            }
+            CheckStarOrbit(fleet);
 
             // refuel/repair
             RegenerateFleet(fleet);
@@ -289,6 +281,43 @@ namespace Nova.Server
 
             // ??? (priority 4) - why does this always return false?
             return false;
+        }
+
+        private void CheckStarOrbit(Fleet fleet)
+        {
+            // See if the fleet is orbiting a star
+            fleet.InOrbit = null;
+            foreach (Star star in serverState.AllStars.Values)
+            {
+                if (star.Position.X == fleet.Position.X && star.Position.Y == fleet.Position.Y)
+                {
+                    fleet.InOrbit = star;
+                }
+            }
+
+            // test new and theoretical faster algorithm for same
+            Dictionary<string, Star> starForPosition = new Dictionary<string, Star>();
+            foreach (Star star in serverState.AllStars.Values)
+            {
+                starForPosition.Add(star.Position.X.ToString() + "#" + star.Position.Y.ToString(), star);
+            }
+            string fleetPosition = fleet.Position.X.ToString() + "#" + fleet.Position.Y.ToString();
+            Star starx;
+            bool found = false;
+            try
+            {
+                starx = starForPosition[fleetPosition];
+            }
+            catch (KeyNotFoundException e)
+            {
+                starx = null;
+            }
+
+            found = starx == fleet.InOrbit;
+            if (!found)
+            {
+                int x = 1;
+            }            
         }
 
         /// <summary>
@@ -401,7 +430,6 @@ namespace Nova.Server
 
             Waypoint currentPosition = new Waypoint();
             double availableTime = 1.0;
-            Random rand = new Random(); // FIXME (priority 4) - There should be only one random number source for the server.
 
             while (fleet.Waypoints.Count > 0) // stops when the actual waypoint target is not reached
             {
