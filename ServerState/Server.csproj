@@ -89,13 +89,14 @@
     <Compile Include="Scores.cs" />
     <Compile Include="Persistence\ServerData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TurnSteps\BombingStep.cs" />
     <Compile Include="TurnSteps\FirstStep.cs" />
     <Compile Include="TurnSteps\ScrapFleetStep.cs" />
     <Compile Include="TurnSteps\StarUpdateStep.cs" />
     <Compile Include="VictoryCheck.cs" />
     <Compile Include="WeaponDetails.cs" />
     <Compile Include="TurnGenerator.cs" />
-    <Compile Include="TurnSteps\TurnStep.cs" />
+    <Compile Include="TurnSteps\ITurnStep.cs" />
     <Compile Include="TurnSteps\ScanStep.cs" />
     <Compile Include="NewGame\NameGenerator.cs" />
     <Compile Include="NewGame\StarMapInitialiser.cs" />
