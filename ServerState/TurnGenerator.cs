@@ -264,8 +264,6 @@ namespace Nova.Server
                 return true;
             }
 
-            CheckStarOrbit(fleet);
-
             // refuel/repair
             RegenerateFleet(fleet);
 
@@ -281,43 +279,6 @@ namespace Nova.Server
 
             // ??? (priority 4) - why does this always return false?
             return false;
-        }
-
-        private void CheckStarOrbit(Fleet fleet)
-        {
-            // See if the fleet is orbiting a star
-            fleet.InOrbit = null;
-            foreach (Star star in serverState.AllStars.Values)
-            {
-                if (star.Position.X == fleet.Position.X && star.Position.Y == fleet.Position.Y)
-                {
-                    fleet.InOrbit = star;
-                }
-            }
-
-            // test new and theoretical faster algorithm for same
-            Dictionary<string, Star> starForPosition = new Dictionary<string, Star>();
-            foreach (Star star in serverState.AllStars.Values)
-            {
-                starForPosition.Add(star.Position.X.ToString() + "#" + star.Position.Y.ToString(), star);
-            }
-            string fleetPosition = fleet.Position.X.ToString() + "#" + fleet.Position.Y.ToString();
-            Star starx;
-            bool found = false;
-            try
-            {
-                starx = starForPosition[fleetPosition];
-            }
-            catch (KeyNotFoundException e)
-            {
-                starx = null;
-            }
-
-            found = starx == fleet.InOrbit;
-            if (!found)
-            {
-                int x = 1;
-            }            
         }
 
         /// <summary>
@@ -512,6 +473,7 @@ namespace Nova.Server
             }
 
             fleet.Waypoints.Insert(0, currentPosition);
+            serverState.SetFleetOrbit(fleet);
 
             if (fleet.Waypoints.Count > 1)
             {
