@@ -27,6 +27,12 @@ namespace Nova.Common.Waypoints
     using System.Xml;
     
     using Nova.Common;
+
+    public enum CargoMode
+    {
+        Load = 0,
+        Unload
+    }   
     
     /// <summary>
     /// Performs Star Colonisation.
