@@ -57,7 +57,7 @@ namespace Nova.Server
         public string GameFolder        = null; // The path&folder where client files are held.
         public string StatePathName     = null; // path&file name to the saved state data
 
-        private Dictionary<string, Star> starForPosition = null;
+        private Dictionary<string, Star> StarPositionDictionary = null;
         
         /// <summary>
         /// Creates a new fresh server state.
@@ -526,7 +526,7 @@ namespace Nova.Server
         {
             try
             {
-                fleet.InOrbit = GetStarForPosition(fleet.Position);
+                fleet.InOrbit = GetStarAtPosition(fleet.Position);
             }
             catch (KeyNotFoundException e)
             {
@@ -534,18 +534,18 @@ namespace Nova.Server
             }
         }
 
-        public Star GetStarForPosition(NovaPoint position)
+        public Star GetStarAtPosition(NovaPoint position)
         {
-            if (starForPosition == null)
+            if (StarPositionDictionary == null)
             {
-                starForPosition = new Dictionary<string, Star>();
+                StarPositionDictionary = new Dictionary<string, Star>();
                 foreach (Star star in AllStars.Values)
                 {
-                    starForPosition.Add(star.Position.ToHashString(), star);
+                    StarPositionDictionary.Add(star.Position.ToHashString(), star);
                 }
             }
 
-            return starForPosition[position.ToHashString()];
+            return StarPositionDictionary[position.ToHashString()];
         }
     }
 }
