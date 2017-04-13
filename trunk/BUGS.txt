@@ -1,4 +1,4 @@
-
+test foo
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\CLIENTSTATE\CLIENTSTATE.CS
 [341]             * TODO (priority 7) ensure the AI can open its files without user input.
 
