@@ -162,6 +162,10 @@ namespace Nova.Common.Components
                     Report.FatalError("Unable to locate component definition file.");
                 }
             }
+            else
+            {
+                Report.Debug("Components file to be loaded: " + saveFilePath);
+            }
             
             ProgressDialog progress = new ProgressDialog();
             progress.Text = "Loading Components";
@@ -170,6 +174,7 @@ namespace Nova.Common.Components
             
             if (!progress.Success)
             {
+                Report.FatalError("Failed to load component file: ProgressDialog returned false.");
                 throw new System.Exception();
             }
         }

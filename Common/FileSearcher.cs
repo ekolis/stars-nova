@@ -154,6 +154,10 @@ namespace Nova.Common
             return config;
         }
         
+        /// <summary>
+        /// Get the path where Nova graphics are stored.
+        /// </summary>
+        /// <returns>Either the path where the graphics are located or null if the graphics are not available.</returns>
         public static string GetGraphicsPath()
         {
             string graphicsPath;
@@ -165,7 +169,6 @@ namespace Nova.Common
                 {
                     return null;
                 }
-
 
                 // Try the config file
                 graphicsPath = conf[Global.GraphicsFolderKey];
@@ -196,13 +199,17 @@ namespace Nova.Common
                     }
                 }
 
+                // update the config if required
                 if (Directory.Exists(graphicsPath) && updateConf)
                 {
                     conf[Global.GraphicsFolderKey] = graphicsPath;
                 }
-                else
+                
+                // disable graphics if required
+                if (!Directory.Exists(graphicsPath))
                 {
                     disableComponentGraphics = true;
+                    Report.Error("Unable to locate Nova! graphics components.");
                 }
             }
             return graphicsPath;
