@@ -38,8 +38,8 @@ namespace Nova.Common.Components
     {
         public TechLevel RequiredTech = new TechLevel();
         public Image ComponentImage;
-        public string ImageFile;
-        public string Description;
+        public string ImageFile = String.Empty;
+        public string Description = String.Empty;
         public RaceRestriction Restrictions = new RaceRestriction();
 
         public Dictionary<string, ComponentProperty> Properties;
@@ -146,7 +146,10 @@ namespace Nova.Common.Components
                         case "image":
                             {
                                 // Paths are always stored in external files using forward slashes.
-                                ImageFile = ((XmlText)mainNode.FirstChild).Value.Replace('/', Path.DirectorySeparatorChar);
+                                ImageFile = mainNode.FirstChild.Value;
+                                ImageFile = ImageFile.Replace('/', Path.DirectorySeparatorChar);
+
+
                                 // relative or absolute path? we normally store the relative path but will handle loading either incase the file has been manually modified.
                                 try
                                 {
@@ -158,19 +161,15 @@ namespace Nova.Common.Components
                                     }
                                     else
                                     {
-                                        using(Config conf = new Config())
+                                        
                                         {
-                                            // guess it is relative, so convert
-                                            if (conf[Global.GraphicsFolderKey].Length == 0 || conf[Global.GraphicsFolderKey] == "?")
+                                            string GraphicsPath = FileSearcher.GetGraphicsPath();
+                                            if (GraphicsPath != null)
                                             {
-                                                // All atempts to locate the graphics have failed, so skip them.
-                                            }
-                                            else
-                                            {
-                                                
-                                                ImageFile = Path.Combine(conf[Global.GraphicsFolderKey], ImageFile);
+                                                ImageFile = Path.Combine(GraphicsPath, ImageFile);
                                                 info = new FileInfo(ImageFile);
                                             }
+
                                         }
                                         
                                         if (info.Exists)
@@ -180,7 +179,7 @@ namespace Nova.Common.Components
                                         }
                                         else
                                         {
-                                            Report.Error("Unable to locate the image file " + ImageFile);
+                                            // No further action. FileSearcher will report an error (once only) if the graphics are not available.
                                         }
                                     }
                                 }
@@ -378,7 +377,7 @@ namespace Nova.Common.Components
         
         
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialise this component to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
@@ -406,14 +405,16 @@ namespace Nova.Common.Components
 
             // Image - convert the ImageFile to a relative path, so this program runs in other locations
             XmlElement xmlelImage = xmldoc.CreateElement("Image");
-
-            // Paths are always stored in external files using forward slashes.
-            using (Config conf = new Config())
+            string graphicsPath = FileSearcher.GetGraphicsPath();
+            if (graphicsPath != null)
             {
-                AllComponents allComponents = new AllComponents();
-                XmlText xmltxtImage = xmldoc.CreateTextNode(Global.EvaluateRelativePath(conf[Global.GraphicsFolderKey], this.ImageFile).Replace(Path.DirectorySeparatorChar, '/'));
+                XmlText xmltxtImage = xmldoc.CreateTextNode(Global.EvaluateRelativePath(FileSearcher.GetGraphicsPath(), this.ImageFile).Replace(Path.DirectorySeparatorChar, '/')); // Paths are always stored in external files using forward slashes.
                 xmlelImage.AppendChild(xmltxtImage);
                 xmlelComponent.AppendChild(xmlelImage);
+            }
+            else
+            {
+                // Nova! does not know where the graphics are, they probably have not been loaded. The image will not be saved.
             }
 
             // Properties

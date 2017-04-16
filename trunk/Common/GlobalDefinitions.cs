@@ -200,8 +200,8 @@ namespace Nova.Common
        #region Paths
 
        /// <summary>Derive a relative path from two absolute paths.</summary>
-       /// <param name="baseDir">The path from which the relative path will start.</param>
-       /// <param name="targetPath">The absolute or relative path to be converted to a relative path.</param>
+       /// <param name="baseDir">The path from which the relative path will start. Must not be null.</param>
+       /// <param name="targetPath">The absolute or relative path to be converted to a relative path. Must not be null.</param>
        public static string EvaluateRelativePath(string baseDir, string targetPath)
        {
            Uri baseUrl = new Uri(AddDirSeparator(baseDir));
@@ -214,7 +214,7 @@ namespace Nova.Common
        /// <summary>
        /// Add the local directory seperator character (\ or /) to a path, if required.
        /// </summary>
-       /// <param name="path">A file path.</param>
+       /// <param name="path">A file path. Must not be null.</param>
        /// <returns>Returns path + the (local) directory seperater character added to the end, if required.</returns>
        private static string AddDirSeparator(string path)
        {
