@@ -30,7 +30,7 @@ namespace Nova.Common
 
     /// <summary>
     /// A special Fleet used only in the battle engine. It contains
-    /// only one token of ships of a single design, and holds the key
+    /// only one ShipToken of Quantity ships of a single design, and holds the key
     /// of the Fleet that spawned it.
     /// </summary>
     public class Stack : Fleet
@@ -112,6 +112,7 @@ namespace Nova.Common
         /// To the best of my knowledge this has never happend in nova because merging fleets was not previously possible. Not sure if it is yet...
         /// -- Dan 09 Jul 11
         /// This is no longer relevant as they are now Stack copies, with unique IDs within the battle. -- Aeglos 27 May 12
+        /// Dan 17 Apr 17: FIXME (Priority 7) This is broken because Token = copy.Token is a copy of the reference to the original Token in the fleet, so the fleet is being changed. Both calls to this expect to be making a clone so the original stack/fleet is not affected by subsequent operations.
         /// </remarks>
         public Stack(Stack copy)
             : base(copy)

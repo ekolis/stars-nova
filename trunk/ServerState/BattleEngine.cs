@@ -613,16 +613,19 @@ namespace Nova.Server
 
             foreach (Stack stack in battlingStacks)
             {
-                // Each stack can only contain 1 token, so only consider those weapons.
-                foreach (Weapon weaponSystem in stack.Composition.First().Value.Design.Weapons)
+                if (stack.Composition.Count > 0) // skip destroyed stacks
                 {
-                    WeaponDetails weapon = new WeaponDetails();
+                    // Each stack can only contain 1 token, so only consider those weapons.
+                    foreach (Weapon weaponSystem in stack.Composition.First().Value.Design.Weapons)
+                    {
+                        WeaponDetails weapon = new WeaponDetails();
 
-                    weapon.SourceStack = stack;
-                    weapon.TargetStack = stack.Target;
-                    weapon.Weapon = weaponSystem;
+                        weapon.SourceStack = stack;
+                        weapon.TargetStack = stack.Target;
+                        weapon.Weapon = weaponSystem;
 
-                    allAttacks.Add(weapon);
+                        allAttacks.Add(weapon);
+                    }
                 }
             }
             
@@ -650,6 +653,12 @@ namespace Nova.Server
 
             if (attack.TargetStack.Composition.Count == 0)
             {
+                return false;
+            }
+
+            if (attack.SourceStack.Composition.Count == 0)
+            {
+                // Report.Error("attacking stack no longer exists");
                 return false;
             }
 
@@ -806,8 +815,7 @@ namespace Nova.Server
                 target.Shields = 0;
             }
 
-            // FIXED (priority 6) - This seems wrong, has it been tested? Why reduce the hitPower twice? - Dan 25/4/10
-            // It was lacking parenthesis which make it clearer; we reduce hitpower by the amount if shields depleted - Aeglos 11/03/12
+            // Calculate remianing weapon power, after damaging shields (if any)
             hitPower -= (initialShields - target.Shields);
 
             BattleStepWeapons fire = new BattleStepWeapons();
