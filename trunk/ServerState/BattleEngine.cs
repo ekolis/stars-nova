@@ -519,7 +519,7 @@ namespace Nova.Server
                 // TODO (priority 5) - Move in order of ship mass, juggle by 15%
                 foreach (Stack stack in battlingStacks)
                 {
-                    if (stack.Target != null)
+                    if (stack.Target != null & !stack.IsStarbase)
                     {
                         NovaPoint from = stack.Position;
                         NovaPoint to = stack.Target.Position;
