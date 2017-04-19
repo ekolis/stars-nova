@@ -143,6 +143,11 @@ namespace Nova.WinForms.Gui
         private void UpdateMovement(BattleStepMovement movement)
         {
             Stack stack = myStacks[movement.StackKey];
+
+            stackDesign.Text = stack.Composition.First().Value.Design.Name;
+            stackShields.Text = stack.TotalShieldStrength.ToString();
+            topTokenArmor.Text = stack.TotalArmorStrength.ToString();
+
             movedTo.Text = movement.Position.ToString();
             stackOwner.Text = stack.Owner.ToString("X");
             stack.Position = movement.Position;
@@ -228,6 +233,7 @@ namespace Nova.WinForms.Gui
             damage.Text = "Ship destroyed";
 
             // Stacks have 1 token, so remove the stack at once.
+            // Not sure they do - see ShipToken.Quantity - Dan 17 Apr 17
 
             myStacks.Remove(destroy.StackKey);
             battlePanel.Invalidate();
@@ -248,5 +254,8 @@ namespace Nova.WinForms.Gui
 
             stepNumber.Text = title.ToString();
         }
+
+
+
     }
 }
