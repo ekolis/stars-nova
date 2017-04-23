@@ -110,15 +110,15 @@ namespace Nova.WinForms.Gui
 
             if (thisStep is BattleStepMovement)
             {
-                UpdateMovement(thisStep as BattleStepMovement);
+                DoBattleStepMovement(thisStep as BattleStepMovement);
             }
             else if (thisStep is BattleStepTarget)
             {
-                UpdateTarget(thisStep as BattleStepTarget);
+                DoBattleStepTarget(thisStep as BattleStepTarget);
             }
             else if (thisStep is BattleStepWeapons)
             {
-                UpdateWeapons(thisStep as BattleStepWeapons);
+                DoBattleStepFireWeapon(thisStep as BattleStepWeapons);
             }
             else if (thisStep is BattleStepDestroy)
             {
@@ -136,60 +136,160 @@ namespace Nova.WinForms.Gui
 
         }
 
+
         /// <Summary>
         /// Update the movement of a stack.
         /// </Summary>
-        /// <param name="movement">Movement to display.</param>
-        private void UpdateMovement(BattleStepMovement movement)
+        /// <param name="battleStep">Movement to display.</param>
+        private void DoBattleStepMovement(BattleStepMovement battleStep)
         {
-            Stack stack = myStacks[movement.StackKey];
+            Stack stack = null;
+            theBattle.Stacks.TryGetValue(battleStep.StackKey, out stack);
 
-            stackDesign.Text = stack.Composition.First().Value.Design.Name;
-            stackShields.Text = stack.TotalShieldStrength.ToString();
-            topTokenArmor.Text = stack.TotalArmorStrength.ToString();
+            if (stack != null)
+            {
+                UpdateStackDetails(stack);
+                stack.Position = battleStep.Position; // move the icon
+            }
+            else
+            {
+                ClearStackDetails();
+            }
 
-            movedTo.Text = movement.Position.ToString();
-            stackOwner.Text = stack.Owner.ToString("X");
-            stack.Position = movement.Position;
+            movedTo.Text = battleStep.Position.ToString();
+            stack.Position = battleStep.Position;
 
-            // We have moved, clear out the other fields as they may change.
-
-            UpdateTarget(null);
-            UpdateWeapons(null);
+            // We have moved, clear out the other fields as they are not relevant to this step.
+            ClearTargetDetails();
+            ClearWeapons();
 
             battlePanel.Invalidate();
         }
 
         /// <Summary>
-        /// Update the current target details.
+        /// Update the current target (and stack) details.
         /// </Summary>
         /// <param name="target">Target ship to display.</param>
-        private void UpdateTarget(BattleStepTarget targetKey)
+        private void DoBattleStepTarget(BattleStepTarget battleStep)
         {
-            if (targetKey == null)
+            if (battleStep == null)
             {
+                Report.Error("BattleViewer.cs DoBattleStepTarget(): battleStep is null.");
                 ClearTargetDetails();
             }
             else
             {
-                Stack target = null;
-                theBattle.Stacks.TryGetValue(targetKey.TargetKey, out target);
+                Stack lamb = null;
+                Stack wolf = null;
 
-                if (target == null)
-                {
-                    ClearTargetDetails();
-                }
-                else
-                {
-                    targetName.Text = target.Name;
-                    targetOwner.Text = target.Owner.ToString("X");
+                theBattle.Stacks.TryGetValue(battleStep.TargetKey, out lamb);
+                theBattle.Stacks.TryGetValue(battleStep.StackKey, out wolf);
 
-                    targetShields.Text = target.TotalShieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    targetArmor.Text = target.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                }
+                UpdateStackDetails(wolf);
+                movedTo.Text = "";
+                ClearWeapons();
+                UpdateTargetDetails(lamb);
             }
         }
 
+        /// <Summary>
+        /// Deal with weapons being fired.
+        /// </Summary>
+        /// <param name="weapons">Weapon to display.</param>
+        private void DoBattleStepFireWeapon(BattleStepWeapons weapons)
+        {
+            if (weapons == null)
+            {
+                Report.Error("BattleViewer.cs DoBattleStepFireWeapon() weapons is null.");
+                ClearWeapons();
+            }
+            else
+            {
+                BattleStepTarget target = weapons.WeaponTarget;
+
+                Stack lamb = null;
+                Stack wolf = null;
+
+                theBattle.Stacks.TryGetValue(target.TargetKey, out lamb);
+                theBattle.Stacks.TryGetValue(target.StackKey, out wolf);
+
+                UpdateStackDetails(wolf);
+                movedTo.Text = "";
+                UpdateTargetDetails(lamb);
+
+                // damge taken
+                weaponPower.Text = weapons.Damage.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                // "Damage to shields" or "Damage to armor"
+                if (weapons.Targeting == BattleStepWeapons.TokenDefence.Shields)
+                {
+                    componentTarget.Text = "Damage to shields";
+                }
+                else
+                {
+                    componentTarget.Text = "Damage to armor";
+                }
+
+                damage.Text = "Ship damaged";
+            }
+        }
+
+        /// <summary>
+        /// Clear the details of the stack in the BattleViewer->BattleDetails->Stack
+        /// </summary>
+        private void ClearStackDetails()
+        {
+            stackKey.Text = "";
+            stackOwner.Text = "";
+            stackDesign.Text = "";
+            stackShields.Text = "";
+            topTokenArmor.Text = "";
+
+        }
+
+        /// <summary>
+        /// Write out the Battle viewer stack details
+        /// </summary>
+        /// <param name="wolf"></param>
+        private void UpdateStackDetails(Stack wolf)
+        {
+            if (wolf != null)
+            {
+                stackKey.Text = wolf.Key.ToString("X");
+                stackOwner.Text = wolf.Owner.ToString("X");
+                stackDesign.Text = wolf.Composition.First().Value.Design.Name;
+                stackShields.Text = wolf.TotalShieldStrength.ToString();
+                topTokenArmor.Text = wolf.TotalArmorStrength.ToString();
+            }
+            else
+            {
+                ClearStackDetails();
+            }
+        }
+
+
+        /// <summary>
+        /// Write out the target details
+        /// </summary>
+        /// <param name="lamb"></param>
+        private void UpdateTargetDetails(Stack lamb)
+        {
+            if (lamb != null)
+            {
+                targetName.Text = lamb.Name;
+                targetOwner.Text = lamb.Owner.ToString("X");
+
+                targetShields.Text = lamb.TotalShieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                targetArmor.Text = lamb.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                ClearTargetDetails();
+            }
+
+        }
+
+        
         /// <Summary>
         /// Set the details for the target to "" on the UI.
         /// </Summary>
@@ -201,25 +301,15 @@ namespace Nova.WinForms.Gui
             targetArmor.Text = "";
         }
 
-        /// <Summary>
-        /// Deal with weapons being fired.
-        /// </Summary>
-        /// <param name="weapons">Weapon to display.</param>
-        private void UpdateWeapons(BattleStepWeapons weapons)
+        
+        /// <summary>
+        /// Clear the BattleViewer weapon details.
+        /// </summary>
+        private void ClearWeapons()
         {
-            if (weapons == null)
-            {
-                weaponPower.Text = "";
-                componentTarget.Text = "";
-                damage.Text = "";
-                return;
-            }
-
-            weaponPower.Text = weapons.HitPower.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            componentTarget.Text = weapons.Targeting;
-            damage.Text = "Ship damaged";
-
-            UpdateTarget(weapons.WeaponTarget);
+            weaponPower.Text = "";
+            componentTarget.Text = "";
+            damage.Text = "";
         }
 
 

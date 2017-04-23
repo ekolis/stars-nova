@@ -443,9 +443,11 @@ namespace Nova.Server
         /// </summary>
         /// <param name="target">A stack.</param>
         /// <returns>A measure of attractiveness.</returns>
-        /// FIXME (priority 3) - Implement the Stars! attractiveness modle (and possibly others as options). Provide a reference to the source of the algorithm.
-        public double GetAttractiveness(Fleet target)
+        /// FIXME (priority 3) - Implement the Stars! attractiveness model (and possibly others as options). Provide a reference to the source of the algorithm.
+        public double GetAttractiveness(Stack target)
         {
+            if (target == null || target.IsDestroyed) return 0;
+
             double cost = target.Mass + target.TotalCost.Energy;
             double dp = target.Defenses;
 
@@ -595,7 +597,7 @@ namespace Nova.Server
                             battle.Steps.Add(report);
                         }
                     }
-                    // TODO (priority 5) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
+                    // TODO (priority 7) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
                 }
             }
         }
@@ -613,10 +615,10 @@ namespace Nova.Server
 
             foreach (Stack stack in battlingStacks)
             {
-                if (stack.Composition.Count > 0) // skip destroyed stacks
+                if (stack.Token.Quantity > 0) // skip destroyed stacks
                 {
                     // Each stack can only contain 1 token, so only consider those weapons.
-                    foreach (Weapon weaponSystem in stack.Composition.First().Value.Design.Weapons)
+                    foreach (Weapon weaponSystem in stack.Token.Design.Weapons)
                     {
                         WeaponDetails weapon = new WeaponDetails();
 
@@ -646,17 +648,12 @@ namespace Nova.Server
             // it may have no ship tokens left). In which case, don't bother trying to
             // fire this weapon system (we'll wait until the next battle clock
             // "tick" and re-target then).    
-            if (attack.TargetStack == null)
+            if (attack.TargetStack == null || attack.TargetStack.IsDestroyed) 
             {
                 return false;
             }
 
-            if (attack.TargetStack.Composition.Count == 0)
-            {
-                return false;
-            }
-
-            if (attack.SourceStack.Composition.Count == 0)
+            if (attack.SourceStack == null || attack.SourceStack.IsDestroyed) 
             {
                 // Report.Error("attacking stack no longer exists");
                 return false;
@@ -683,11 +680,11 @@ namespace Nova.Server
         /// <param name="target">The target stack.</param>
         private void ExecuteAttack(WeaponDetails attack)
         {
-            // Handle the actual weapon discharge at the token level
-            ShipToken attacker = attack.SourceStack.Composition.First().Value;
-            ShipToken target = attack.TargetStack.Composition.First().Value;
+            // the two stacks involved in the attack          
+            Stack attacker = attack.SourceStack;
+            Stack target = attack.TargetStack;
             
-            // But report at the Stack level.
+            // Report on the targeting.
             BattleStepTarget report = new BattleStepTarget();
             report.StackKey = attack.SourceStack.Key;
             report.TargetKey = attack.TargetStack.Key;
@@ -695,43 +692,46 @@ namespace Nova.Server
 
             // Identify the attack parameters that have to take into account
             // factors other than the base values (e.g. jammers, capacitors, etc.)
-            Weapon weapon = attack.Weapon;
-            double hitPower = CalculateWeaponPower(attacker.Design, weapon, target.Design);
-            double accuracy = CalculateWeaponAccuracy(attacker.Design, weapon, target.Design);
+            double hitPower = CalculateWeaponPower(attacker.Token.Design, attack.Weapon, target.Token.Design);
+            double accuracy = CalculateWeaponAccuracy(attacker.Token.Design, attack.Weapon, target.Token.Design);
 
-            if (weapon.IsMissile)
+            if (attack.Weapon.IsMissile)
             {
-                FireMissile(target, hitPower, accuracy);
+                FireMissile(attacker, target, hitPower, accuracy);
             }
             else
             {
-                FireBeam(target, hitPower);
+                FireBeam(attacker, target, hitPower);
             }
-            // If we still have some Armor then the ship hasn't been destroyed
+
+            // If we still have some Armor then the stack hasn't been destroyed
             // yet so this is the end of this shot.
 
-            if (target.Armor > 0)
+            // FIXME (Priority 7) What about losses of a single ship within the token???
+
+            if (target.Token.Armor > 0) 
             {
                 return;
             }
 
-            // All Defenses are gone. Remove the token from its stack (which
-            // exists only during the battle and, more importantly, remove the
-            // ship from its "real" fleet. Also, generate a "destroy" event to
+            // All Defenses are gone. Remove the stack from the battle (which
+            // exists only during the battle) and, more importantly, remove the
+            // token from its "real" fleet. Also, generate a "destroy" event to
             // update the battle visualisation display.
 
-            attack.TargetStack.Composition.Remove(target.Key);
+            attack.TargetStack.Composition.Remove(target.Key); // removes the token from the stack
 
+            // for the battle viewer / report
             BattleStepDestroy destroy = new BattleStepDestroy();
             destroy.StackKey = target.Key;
-
             battle.Steps.Add(destroy);
                     
+
             if (serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets.ContainsKey(attack.TargetStack.ParentKey))
             {
-                serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets[attack.TargetStack.ParentKey].Composition.Remove(target.Key);
+                serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets[attack.TargetStack.ParentKey].Composition.Remove(target.Key); // remove the token from the fleet
                 
-                if (serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets[attack.TargetStack.ParentKey].Composition.Count == 0)
+                if (serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets[attack.TargetStack.ParentKey].Composition.Count == 0) // remove the fleet if no more tokens
                 {
                     serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets.Remove(attack.TargetStack.ParentKey);
                     serverState.AllEmpires[attack.TargetStack.Owner].FleetReports.Remove(attack.TargetStack.ParentKey);
@@ -739,41 +739,45 @@ namespace Nova.Server
             }
                         
             int targetEmpire = attack.TargetStack.Owner;
-            battle.Losses[targetEmpire] = battle.Losses[targetEmpire] + 1;
+            battle.Losses[targetEmpire] = battle.Losses[targetEmpire] + 1; // this is +1 ship, but we just destroyed a whole stack!
         }
 
         /// <summary>
         /// Do beam weapon damage.
         /// </summary>
+        /// <param name="attacker">Token firing the beam</param>
         /// <param name="target">Weapon target.</param>
         /// <param name="hitPower">Damage done by the weapon.</param>
-        private void FireBeam(ShipToken target, double hitPower)
+        private void FireBeam(Stack attacker, Stack target, double hitPower)
         {
             // First we have to take down the shields of the target ship. If
             // there is any power left over from firing this weapon system at the
             // shields then it will carry forward to attack Armor. If all we have
             // done is weaken the shields then that is the end of this shot.
 
-            hitPower = DamageShields(target, hitPower);
+            hitPower = DamageShields(attacker, target, hitPower);
 
-            if (target.Shields > 0 || hitPower <= 0)
+            if (target.Token.Shields > 0 || hitPower <= 0)
             {
                 return;
             }
 
-            DamageArmor(target, hitPower);
+            DamageArmor(attacker, target, hitPower);
+
+            // TODO (Priority 6) - beam weapon overkill can hit other staks (up to one stack per ship in the attacking stack)
         }
 
         /// <summary>
         /// Fire a missile weapon system.
         /// </summary>
+        /// <param name="attacker">token firing the missile</param>
         /// <param name="target">Missile weapon target.</param>
         /// <param name="hitPower">Damage the weapon can do.</param>
         /// <param name="accuracy">Missile accuracy.</param>
         /// <remarks>
         /// FIXME (priority 3) - Missile accuracy is not calculated this way in Stars! The effect of computers and jammers must be considered at the same time.
         /// </remarks>
-        private void FireMissile(ShipToken target, double hitPower, double accuracy)
+        private void FireMissile(Stack attacker, Stack target, double hitPower, double accuracy)
         {
             // First, determine if this missile is going to hit or miss (based on
             // it's accuracy. 
@@ -784,63 +788,72 @@ namespace Nova.Server
             if (accuracy >= probability)
             {      // A hit
                 double shieldsHit = hitPower / 2;
-                double armorHit = DamageShields(target, shieldsHit);
-                DamageArmor(target, armorHit);
+
+                double armorHit = (hitPower / 2) + DamageShields(attacker, target, shieldsHit); // FIXME (Priority 5) - do double damage if it is a capital ship missile and all shields have been depleted.
+                DamageArmor(attacker, target, armorHit);
             }
             else
             {                              // A miss
                 double minDamage = hitPower * 0.125;
-                DamageShields(target, minDamage);
+                DamageShields(attacker, target, minDamage);
             }
+
         }
 
         /// <summary>
         /// Attack the shields.
         /// </summary>
+        /// <param name="attacker">token firing a weapon</param>
         /// <param name="target">Ship being fired on.</param>
         /// <param name="hitPower">Damage output of the weapon.</param>
         /// <returns>Residual damage after shields or zero.</returns>
-        private double DamageShields(ShipToken target, double hitPower)
+        private double DamageShields(Stack attacker, Stack target, double hitPower)
         {
-            if (target.Shields <= 0)
+            if (target.Token.Shields <= 0)
             {
                 return hitPower;
             }
 
-            double initialShields = target.Shields;
-            target.Shields -= (int)hitPower;
+            double initialShields = target.Token.Shields;
+            target.Token.Shields -= (int)hitPower;
 
-            if (target.Shields < 0)
+            if (target.Token.Shields < 0)
             {
-                target.Shields = 0;
+                target.Token.Shields = 0;
             }
 
             // Calculate remianing weapon power, after damaging shields (if any)
-            hitPower -= (initialShields - target.Shields);
+            double damageDone = (initialShields - target.Token.Shields);
+            double remainingPower = hitPower - damageDone;
+            
+            BattleStepWeapons battleStepReport = new BattleStepWeapons();
+            battleStepReport.Damage = damageDone;
+            battleStepReport.Targeting = BattleStepWeapons.TokenDefence.Shields;
+            battleStepReport.WeaponTarget.StackKey = attacker.Key; 
+            battleStepReport.WeaponTarget.TargetKey = target.Key;
 
-            BattleStepWeapons fire = new BattleStepWeapons();
-            fire.HitPower = hitPower;
-            fire.Targeting = "Shields";
-            fire.WeaponTarget.StackKey = target.Key;
-            battle.Steps.Add(fire);
+            battle.Steps.Add(battleStepReport);
 
-            return hitPower;
+            return remainingPower;
         }
 
         /// <summary>
         /// Attack the Armor.
         /// </summary>
+        /// <param name="attacker">token making the attack</param>
         /// <param name="target">Target being fired on.</param>
         /// <param name="hitPower">Weapon damage.</param>
-        private void DamageArmor(ShipToken target, double hitPower)
+        private void DamageArmor(Stack attacker, Stack target, double hitPower)
         {
-            target.Armor -= (int)hitPower;
+            // FIXME (Priority 6) - damage is being spread over all ships in the stack. Should destroy whole ships first, then spread remaining damage.
+            target.Token.Armor -= (int) hitPower;
 
-            BattleStepWeapons armor = new BattleStepWeapons();
-            armor.HitPower = hitPower;
-            armor.Targeting = "Armor";
-            armor.WeaponTarget.StackKey = target.Key;
-            battle.Steps.Add(armor);
+            BattleStepWeapons battleStepReport = new BattleStepWeapons();
+            battleStepReport.Damage = hitPower;
+            battleStepReport.Targeting = BattleStepWeapons.TokenDefence.Armor;
+            battleStepReport.WeaponTarget.StackKey = attacker.Key;
+            battleStepReport.WeaponTarget.TargetKey = target.Key;
+            battle.Steps.Add(battleStepReport);
         }
 
         /// <summary>

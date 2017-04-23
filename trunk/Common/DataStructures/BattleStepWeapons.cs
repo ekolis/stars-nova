@@ -33,8 +33,12 @@ namespace Nova.Common.DataStructures
     [Serializable]
     public class BattleStepWeapons : BattleStep
     {
-        public double HitPower = 0;
-        public string Targeting = null;
+        public enum TokenDefence
+        {
+            Shields = 0, Armor = 1
+        }
+        public double Damage = 0;
+        public TokenDefence Targeting = TokenDefence.Shields;
         public BattleStepTarget WeaponTarget = new BattleStepTarget();
 
         /// <summary>
@@ -65,12 +69,24 @@ namespace Nova.Common.DataStructures
                             Type = subnode.FirstChild.Value;
                             break;
 
-                        case "hitpower":
-                            HitPower = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        case "damage":
+                            Damage = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
 
                         case "targeting":
-                            Targeting = subnode.FirstChild.Value;
+                            if (subnode.FirstChild.Value.ToLower() == "shields")
+                            {
+                                Targeting = BattleStepWeapons.TokenDefence.Shields;
+                            }
+                            else if (subnode.FirstChild.Value.ToLower() == "armor")
+                            {
+                                Targeting = BattleStepWeapons.TokenDefence.Armor;
+                            }
+                            else
+                            {
+                                Report.Error("Unable to read Target type \"" + subnode.FirstChild.Value + "\" in BattleStepWeapons.cs LoadXml()");
+                                Targeting = BattleStepWeapons.TokenDefence.Armor; // take a guess so we can continue
+                            }
                             break;
 
                         case "weapontarget":
@@ -98,12 +114,16 @@ namespace Nova.Common.DataStructures
             xmlelBattleStepWeapons.AppendChild(base.ToXml(xmldoc));
 
             // hitpower
-            Global.SaveData(xmldoc, xmlelBattleStepWeapons, "HitPower", HitPower.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelBattleStepWeapons, "Damage", Damage.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             // targeting
-            if (Targeting != null)
+            if (Targeting == TokenDefence.Shields)
             {
-                Global.SaveData(xmldoc, xmlelBattleStepWeapons, "Targeting", Targeting);
+                Global.SaveData(xmldoc, xmlelBattleStepWeapons, "Targeting", "Shields");
+            }
+            else
+            {
+                Global.SaveData(xmldoc, xmlelBattleStepWeapons, "Targeting", "Armor"); // only other option
             }
 
             // weapontarget
