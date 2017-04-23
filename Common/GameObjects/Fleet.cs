@@ -152,24 +152,6 @@ namespace Nova.Common
         
         
         /// <summary>
-        /// Return the current Defense capability of a fleet.
-        /// </summary>
-        public double Defenses
-        {
-            get
-            {
-                double totalDefenses = 0;
-
-                foreach (ShipToken token in tokens.Values)
-                {
-                    totalDefenses += (token.Design.Armor * token.Quantity);
-                    totalDefenses += (token.Design.Shield * token.Quantity);
-                }
-                return totalDefenses;
-            }
-        }
-
-        /// <summary>
         /// Return Free Warp speed for fleet.
         /// </summary>
         public int FreeWarpSpeed

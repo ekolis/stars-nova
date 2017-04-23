@@ -29,7 +29,7 @@ namespace Nova.Common
     using Nova.Common.DataStructures;
 
     /// <summary>
-    /// A special Fleet used only in the battle engine. It contains
+    /// A special Fleet used in the battle engine and battle viewer. It contains
     /// only one ShipToken of Quantity ships of a single design, and holds the key
     /// of the Fleet that spawned it.
     /// </summary>
@@ -63,14 +63,38 @@ namespace Nova.Common
                 return Token.Design.BattleSpeed;
             }
         }
-        
+
         /// <summary>
-        /// Sets or Gets the single ShipToken this Stack is allowed to have.
+        /// Return the current Defense capability of a stack.
+        /// </summary>
+        public double Defenses
+        {
+            get
+            {
+                 return Token.Armor + Token.Shields;
+            }
+        }
+
+        /// <summary>
+        /// Quick check if a Stack has been destroyed.
+        /// </summary>
+        public bool IsDestroyed
+        {
+            get
+            {
+                return (Token == null || Token.Quantity <= 0 || Token.Armor <= 0);
+            }
+        }
+
+        /// <summary>
+        /// Sets or Gets the single ShipToken this Stack is allowed to have. This is a reference so the Fleet token is modified when this token is modified.
         /// </summary>
         public ShipToken Token
         {
             get
             {
+                if (Composition.Count == 0) return null;
+
                 return Composition.First().Value;
             }
             
@@ -95,7 +119,7 @@ namespace Nova.Common
             Name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
             BattlePlan = fleet.BattlePlan;
             InOrbit = fleet.InOrbit;
-            Token = token;
+            Token = token;  // note this is a reference to the actual token in the fleet
         }
         
         /// <summary>
@@ -105,14 +129,9 @@ namespace Nova.Common
         /// </summary>
         /// <param name="copy">The fleet to copy.</param>
         /// <remarks>
-        /// Why are we copying fleets? copying this ID worries me..
-        /// We are copying fleets as a step toward making battle stacks. 
-        /// It should not really be a copy as a stack contains only one ship design. 
-        /// Need to work out what happens when we have a fleet contianing multiple designs and then form stacks for the battle engine. 
-        /// To the best of my knowledge this has never happend in nova because merging fleets was not previously possible. Not sure if it is yet...
-        /// -- Dan 09 Jul 11
-        /// This is no longer relevant as they are now Stack copies, with unique IDs within the battle. -- Aeglos 27 May 12
-        /// Dan 17 Apr 17: FIXME (Priority 7) This is broken because Token = copy.Token is a copy of the reference to the original Token in the fleet, so the fleet is being changed. Both calls to this expect to be making a clone so the original stack/fleet is not affected by subsequent operations.
+        /// Why are we copying Stacks? 
+        /// For the battle viewer, copies are required so the originals are not destroyed in the battle report. this allows the battle to be replayed multiple times.
+        /// In the battle engine, copies are required to create the battle report, so all stacks present at the start of the battle are represented.
         /// </remarks>
         public Stack(Stack copy)
             : base(copy)
@@ -122,7 +141,7 @@ namespace Nova.Common
             BattlePlan = copy.BattlePlan;            
             Target = copy.Target;
             InOrbit = copy.InOrbit;
-            Token = copy.Token;
+            Token = new ShipToken(copy.Token.Design, copy.Token.Quantity, copy.Token.Armor); 
         }
         
         /// <summary>
