@@ -615,9 +615,9 @@ namespace Nova.Server
 
             foreach (Stack stack in battlingStacks)
             {
-                if (stack.Token.Quantity > 0) // skip destroyed stacks
+                if (!stack.IsDestroyed) // skip destroyed stacks
                 {
-                    // Each stack can only contain 1 token, so only consider those weapons.
+                    // generate an attack for each weapon slot in the Design (all ships in the Token fire weapons in the same slot at the same time)
                     foreach (Weapon weaponSystem in stack.Token.Design.Weapons)
                     {
                         WeaponDetails weapon = new WeaponDetails();

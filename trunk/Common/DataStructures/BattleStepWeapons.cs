@@ -89,7 +89,7 @@ namespace Nova.Common.DataStructures
                             }
                             break;
 
-                        case "weapontarget":
+                        case "battlesteptarget":
                             WeaponTarget = new BattleStepTarget(subnode);
                             break;
                     }
