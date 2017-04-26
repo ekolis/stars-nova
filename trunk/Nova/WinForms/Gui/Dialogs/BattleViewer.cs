@@ -264,6 +264,7 @@ namespace Nova.WinForms.Gui
             {
                 stackKey.Text = wolf.Key.ToString("X");
                 stackOwner.Text = wolf.Owner.ToString("X");
+                stackQuantity.Text = wolf.Token.Quantity.ToString();
                 stackDesign.Text = wolf.Composition.First().Value.Design.Name;
                 stackShields.Text = wolf.TotalShieldStrength.ToString();
                 topTokenArmor.Text = wolf.TotalArmorStrength.ToString();
