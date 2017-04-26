@@ -342,20 +342,13 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Return the total amour strength of the fleet.
+        /// Return the current total amour strength of the fleet.
         /// </summary>
         public double TotalArmorStrength
         {
             get
             {
-                double armor = 0;
-
-                foreach (ShipToken token in tokens.Values)
-                {
-                    armor += (token.Design.Armor * token.Quantity);
-                }
-
-                return armor;
+                return tokens.Values.Sum(token => token.Armor);
             }
         }
 
@@ -417,7 +410,7 @@ namespace Nova.Common
         {
             get
             {
-                return tokens.Values.Sum(token => token.Design.Shield);
+                return tokens.Values.Sum(token => token.Shields);
             }
         }
 
