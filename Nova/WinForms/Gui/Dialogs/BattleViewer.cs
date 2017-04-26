@@ -156,6 +156,7 @@ namespace Nova.WinForms.Gui
                 ClearStackDetails();
             }
 
+            movedFrom.Text = stack.Position.ToString();
             movedTo.Text = battleStep.Position.ToString();
             stack.Position = battleStep.Position;
 
@@ -186,7 +187,7 @@ namespace Nova.WinForms.Gui
                 theBattle.Stacks.TryGetValue(battleStep.StackKey, out wolf);
 
                 UpdateStackDetails(wolf);
-                movedTo.Text = "";
+                ClearMovementDetails();
                 ClearWeapons();
                 UpdateTargetDetails(lamb);
             }
@@ -214,8 +215,8 @@ namespace Nova.WinForms.Gui
                 theBattle.Stacks.TryGetValue(target.StackKey, out wolf);
 
                 UpdateStackDetails(wolf);
-                movedTo.Text = "";
                 UpdateTargetDetails(lamb);
+                ClearMovementDetails();
 
                 // damge taken
                 weaponPower.Text = weapons.Damage.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -224,13 +225,19 @@ namespace Nova.WinForms.Gui
                 if (weapons.Targeting == BattleStepWeapons.TokenDefence.Shields)
                 {
                     componentTarget.Text = "Damage to shields";
+                    damage.Text = weaponPower.Text + " " + componentTarget.Text;
+                    lamb.Token.Shields -= weapons.Damage;
+                    UpdateTargetDetails(lamb);
                 }
                 else
                 {
                     componentTarget.Text = "Damage to armor";
+                    damage.Text = weaponPower.Text + " " + componentTarget.Text;
+                    lamb.Token.Armor -= weapons.Damage;
+                    UpdateTargetDetails(lamb);
                 }
 
-                damage.Text = "Ship damaged";
+                
             }
         }
 
@@ -267,7 +274,6 @@ namespace Nova.WinForms.Gui
             }
         }
 
-
         /// <summary>
         /// Write out the target details
         /// </summary>
@@ -276,7 +282,7 @@ namespace Nova.WinForms.Gui
         {
             if (lamb != null)
             {
-                targetName.Text = lamb.Name;
+                targetDesign.Text = lamb.Name;
                 targetOwner.Text = lamb.Owner.ToString("X");
 
                 targetShields.Text = lamb.TotalShieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -286,16 +292,14 @@ namespace Nova.WinForms.Gui
             {
                 ClearTargetDetails();
             }
-
         }
-
         
         /// <Summary>
         /// Set the details for the target to "" on the UI.
         /// </Summary>
         private void ClearTargetDetails()
         {
-            targetName.Text = "";
+            targetDesign.Text = "";
             targetOwner.Text = "";
             targetShields.Text = "";
             targetArmor.Text = "";
@@ -312,6 +316,15 @@ namespace Nova.WinForms.Gui
             damage.Text = "";
         }
 
+        /// <summary>
+        /// Clear the BattleViewer movement details.
+        /// </summary>
+        private void ClearMovementDetails()
+        {
+            movedFrom.Text = "";
+            movedTo.Text = "";
+               
+        }
 
         /// <Summary>
         /// Deal with a ship being destroyed. Remove it from the containing stack and,
