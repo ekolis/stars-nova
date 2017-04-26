@@ -794,7 +794,7 @@ namespace Nova.Server
             }
             else
             {                              // A miss
-                double minDamage = hitPower * 0.125;
+                double minDamage = hitPower / 8;
                 DamageShields(attacker, target, minDamage);
             }
 
@@ -815,7 +815,7 @@ namespace Nova.Server
             }
 
             double initialShields = target.Token.Shields;
-            target.Token.Shields -= (int)hitPower;
+            target.Token.Shields -= hitPower;
 
             if (target.Token.Shields < 0)
             {

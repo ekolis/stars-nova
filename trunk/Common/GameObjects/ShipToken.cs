@@ -74,7 +74,7 @@ namespace Nova.Common
         /// The current total shield strength of all ships in the ShipToken. 
         /// </summary>
         /// <remarks>Placed here for consistency with Armor</remarks>
-        public long Shields
+        public double Shields
         {
             get;
             set;
@@ -85,7 +85,7 @@ namespace Nova.Common
         /// This is the total number of Armor points remaining for the whole Token (of Quantity ships), including Hull. Each ship has Armor / Quantity.
         /// Note: Stars! stores armor damage as a percentage (with an 8 bit number) which causes some wierd rounding errors we do not want to replicate.
         /// </summary>
-        public long Armor
+        public double Armor
         {
             get;
             set;
@@ -97,7 +97,7 @@ namespace Nova.Common
         /// <param name="design">The ship design of this token</param>
         /// <param name="quantity">The amount of ships in this token</param>
         /// <param name="armor">The amount of armor remaining in this token</param>
-        public ShipToken(ShipDesign design, int quantity, long armor) :
+        public ShipToken(ShipDesign design, int quantity, double armor) :
             this(design, quantity)
         {
             Armor = armor;
@@ -106,14 +106,14 @@ namespace Nova.Common
         /// <summary>
         /// Creates a token of ships
         /// </summary>
-        /// <param name="design">The ship design of this token</param>
+        /// <param name="newDesign">The ship design of this token</param>
         /// <param name="quantity">The amount of ships in this token</param>
-        public ShipToken(ShipDesign design, int quantity)
+        public ShipToken(ShipDesign newDesign, int quantity)
         {
-            Design = design;
+            Design = newDesign;
             Quantity = quantity;
-            Armor = Design.Armor;
-            Shields = Design.Shield;
+            Armor = newDesign.Armor * quantity;
+            Shields = newDesign.Shield;
         }
         
         
@@ -140,7 +140,7 @@ namespace Nova.Common
                     break;
                     
                     case "armor":
-                        Armor = long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        Armor = double.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                     break;                    
                 }
             

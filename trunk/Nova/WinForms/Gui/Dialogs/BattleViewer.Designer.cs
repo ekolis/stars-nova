@@ -32,7 +32,10 @@ namespace Nova.WinForms.Gui
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.battlePanel = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.stackGroupBox = new System.Windows.Forms.GroupBox();
+            this.stackKey = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.topTokenArmor = new System.Windows.Forms.Label();
             this.stackOwner = new System.Windows.Forms.Label();
@@ -55,7 +58,7 @@ namespace Nova.WinForms.Gui
             this.targetArmor = new System.Windows.Forms.Label();
             this.targetShields = new System.Windows.Forms.Label();
             this.targetOwner = new System.Windows.Forms.Label();
-            this.targetName = new System.Windows.Forms.Label();
+            this.targetDesign = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -65,9 +68,8 @@ namespace Nova.WinForms.Gui
             this.label4 = new System.Windows.Forms.Label();
             this.battleLocation = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.stackKey = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.movedFrom = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.stackGroupBox.SuspendLayout();
@@ -117,6 +119,18 @@ namespace Nova.WinForms.Gui
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Battle Details";
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(19, 49);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(241, 53);
+            this.textBox1.TabIndex = 8;
+            this.textBox1.Tag = "";
+            this.textBox1.Text = "Extra fields added for debugging the combat engine. Will clean up later.";
+            // 
             // stackGroupBox
             // 
             this.stackGroupBox.Controls.Add(this.stackKey);
@@ -135,6 +149,25 @@ namespace Nova.WinForms.Gui
             this.stackGroupBox.TabIndex = 7;
             this.stackGroupBox.TabStop = false;
             this.stackGroupBox.Text = "Stack";
+            // 
+            // stackKey
+            // 
+            this.stackKey.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.stackKey.Location = new System.Drawing.Point(105, 70);
+            this.stackKey.Name = "stackKey";
+            this.stackKey.Size = new System.Drawing.Size(141, 18);
+            this.stackKey.TabIndex = 11;
+            this.stackKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 73);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(56, 13);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Stack.Key";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label15
             // 
@@ -318,7 +351,7 @@ namespace Nova.WinForms.Gui
             this.groupBox4.Controls.Add(this.targetArmor);
             this.groupBox4.Controls.Add(this.targetShields);
             this.groupBox4.Controls.Add(this.targetOwner);
-            this.groupBox4.Controls.Add(this.targetName);
+            this.groupBox4.Controls.Add(this.targetDesign);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label5);
@@ -357,23 +390,23 @@ namespace Nova.WinForms.Gui
             this.targetOwner.TabIndex = 6;
             this.targetOwner.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // targetName
+            // targetDesign
             // 
-            this.targetName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.targetName.Location = new System.Drawing.Point(112, 26);
-            this.targetName.Name = "targetName";
-            this.targetName.Size = new System.Drawing.Size(141, 18);
-            this.targetName.TabIndex = 5;
-            this.targetName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.targetDesign.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.targetDesign.Location = new System.Drawing.Point(112, 26);
+            this.targetDesign.Name = "targetDesign";
+            this.targetDesign.Size = new System.Drawing.Size(141, 18);
+            this.targetDesign.TabIndex = 5;
+            this.targetDesign.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(9, 29);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 13);
+            this.label7.Size = new System.Drawing.Size(64, 13);
             this.label7.TabIndex = 4;
-            this.label7.Text = "Ship Name";
+            this.label7.Text = "Ship Design";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
@@ -410,6 +443,8 @@ namespace Nova.WinForms.Gui
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.movedFrom);
+            this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.movedTo);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Location = new System.Drawing.Point(337, 46);
@@ -457,36 +492,24 @@ namespace Nova.WinForms.Gui
             this.label1.TabIndex = 0;
             this.label1.Text = "Battle Location:";
             // 
-            // label12
+            // label14
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 73);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(56, 13);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "Stack.Key";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 43);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(66, 13);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "Moved From";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // stackKey
+            // movedFrom
             // 
-            this.stackKey.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.stackKey.Location = new System.Drawing.Point(105, 70);
-            this.stackKey.Name = "stackKey";
-            this.stackKey.Size = new System.Drawing.Size(141, 18);
-            this.stackKey.TabIndex = 11;
-            this.stackKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(19, 49);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(241, 53);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.Tag = "";
-            this.textBox1.Text = "Extra fields added for debugging the combat engine. Will clean up later.";
+            this.movedFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.movedFrom.Location = new System.Drawing.Point(112, 40);
+            this.movedFrom.Name = "movedFrom";
+            this.movedFrom.Size = new System.Drawing.Size(141, 18);
+            this.movedFrom.TabIndex = 5;
+            this.movedFrom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // BattleViewer
             // 
@@ -532,7 +555,7 @@ namespace Nova.WinForms.Gui
        private System.Windows.Forms.Label targetArmor;
        private System.Windows.Forms.Label targetShields;
        private System.Windows.Forms.Label targetOwner;
-       private System.Windows.Forms.Label targetName;
+       private System.Windows.Forms.Label targetDesign;
        private System.Windows.Forms.Label label7;
        private System.Windows.Forms.Label label6;
        private System.Windows.Forms.Label label5;
@@ -556,5 +579,7 @@ namespace Nova.WinForms.Gui
        private System.Windows.Forms.TextBox textBox1;
        private System.Windows.Forms.Label stackKey;
        private System.Windows.Forms.Label label12;
+       private System.Windows.Forms.Label movedFrom;
+       private System.Windows.Forms.Label label14;
    }
 }
