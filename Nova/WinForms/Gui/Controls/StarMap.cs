@@ -1053,7 +1053,14 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public void SetCursor(object sender, SelectionArgs e)
         {
-            SetCursor(e.Selection.Position);
+            if (e == null || e.Selection == null)
+            {
+                return;
+            }
+            else
+            {
+                SetCursor(e.Selection.Position);
+            }
         }
         
         public void RefreshStarMap(object sender, EventArgs e)

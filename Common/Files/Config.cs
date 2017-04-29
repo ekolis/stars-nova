@@ -58,16 +58,37 @@ namespace Nova.Common
 
             if (File.Exists(fileName))
             {
-                using (FileStream confFile = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                bool success = false;
+                while (!success)
                 {
-                    // Data = Serializer.Deserialize(state) as GameSettings;
-                    XmlSerializer s = new XmlSerializer(typeof(Config));
-                    Config data = new Config();
-                    data = (Config)s.Deserialize(confFile);
-
-                    foreach (KeyValuePair<string, string> setting in data.settings)
+                    try
                     {
-                        this.settings.Add(setting.Key, setting.Value);
+                        using (FileStream confFile = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                        {
+                            // Data = Serializer.Deserialize(state) as GameSettings;
+                            XmlSerializer s = new XmlSerializer(typeof(Config));
+                            Config data = new Config();
+                            data = (Config)s.Deserialize(confFile);
+
+                            foreach (KeyValuePair<string, string> setting in data.settings)
+                            {
+                                this.settings.Add(setting.Key, setting.Value);
+                            }
+                            success = true;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        int hr = (int)e.GetType().GetProperty("HResult", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(e, null);
+
+                        if (hr == -2147024864)
+                        {
+                            System.Threading.Thread.Sleep(1000); // Wait a second.
+                        }
+                        else
+                        {
+                            throw; // Not an exception we recognize; rethrow.
+                        }
                     }
                 }
             }

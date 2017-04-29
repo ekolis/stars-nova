@@ -528,7 +528,7 @@ namespace Nova.Server
             {
                 fleet.InOrbit = GetStarAtPosition(fleet.Position);
             }
-            catch (KeyNotFoundException e)
+            catch 
             {
                 fleet.InOrbit = null;
             }

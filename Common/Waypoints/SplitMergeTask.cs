@@ -306,12 +306,13 @@ namespace Nova.Common.Waypoints
                 else
                 {
                     left.Composition[token.Key].Quantity += token.Quantity;
-                    left.Composition[token.Key].Armor += token.Armor; //FIXME (priority 6) - How do we average merged damaged tokens? 
+                    left.Composition[token.Key].Armor += token.Armor; 
                 }
             }
-            
-            right.Composition.Clear();
+
+            left.FuelAvailable += right.FuelAvailable;
             left.Cargo.Add(right.Cargo);
+            right.Composition.Clear();
         }
         
         
