@@ -135,7 +135,16 @@ namespace Nova.WinForms.Gui
 
             if (item is FleetIntel || item is Fleet)
             {
-                DisplayFleet(empireState.FleetReports[item.Key]);
+                FleetIntel report = null;
+                empireState.FleetReports.TryGetValue(item.Key, out report);
+                if (report != null)
+                {
+                    DisplayFleet(report);
+                }
+                else
+                {
+                    SetItem(null);
+                }
             }
             else
             {
