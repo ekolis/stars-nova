@@ -708,38 +708,43 @@ namespace Nova.Server
             // yet so this is the end of this shot.
 
             // FIXME (Priority 7) What about losses of a single ship within the token???
-
-            if (target.Token.Armor > 0) 
+            if (target.Token.Armor <= 0) 
             {
-                return;
+                DestroyStack(target);
             }
+        }
 
-            // All Defenses are gone. Remove the stack from the battle (which
-            // exists only during the battle) and, more importantly, remove the
-            // token from its "real" fleet. Also, generate a "destroy" event to
-            // update the battle visualisation display.
-
-            attack.TargetStack.Composition.Remove(target.Key); // removes the token from the stack
+        /// <summary>
+        /// All Defenses are gone. Remove the stack from the battle (which
+        /// exists only during the battle) and, more importantly, remove the
+        /// token from its "real" fleet. Also, generate a "destroy" event to
+        /// update the battle visualisation display.
+        /// </summary>
+        /// <param name="target"></param>
+        private void DestroyStack(Stack target)
+        {
+            // report the losses
+            battle.Losses[target.Owner] = battle.Losses[target.Owner] + target.Token.Quantity; 
 
             // for the battle viewer / report
             BattleStepDestroy destroy = new BattleStepDestroy();
             destroy.StackKey = target.Key;
             battle.Steps.Add(destroy);
-                    
 
-            if (serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets.ContainsKey(attack.TargetStack.ParentKey))
+            // remove the Token from the Fleet, if it exists
+            if (serverState.AllEmpires[target.Owner].OwnedFleets.ContainsKey(target.ParentKey))
             {
-                serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets[attack.TargetStack.ParentKey].Composition.Remove(target.Key); // remove the token from the fleet
-                
-                if (serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets[attack.TargetStack.ParentKey].Composition.Count == 0) // remove the fleet if no more tokens
+                serverState.AllEmpires[target.Owner].OwnedFleets[target.ParentKey].Composition.Remove(target.Token.Key); // remove the token from the fleet
+
+                if (serverState.AllEmpires[target.Owner].OwnedFleets[target.ParentKey].Composition.Count == 0) // remove the fleet if no more tokens
                 {
-                    serverState.AllEmpires[attack.TargetStack.Owner].OwnedFleets.Remove(attack.TargetStack.ParentKey);
-                    serverState.AllEmpires[attack.TargetStack.Owner].FleetReports.Remove(attack.TargetStack.ParentKey);
+                    serverState.AllEmpires[target.Owner].OwnedFleets.Remove(target.ParentKey);
+                    serverState.AllEmpires[target.Owner].FleetReports.Remove(target.ParentKey);
                 }
             }
-                        
-            int targetEmpire = attack.TargetStack.Owner;
-            battle.Losses[targetEmpire] = battle.Losses[targetEmpire] + 1; // this is +1 ship, but we just destroyed a whole stack!
+
+            // remove the token from the Stack (do this last so target.Token remains valid above)
+            target.Composition.Remove(target.Key);
         }
 
         /// <summary>
