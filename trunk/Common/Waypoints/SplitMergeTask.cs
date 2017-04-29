@@ -206,7 +206,7 @@ namespace Nova.Common.Waypoints
             if (OtherFleetKey != 0)
             {
                 // This allows to merge with other empires if desired at some point.
-                if(receiver.OwnedFleets.ContainsKey(OtherFleetKey))
+                if (receiver != null && receiver.OwnedFleets.ContainsKey(OtherFleetKey))
                 {
                     secondFleet = receiver.OwnedFleets[OtherFleetKey];
                 }
