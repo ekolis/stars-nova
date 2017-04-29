@@ -71,7 +71,7 @@ namespace Nova.WinForms.Gui
 
             battlePanel.BackgroundImage = Nova.Properties.Resources.Plasma;
             battlePanel.BackgroundImageLayout = ImageLayout.Stretch;
-            SetStepNumber();
+            SetStepNumber(theBattle.Steps[eventCount]);
         }
 
         /// <Summary>
@@ -106,7 +106,7 @@ namespace Nova.WinForms.Gui
         private void NextStep_Click(object sender, EventArgs e)
         {
             object thisStep = theBattle.Steps[eventCount];
-            SetStepNumber();
+            SetStepNumber((BattleStep) thisStep);
 
             if (thisStep is BattleStepMovement)
             {
@@ -250,7 +250,7 @@ namespace Nova.WinForms.Gui
             stackOwner.Text = "";
             stackDesign.Text = "";
             stackShields.Text = "";
-            topTokenArmor.Text = "";
+            stackArmor.Text = "";
 
         }
 
@@ -262,12 +262,12 @@ namespace Nova.WinForms.Gui
         {
             if (wolf != null)
             {
-                stackKey.Text = wolf.Key.ToString("X");
                 stackOwner.Text = wolf.Owner.ToString("X");
+                stackKey.Text = wolf.Key.ToString("X");
                 stackQuantity.Text = wolf.Token.Quantity.ToString();
-                stackDesign.Text = wolf.Composition.First().Value.Design.Name;
+                stackDesign.Text = wolf.Token.Design.Name;
                 stackShields.Text = wolf.TotalShieldStrength.ToString();
-                topTokenArmor.Text = wolf.TotalArmorStrength.ToString();
+                stackArmor.Text = wolf.TotalArmorStrength.ToString();
             }
             else
             {
@@ -283,8 +283,10 @@ namespace Nova.WinForms.Gui
         {
             if (lamb != null)
             {
-                targetDesign.Text = lamb.Name;
                 targetOwner.Text = lamb.Owner.ToString("X");
+                targetKey.Text = lamb.Key.ToString("X");
+                targetQuantity.Text = lamb.Token.Quantity.ToString();
+                targetDesign.Text = lamb.Token.Design.Name;
 
                 targetShields.Text = lamb.TotalShieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 targetArmor.Text = lamb.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -347,14 +349,17 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Just display the currrent step number in the battle replay control panel.
         /// </Summary>
-        private void SetStepNumber()
+        private void SetStepNumber(BattleStep thisStep)
         {
             StringBuilder title = new StringBuilder();
 
             title.AppendFormat(
-                "Step {0} of {1}",
+                "Step {0} of {1}: {2}",
                 eventCount + 1,
-                theBattle.Steps.Count);
+                theBattle.Steps.Count,
+                thisStep.Type
+                );
+
 
             stepNumber.Text = title.ToString();
         }
