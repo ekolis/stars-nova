@@ -142,7 +142,8 @@ namespace Nova.Common
             BattlePlan = copy.BattlePlan;            
             Target = copy.Target;
             InOrbit = copy.InOrbit;
-            Token = new ShipToken(copy.Token.Design, copy.Token.Quantity, copy.Token.Armor); 
+            Token = new ShipToken(copy.Token.Design, copy.Token.Quantity, copy.Token.Armor);
+            Token.Shields = copy.Token.Shields;
         }
         
         /// <summary>
