@@ -163,7 +163,7 @@ namespace Nova.Server
                 // Copy the full list of stacks into the battle report. We need a
                 // full list to start with as the list in the battle engine will
                 // get depleted during the battle and may not (and most likely will
-                // not) be fully populated by the time we serialise the
+                // not) be fully populated by the time we Serialize the
                 // report. Ensure we take a copy at this point as the "real" stack
                 // will mutate as processing proceeds and even ships may vanish.
                                 

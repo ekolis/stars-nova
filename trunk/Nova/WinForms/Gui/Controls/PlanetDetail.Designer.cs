@@ -674,13 +674,13 @@ namespace Nova.WinForms.Gui
             // 
             // fuel
             // 
-            this.fuel.BarColour = System.Drawing.Color.LightGreen;
+            this.fuel.Barcolor = System.Drawing.Color.LightGreen;
             this.fuel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fuel.BottomValue = 0D;
             this.fuel.Enabled = false;
             this.fuel.Location = new System.Drawing.Point(63, 47);
             this.fuel.Marker = 0;
-            this.fuel.MarkerColour = System.Drawing.Color.Green;
+            this.fuel.Markercolor = System.Drawing.Color.Green;
             this.fuel.Maximum = 0D;
             this.fuel.Minimum = 0D;
             this.fuel.Name = "fuel";

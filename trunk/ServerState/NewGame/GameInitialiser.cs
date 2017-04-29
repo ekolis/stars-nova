@@ -30,10 +30,10 @@ namespace Nova.Server.NewGame
     /// <summary>
     /// Creates a game from scratch.
     /// </summary>
-    public class GameInitialiser
+    public class Gameinitializer
     {
         private ServerData serverState;
-        private StarMapInitialiser starMapInitialiser;
+        private StarMapinitializer starMapinitializer;
         private NameGenerator nameGenerator = new NameGenerator();
         
         public ServerData ServerState
@@ -47,7 +47,7 @@ namespace Nova.Server.NewGame
 
         public static void Initialize(string gameFolderPath, List<PlayerSettings> players, Dictionary<string, Race> knownRaces)
         {
-            GameInitialiser game = new GameInitialiser(gameFolderPath);
+            Gameinitializer game = new Gameinitializer(gameFolderPath);
             game.GenerateEmpires(players, knownRaces);
             game.GenerateStarMap();
             game.GenerateAssets();
@@ -56,7 +56,7 @@ namespace Nova.Server.NewGame
         } 
 
         
-        private GameInitialiser(string gameFolderPath)
+        private Gameinitializer(string gameFolderPath)
         {
             serverState = new ServerData();
             
@@ -68,7 +68,7 @@ namespace Nova.Server.NewGame
                 serverState.GameFolder = gameFolderPath;
                 // Don't set ClientFolderKey in case we want to simulate a LAN game 
                 // on one PC for testing. 
-                // Should be set when the ClientState is initialised. If that is by 
+                // Should be set when the ClientState is initialized. If that is by 
                 // launching Nova GUI from the console then the GameFolder will be 
                 // passed as the path to the .intel and the ClientFolderKey will then 
                 // be updated.
@@ -83,7 +83,7 @@ namespace Nova.Server.NewGame
                 conf[Global.ServerStateKey] = serverState.StatePathName;
             }
             
-            starMapInitialiser = new StarMapInitialiser(serverState);
+            starMapinitializer = new StarMapinitializer(serverState);
         }
 
 
@@ -147,13 +147,13 @@ namespace Nova.Server.NewGame
 
         private void GenerateStarMap()
         {
-            starMapInitialiser.GenerateStars();   
+            starMapinitializer.GenerateStars();   
         }
 
 
         private void GenerateAssets()
         {
-            starMapInitialiser.GeneratePlayerAssets();   
+            starMapinitializer.GeneratePlayerAssets();   
         }
 
 

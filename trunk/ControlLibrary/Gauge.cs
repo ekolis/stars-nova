@@ -302,11 +302,11 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set the bar colour.
+        /// Get or Set the bar color.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        [Description("Bar Colour."), Category("Nova")]
-        public Color BarColour
+        [Description("Bar color."), Category("Nova")]
+        public Color Barcolor
         {
             get { return this.barBrush.Color; }
             set { this.barBrush = new SolidBrush(value); }
@@ -314,17 +314,16 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set or Get the Marker Colour.
+        /// Set or Get the Marker color.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        [Description("Marker Colour."), Category("Nova")]
-        public Color MarkerColour
+        [Description("Marker color."), Category("Nova")]
+        public Color Markercolor
         {
             get { return this.markerBrush.Color; }
             set { this.markerBrush = new SolidBrush(value); }
         }
 
         #endregion Properties
-
     }
 }

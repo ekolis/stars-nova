@@ -135,7 +135,7 @@ namespace Nova.WinForms.Gui
                 
                 commands.Push(command);
             
-                if (command.isValid(empireState))
+                if (command.IsValid(empireState))
                 {
                     command.ApplyToState(empireState);
                 }
@@ -211,7 +211,7 @@ namespace Nova.WinForms.Gui
 
             commands.Push(command);
             
-            if (command.isValid(empireState))
+            if (command.IsValid(empireState))
             {
                 command.ApplyToState(empireState);
             }
@@ -241,7 +241,7 @@ namespace Nova.WinForms.Gui
                     
                     commands.Push(command);
                     
-                    if (command.isValid(empireState))
+                    if (command.IsValid(empireState))
                     {
                         command.ApplyToState(empireState);
                     }
@@ -306,7 +306,7 @@ namespace Nova.WinForms.Gui
             }
             commands.Push(command);
         
-            if (command.isValid(empireState))
+            if (command.IsValid(empireState))
             {
                 command.ApplyToState(empireState);
             }
@@ -607,13 +607,13 @@ namespace Nova.WinForms.Gui
                     WaypointCommand command = new WaypointCommand(CommandMode.Add, selectedFleet.Key, index);
                     command.Waypoint = waypoint;
                     
-                    if (command.isValid(empireState))
+                    if (command.IsValid(empireState))
                     {
                         commands.Push(command);
                         
                         command.ApplyToState(empireState);
                         // Also perform it here, to update client state for manual split/merge.
-                        if (command.Waypoint.Task.isValid(selectedFleet, otherFleet, empireState, empireState))
+                        if (command.Waypoint.Task.IsValid(selectedFleet, otherFleet, empireState, empireState))
                         {
                             command.Waypoint.Task.Perform(selectedFleet, otherFleet, empireState, empireState);
                             

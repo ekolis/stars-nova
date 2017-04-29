@@ -46,9 +46,9 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// Initializing constructor.
         /// </summary>
-        /// <param name="audience">A string representing the destination of the message. Either a race name or and asterix.</param>
+        /// <param name="audience">A string representing the destination of the message. Either a race name or and asterisk.</param>
         /// <param name="messageEvent">An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click.</param>
         /// <param name="text">The text to display in the message box.</param>
         public Message(int audience, string text, string messageType, object messageEvent)
@@ -60,7 +60,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load: Initialising constructor to read in a Star from an XmlNode (from a saved file).
+        /// Load: initializing constructor to read in a Star from an XmlNode (from a saved file).
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> representing a Star.
         /// </param>
@@ -113,7 +113,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Serialise this Message to an <see cref="XmlElement"/>.
+        /// Save: Serialize this Message to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Message.</returns>

@@ -32,15 +32,15 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Common;
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using Nova.Common;
+
     // ToDo: Immunity
     public class Range : System.Windows.Forms.UserControl
     {
@@ -60,7 +60,7 @@ namespace Nova.ControlLibrary
         // BoxRightPosition    Position of right side of bar (%)
         // BoxTitle            Title for range box
         // Environment         Indicates which trait is being manipulated
-        // IndicatorBrush      Colour to be used for indicator within bar
+        // IndicatorBrush      color to be used for indicator within bar
         // BoxMinimum          Specifies the (real) minimum value of the range
         // BoxMaximum          Specifies the (real) maximum value of the range
         // TimerAction         Determines how the bar is manipulated on a timer tick
@@ -304,7 +304,7 @@ namespace Nova.ControlLibrary
             string realRange;
             if (this.units == Gravity.GetUnit())
             {
-                realRange = String.Format(
+                realRange = string.Format(
                     "{0}{2} to {1}{2}",
                     Gravity.Format(this.boxLeftPosition),
                     Gravity.Format(this.boxRightPosition),
@@ -312,7 +312,7 @@ namespace Nova.ControlLibrary
             }
             else if (this.units == "mR")
             {
-                realRange = String.Format(
+                realRange = string.Format(
                     "{0}{2} to {1}{2}",
                     this.boxLeftPosition.ToString("F0"),
                     this.boxRightPosition.ToString("F0"),
@@ -321,7 +321,7 @@ namespace Nova.ControlLibrary
             else
             {
                 // Temperature
-                realRange = String.Format(
+                realRange = string.Format(
                     "{0}{2} to {1}{2}",
                     Temperature.Format(this.boxLeftPosition),
                     Temperature.Format(this.boxRightPosition),
@@ -337,7 +337,7 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Called when the timer ticks. As only one button can be held down at a time
-        /// we use the same timer rourine to process all four buttons with the desired
+        /// we use the same timer routine to process all four buttons with the desired
         /// action being held in the class variable TimerAction.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -532,7 +532,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set range control uper value.
+        /// Get or Set range control upper value.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Upper value of range bar."), Category("Nova")]
@@ -587,10 +587,10 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set range control bar colour.
+        /// Get or Set range control bar color.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        [Description("Colour of range bar."), Category("Nova")]
+        [Description("color of range bar."), Category("Nova")]
         public Color RangeBarColor
         {
             get

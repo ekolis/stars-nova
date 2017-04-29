@@ -52,7 +52,7 @@ namespace Nova.Common.Waypoints
         /// <param name="sender">The EmpireData that owns the fleet</param>
         /// <param name="receiver">The EmpireData (if any) that owns the target</param>
         /// <returns>True if the task can be performed</returns>
-        bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver = null);
+        bool IsValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver = null);
         
         /// <summary>
         /// Performs the Waypoint Task at hand.

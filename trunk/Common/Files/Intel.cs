@@ -148,7 +148,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Serialise this object to an <see cref="XmlElement"/>.
+        /// Save: Serialize this object to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Intel.</returns>

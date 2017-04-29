@@ -36,10 +36,10 @@ namespace Nova.Common
     public sealed class Config : IDisposable, IXmlSerializable
     {
         private readonly Dictionary<string, string> settings = new Dictionary<string, string>(); // string key, string value
-        private bool initialised;
+        private bool initialized;
 
         /// <summary>
-        /// Initialises a new instance of the Config class.
+        /// Initializes a new instance of the Config class.
         /// </summary>
         public Config()
         {
@@ -72,7 +72,7 @@ namespace Nova.Common
                 }
             }
 
-            this.initialised = true;
+            this.initialized = true;
         }
 
         /// <summary>
@@ -130,12 +130,12 @@ namespace Nova.Common
         {
             get
             {
-                if (!this.initialised)
+                if (!this.initialized)
                 {
                     Restore();
                 }
 
-                if (String.IsNullOrEmpty(key))
+                if (string.IsNullOrEmpty(key))
                 {
                     return null;
                 }
@@ -148,12 +148,12 @@ namespace Nova.Common
 
             set
             {
-                if (!this.initialised)
+                if (!this.initialized)
                 {
                     Restore();
                 }
 
-                if (String.IsNullOrEmpty(key))
+                if (string.IsNullOrEmpty(key))
                 {
                     return;
                 }
@@ -167,7 +167,7 @@ namespace Nova.Common
         /// <param name="setting">The key of the setting to remove.</param>
         public void Remove(string setting)
         {
-            if (!this.initialised)
+            if (!this.initialized)
             {
                 Restore();
             }

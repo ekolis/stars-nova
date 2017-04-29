@@ -137,7 +137,7 @@ namespace Nova.Common.Components
         /// Loads from XML.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public Scanner(XmlNode node)
         {
@@ -164,7 +164,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

@@ -54,7 +54,7 @@ namespace Nova.WinForms.Gui
             
             InitializeComponent();
             
-            InitialiseControls();
+            initializeControls();
             
              // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
             // for now so it works again
@@ -293,7 +293,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void LoadNextTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // prepare the arguments that will tell how to re-initialise.
+            // prepare the arguments that will tell how to re-initialize.
             CommandArguments commandArguments = new CommandArguments();
             commandArguments.Add(CommandArguments.Option.RaceName, clientState.EmpireState.Race.Name);
             commandArguments.Add(CommandArguments.Option.Turn, clientState.EmpireState.TurnYear + 1);
@@ -327,7 +327,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Load controls with any data we may have for them.
         /// </Summary>
-        public void InitialiseControls()
+        public void initializeControls()
         {
             this.Messages.Year = clientState.EmpireState.TurnYear;
             this.Messages.MessageList = clientState.Messages;
@@ -335,7 +335,7 @@ namespace Nova.WinForms.Gui
             this.CurrentTurn = clientState.EmpireState.TurnYear;
             this.CurrentRace = clientState.EmpireState.Race.Name;
 
-            this.MapControl.Initialise(clientState);
+            this.MapControl.initialize(clientState);
 
             // Select a Star owned by the player (if any) as the default display.
 
@@ -362,7 +362,7 @@ namespace Nova.WinForms.Gui
 
             Invalidate(true);
 
-            MapControl.Initialise(clientState);
+            MapControl.initialize(clientState);
             MapControl.Invalidate();
 
             // Select a Star owned by the player (if any) as the default display.

@@ -44,7 +44,7 @@ namespace Nova.Common.DataStructures
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// Initializing constructor.
         /// </summary>
         /// <param name="x">The new X coordinate.</param>
         /// <param name="y">The new Y coordinate.</param>
@@ -55,7 +55,7 @@ namespace Nova.Common.DataStructures
         }
 
         /// <summary>
-        /// Initialising constructor from a System.Drawing.Point.
+        /// Initializing constructor from a System.Drawing.Point.
         /// </summary>
         /// <param name="p">The initial position as a <see cref="System.Drawing.Point"/>.</param>
         public NovaPoint(System.Drawing.Point p)
@@ -65,7 +65,7 @@ namespace Nova.Common.DataStructures
         }
 
         /// <summary>
-        /// Initialising constructor from a NovaPoint.
+        /// Initializing constructor from a NovaPoint.
         /// </summary>
         /// <param name="p">The initial position as a <see cref="NovaPoint"/>.</param>
         public NovaPoint(NovaPoint p)
@@ -136,9 +136,15 @@ namespace Nova.Common.DataStructures
         /// <returns>Returns true if the points have the same location (X, Y).</returns>
         public static bool operator ==(NovaPoint a, NovaPoint b)
         {
-            if (Object.ReferenceEquals(a, b)) { return true; }
+            if (object.ReferenceEquals(a, b)) 
+            { 
+                return true; 
+            }
             
-            if (((object)a == null) || ((object)b == null)) { return false; }
+            if (((object)a == null) || ((object)b == null)) 
+            { 
+                return false; 
+            }
             
             return a.Equals(b);
         }
@@ -164,7 +170,7 @@ namespace Nova.Common.DataStructures
         }
         public override string ToString()
         {
-            return String.Format("({0}, {1})", X, Y);
+            return string.Format("({0}, {1})", X, Y);
         }
 
         /// <summary>
@@ -195,7 +201,7 @@ namespace Nova.Common.DataStructures
         }
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within a Nova xml document.</param>
         public NovaPoint(XmlNode node)
@@ -228,7 +234,7 @@ namespace Nova.Common.DataStructures
         }
 
         /// <summary>
-        /// Save: Serialise this NovaPoint to an <see cref="XmlElement"/>.
+        /// Save: Serialize this NovaPoint to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the NovaPoint.</returns>

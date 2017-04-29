@@ -134,7 +134,7 @@ namespace Nova.Client
         }
 
         /// <summary>
-        /// Initialise the data needed for the GUI to run.
+        /// initialize the data needed for the GUI to run.
         /// </summary>
         /// <param name="argArray">The command line arguments.</param>
         public void Initialize(string[] argArray)
@@ -203,7 +203,7 @@ namespace Nova.Client
                                   "Nova Console?");
             }
 
-            // Sort out what we need to initialise the ClientState
+            // Sort out what we need to initialize the ClientState
             bool isLoaded = false;
 
             // 1. the Nova GUI was started directly (e.g. in the debugger). 
@@ -285,7 +285,7 @@ namespace Nova.Client
 
             if (!isLoaded)
             {
-                Report.FatalError("ClientState.cs Initialise() - Failed to find any .intel when initialising turn");
+                Report.FatalError("ClientState.cs initialize() - Failed to find any .intel when initializing turn");
             }            
                         
             FirstTurn = false;

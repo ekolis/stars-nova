@@ -51,7 +51,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// Initializing constructor.
         /// </summary>
         /// <param name="existing">The value of this property (e.g. BattleSpeed).</param>
         public DoubleProperty(double existing)
@@ -118,7 +118,7 @@ namespace Nova.Common.Components
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
         /// <param name="op1">Property to scale.</param>
-        /// <param name="scalar">Number of instnaces of the property.</param>
+        /// <param name="scalar">Number of instances of the property.</param>
         /// <returns>A single property representing all the instances.</returns>
         public static DoubleProperty operator *(DoubleProperty op1, int scalar)
         {
@@ -130,10 +130,10 @@ namespace Nova.Common.Components
         #region Load Save Xml
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: Initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public DoubleProperty(XmlNode node)
         {
@@ -156,7 +156,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

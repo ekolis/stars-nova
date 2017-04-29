@@ -107,7 +107,7 @@ namespace Nova.WinForms
    
             try
             {
-                GameInitialiser.Initialize(gameFolder.Text, Players, KnownRaces);
+                Gameinitializer.Initialize(gameFolder.Text, Players, KnownRaces);
                 GameSettings.Save();
             }
             catch (Exception e)

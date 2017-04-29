@@ -40,45 +40,93 @@ namespace Nova.Common
         /// <summary>
         /// Stores the different resources.
         /// </summary>
-        private Dictionary<ResourceType, int> commodities = new Dictionary<ResourceType, int>(){
-            {ResourceType.Ironium, 0},
-            {ResourceType.Boranium, 0},
-            {ResourceType.Germanium, 0},
-            {ResourceType.ColonistsInKilotons, 0} // Stored in KiloTons, not actual numbers.
+        private Dictionary<ResourceType, int> commodities = new Dictionary<ResourceType, int>()
+        {
+            { 
+                ResourceType.Ironium, 0
+            },
+            {
+                ResourceType.Boranium, 0
+            },
+            {
+                ResourceType.Germanium, 0
+            },
+            {
+                ResourceType.ColonistsInKilotons, 0
+            } // Stored in KiloTons, not actual numbers.
         };
         
-        public Dictionary<ResourceType, int> Commodities {
-            get { return commodities; }
+        public Dictionary<ResourceType, int> Commodities 
+        {
+            get 
+            { 
+                return commodities; 
+            }
         }
         
-        public int Ironium {
-            set { commodities[ResourceType.Ironium] = value; }            
-            get { return commodities[ResourceType.Ironium]; }
+        public int Ironium 
+        {
+            set 
+            { 
+                commodities[ResourceType.Ironium] = value; 
+            }            
+            
+            get 
+            { 
+                return commodities[ResourceType.Ironium]; 
+            }
         }
         
-        public int Boranium {
-            set { commodities[ResourceType.Boranium] = value; }            
-            get { return commodities[ResourceType.Boranium]; }
+        public int Boranium 
+        {
+            set 
+            { 
+                commodities[ResourceType.Boranium] = value; 
+            }   
+         
+            get 
+            { 
+                return commodities[ResourceType.Boranium]; 
+            }
         }
         
-        public int Germanium {
-            set { commodities[ResourceType.Germanium] = value; }            
-            get { return commodities[ResourceType.Germanium]; }
+        public int Germanium
+        {
+            set
+            { 
+                commodities[ResourceType.Germanium] = value; 
+            }      
+      
+            get
+            {
+                return commodities[ResourceType.Germanium]; 
+            }
         }
         
         /// <summary>
         /// Sets or Gets amount of Colonists in KiloTons.
         /// </summary>
-        public int ColonistsInKilotons {
-            set { commodities[ResourceType.ColonistsInKilotons] = value; }            
-            get { return commodities[ResourceType.ColonistsInKilotons]; }
+        public int ColonistsInKilotons 
+        {
+            set
+            { 
+                commodities[ResourceType.ColonistsInKilotons] = value;
+            }            
+            get
+            {
+                return commodities[ResourceType.ColonistsInKilotons];
+            }
         }
         
         /// <summary>
         /// Gets the amount of actual Colonists in the cargo.
         /// </summary>
-        public int ColonistNumbers {          
-            get { return commodities[ResourceType.ColonistsInKilotons] * Global.ColonistsPerKiloton; }
+        public int ColonistNumbers 
+        {          
+            get
+            { 
+                return commodities[ResourceType.ColonistsInKilotons] * Global.ColonistsPerKiloton;
+            }
         }                
         
         /// <summary>
@@ -101,12 +149,15 @@ namespace Nova.Common
             
             set
             {
-                if (commodities.ContainsKey(index)) {commodities[index] = value;}
+                if (commodities.ContainsKey(index)) 
+                {
+                    commodities[index] = value;
+                }
             }
         }
         
         /// <summary>
-        /// Defualt constructor (needed if there is a copy constructor).
+        /// Default constructor (needed if there is a copy constructor).
         /// </summary>
         public Cargo() 
         {
@@ -129,7 +180,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova xml document.
@@ -210,7 +261,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Serialise this object to an <see cref="XmlElement"/>.
+        /// Save: Serialize this object to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Cargo.</returns>
@@ -236,7 +287,7 @@ namespace Nova.Common
             {
                 return "0,0,0,0";
             }
-            return String.Format("{0},{1},{2},{3}", cargo.Ironium, cargo.Boranium, cargo.Germanium, cargo.ColonistsInKilotons);
+            return string.Format("{0},{1},{2},{3}", cargo.Ironium, cargo.Boranium, cargo.Germanium, cargo.ColonistsInKilotons);
         }
     }
 }

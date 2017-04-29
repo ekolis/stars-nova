@@ -66,10 +66,10 @@ namespace Nova.Common.Commands
         
         
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: Initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public ProductionCommand(XmlNode node)
         {
@@ -101,7 +101,7 @@ namespace Nova.Common.Commands
         }
         
         
-        public bool isValid(EmpireData empire)
+        public bool IsValid(EmpireData empire)
         {
             switch (Mode)
             {
@@ -110,18 +110,30 @@ namespace Nova.Common.Commands
                     // it's actual cost.
                     if (ProductionOrder.Unit is ShipProductionUnit)
                     {
-                        if (!(ProductionOrder.Unit.Cost >= empire.Designs[(ProductionOrder.Unit as ShipProductionUnit).DesignKey].Cost)) {return false;}
+                        if (!(ProductionOrder.Unit.Cost >= empire.Designs[(ProductionOrder.Unit as ShipProductionUnit).DesignKey].Cost)) 
+                        {
+                            return false;
+                        }
                     }                    
                     if (ProductionOrder.Unit is FactoryProductionUnit)
                     {
-                        if (!(ProductionOrder.Unit.Cost >= empire.Race.GetFactoryResources())) { return false; }
+                        if (!(ProductionOrder.Unit.Cost >= empire.Race.GetFactoryResources())) 
+                        { 
+                            return false; 
+                        }
                     }                    
                     if (ProductionOrder.Unit is MineProductionUnit)
                     {
-                        if (!(ProductionOrder.Unit.Cost >= empire.Race.GetMineResources())) { return false; }
+                        if (!(ProductionOrder.Unit.Cost >= empire.Race.GetMineResources())) 
+                        { 
+                            return false; 
+                        }
                     }                    
                     // Don't add cheated pre-built units.
-                    if (!(ProductionOrder.Unit.Cost == ProductionOrder.Unit.RemainingCost)) { return false; }
+                    if (!(ProductionOrder.Unit.Cost == ProductionOrder.Unit.RemainingCost)) 
+                    { 
+                        return false; 
+                    }
                     break;
                 
                 case CommandMode.Edit:
@@ -172,7 +184,7 @@ namespace Nova.Common.Commands
         
         
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

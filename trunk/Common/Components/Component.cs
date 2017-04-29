@@ -38,8 +38,8 @@ namespace Nova.Common.Components
     {
         public TechLevel RequiredTech = new TechLevel();
         public Image ComponentImage;
-        public string ImageFile = String.Empty;
-        public string Description = String.Empty;
+        public string ImageFile = string.Empty;
+        public string Description = string.Empty;
         public RaceRestriction Restrictions = new RaceRestriction();
 
         public Dictionary<string, ComponentProperty> Properties;
@@ -107,10 +107,10 @@ namespace Nova.Common.Components
 
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: Initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public Component(XmlNode node)
             : base(node)
@@ -161,15 +161,13 @@ namespace Nova.Common.Components
                                     }
                                     else
                                     {
-                                        
                                         {
-                                            string GraphicsPath = FileSearcher.GetGraphicsPath();
-                                            if (GraphicsPath != null)
+                                            string graphicsPath = FileSearcher.GetGraphicsPath();
+                                            if (graphicsPath != null)
                                             {
-                                                ImageFile = Path.Combine(GraphicsPath, ImageFile);
+                                                ImageFile = Path.Combine(graphicsPath, ImageFile);
                                                 info = new FileInfo(ImageFile);
                                             }
-
                                         }
                                         
                                         if (info.Exists)
@@ -377,7 +375,7 @@ namespace Nova.Common.Components
         
         
         /// <summary>
-        /// Save: Serialise this component to an <see cref="XmlElement"/>.
+        /// Save: Serialize this component to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

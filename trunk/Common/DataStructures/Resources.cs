@@ -58,7 +58,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Initialising Constructor.
+        /// Initializing Constructor.
         /// </summary>
         public Resources(int i, int b, int g, int e)
         {
@@ -136,7 +136,7 @@ namespace Nova.Common
             }
             else
             {
-                return !(lhs.Equals(rhs));
+                return ! lhs.Equals(rhs);
             }
         }
 
@@ -147,7 +147,10 @@ namespace Nova.Common
         /// <returns>true if obj is a Resources and all commodities match.</returns>
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+            {
+                return false;
+            }
 
             Resources res = obj as Resources;
             if ((object)res == null)
@@ -168,7 +171,10 @@ namespace Nova.Common
         /// <returns>Returns true if all commodities match.</returns>
         public bool Equals(Resources res)
         {
-            if (res == null) return false;
+            if (res == null)
+            {
+                return false;
+            }
 
             if (res.Ironium == Ironium && res.Boranium == Boranium && res.Germanium == Germanium && res.Energy == Energy)
             {
@@ -267,9 +273,9 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
-        /// <param name="node">A node is a "resource" <see cref="XmlNode"/> in a Nova compenent definition file (xml document).
+        /// <param name="node">A node is a "resource" <see cref="XmlNode"/> in a Nova component definition file (xml document).
         /// </param>
         public Resources(XmlNode node)
         {
@@ -303,10 +309,10 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Save: Serialise this Resources to an <see cref="XmlElement"/>.
+        /// Save: Serialize this Resources to an <see cref="XmlElement"/>.
         /// </summary>
-        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <param name ="nodeName">The name this resrouce node will have on the XML file. Default is "Cost"</param>
+        /// <param name="xmldoc">The parent.<see cref="XmlDocument"/>.</param>
+        /// <param name ="nodeName">The name this resource node will have on the XML file. Default is "Cost".</param>
         /// <returns>Return an <see cref="XmlElement"/> representation of the resource cost.</returns>
         public XmlElement ToXml(XmlDocument xmldoc, string nodeName = "Cost")
         {

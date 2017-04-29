@@ -31,8 +31,17 @@ namespace Nova.Common.DataStructures
     [Serializable]
     public class BattleStepTarget : BattleStep
     {
-        public long StackKey {get; set;}
-        public long TargetKey {get; set;}
+        public long StackKey 
+        {
+            get; 
+            set;
+        }
+
+        public long TargetKey 
+        {
+            get; 
+            set;
+        }
 
         public BattleStepTarget()
         {
@@ -40,7 +49,7 @@ namespace Nova.Common.DataStructures
         }
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleStepTarget"/> XmlNode from a Nova save file (xml document). </param>
         public BattleStepTarget(XmlNode node)

@@ -23,8 +23,8 @@
 namespace Nova.Common.Components
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading;
     using System.Xml;
@@ -92,9 +92,9 @@ namespace Nova.Common.Components
 
         
         /// <summary>
-        /// Returns a new instance of the requested component
+        /// Returns a new instance of the requested component.
         /// </summary>
-        /// <param name="componentName">The desired Component's name</param>
+        /// <param name="componentName">The desired Component's name.</param>
         /// <returns>The new requested Component, or null.</returns>
         public Component Fetch(string componentName)
         {
@@ -108,9 +108,9 @@ namespace Nova.Common.Components
         
         
         /// <summary>
-        /// Removes and returns a Component
+        /// Removes and returns a Component.
         /// </summary>
-        /// <param name="componentName">Component name to remove</param>
+        /// <param name="componentName">Component name to remove.</param>
         /// <returns>The removed Component, or null.</returns>
         public Component Remove(string componentName)
         {
@@ -154,10 +154,10 @@ namespace Nova.Common.Components
             }
             
             // Ensure we have the component definition file before starting the worker thread, or die.
-            if (String.IsNullOrEmpty(saveFilePath))
+            if (string.IsNullOrEmpty(saveFilePath))
             {
                 saveFilePath = FileSearcher.GetComponentFile();
-                if (String.IsNullOrEmpty(saveFilePath))
+                if (string.IsNullOrEmpty(saveFilePath))
                 {
                     Report.FatalError("Unable to locate component definition file.");
                 }
@@ -218,7 +218,7 @@ namespace Nova.Common.Components
                         else if (xmlnode.Name == "Component")
                         {
                             ++nodesLoaded;
-                            callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
+                            callback.SetText(string.Format("Loading component: {0}", nodesLoaded));
                             callback.StepTo(nodesLoaded);
                             Component newComponent = new Component(xmlnode);
                             components[newComponent.Name] = newComponent;
@@ -312,7 +312,7 @@ namespace Nova.Common.Components
                 if (!Directory.Exists(graphicsFilePath))
                 {
                     graphicsFilePath = FileSearcher.GetGraphicsPath();
-                    if (!String.IsNullOrEmpty(graphicsFilePath))
+                    if (!string.IsNullOrEmpty(graphicsFilePath))
                     {
                         using (Config conf = new Config())
                         {
@@ -336,7 +336,7 @@ namespace Nova.Common.Components
                 if (!Directory.Exists(saveFilePath))
                 {
                     saveFilePath = FileSearcher.GetComponentFile();
-                    if (!String.IsNullOrEmpty(saveFilePath))
+                    if (!string.IsNullOrEmpty(saveFilePath))
                     {
                         using (Config conf = new Config())
                         {

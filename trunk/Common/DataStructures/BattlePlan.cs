@@ -58,7 +58,7 @@ namespace Nova.Common
         #region Load Save Xml
 
         /// <summary>
-        /// Load: Initialising constructor from an XmlNode.
+        /// Load: initializing constructor from an XmlNode.
         /// </summary>
         /// <param name="node">An XmlNode representing a BattlePlan.</param>
         public BattlePlan(XmlNode node)
@@ -102,7 +102,7 @@ namespace Nova.Common
         /// Save: Generate an XmlElement representation of a battle plan for saving.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument.</param>
-        /// <returns>An XmlElement representaion of the BattlePlan.</returns>
+        /// <returns>An XmlElement representation of the BattlePlan.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattlePlan = xmldoc.CreateElement("BattlePlan");

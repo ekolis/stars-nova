@@ -48,7 +48,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Initialising constructor.
+        /// initializing constructor.
         /// </summary>
         /// <param name="star">The star that is producing this item.</param>
         public TerraformProductionUnit()

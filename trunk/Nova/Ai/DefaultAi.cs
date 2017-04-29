@@ -50,7 +50,7 @@ namespace Nova.Ai
                     foreach (ProductionOrder productionOrderToclear in star.ManufacturingQueue.Queue)
                     {
                         ProductionCommand clearProductionCommand = new ProductionCommand(CommandMode.Delete, productionOrderToclear, star.Key);
-                        if (clearProductionCommand.isValid(clientState.EmpireState))
+                        if (clearProductionCommand.IsValid(clientState.EmpireState))
                         {
                             //clearProductionCommand.ApplyToState(clientState.EmpireState); // FIXME - can't change the state inside the for each loop.
                             clearProductionList.Enqueue(clearProductionCommand);
@@ -81,7 +81,7 @@ namespace Nova.Ai
 
                         ProductionOrder factoryOrder = new ProductionOrder(factoriesToBuild, new FactoryProductionUnit(clientState.EmpireState.Race), false);
                         ProductionCommand factoryCommand = new ProductionCommand(CommandMode.Add, factoryOrder, star.Key);
-                        if (factoryCommand.isValid(clientState.EmpireState))
+                        if (factoryCommand.IsValid(clientState.EmpireState))
                         {
                             factoryCommand.ApplyToState(clientState.EmpireState);
                             clientState.Commands.Push(factoryCommand);
@@ -94,7 +94,7 @@ namespace Nova.Ai
                     {
                         ProductionOrder mineOrder = new ProductionOrder(maxMines - star.Mines, new MineProductionUnit(clientState.EmpireState.Race), false);
                         ProductionCommand mineCommand = new ProductionCommand(CommandMode.Add, mineOrder, star.Key);
-                        if (mineCommand.isValid(clientState.EmpireState))
+                        if (mineCommand.IsValid(clientState.EmpireState))
                         {
                             mineCommand.ApplyToState(clientState.EmpireState);
                             clientState.Commands.Push(mineCommand);
@@ -107,7 +107,7 @@ namespace Nova.Ai
                     {
                         ProductionOrder defenseOrder = new ProductionOrder(defenseToBuild, new DefenseProductionUnit(), false);
                         ProductionCommand defenseCommand = new ProductionCommand(CommandMode.Add, defenseOrder, star.Key);
-                        if (defenseCommand.isValid(clientState.EmpireState))
+                        if (defenseCommand.IsValid(clientState.EmpireState))
                         {
                             defenseCommand.ApplyToState(clientState.EmpireState);
                             clientState.Commands.Push(defenseCommand);
@@ -239,7 +239,7 @@ namespace Nova.Ai
                     command.Topics.Zero();
                     command.Topics[targetResearchField] = 1;
 
-                    if (command.isValid(clientState.EmpireState))
+                    if (command.IsValid(clientState.EmpireState))
                     {
                         clientState.Commands.Push(command);
                         command.ApplyToState(clientState.EmpireState);

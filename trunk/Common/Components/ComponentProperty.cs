@@ -100,7 +100,7 @@ namespace Nova.Common.Components
 
         /// <summary>
         /// Initializes a new instance of the ComponentProperty class.
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: Initializing constructor from an XML node.
         /// </summary>
         public ComponentProperty(XmlNode node)
         {
@@ -108,7 +108,7 @@ namespace Nova.Common.Components
 
 
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         public virtual XmlElement ToXml(XmlDocument xmldoc)
         {

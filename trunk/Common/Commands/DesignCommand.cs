@@ -53,7 +53,7 @@ namespace Nova.Common.Commands
         }
         
         /// <summary>
-        /// Creaets a design command with a design key. Useful to delete designs without
+        /// Creates a design command with a design key. Useful to delete designs without
         /// bloating the orders file when all that is needed is the numeric Key instead of
         /// the full design.
         /// </summary>
@@ -76,10 +76,10 @@ namespace Nova.Common.Commands
                 
         
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: Initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public DesignCommand(XmlNode node)
         {
@@ -108,9 +108,9 @@ namespace Nova.Common.Commands
         
         
         
-        public bool isValid(EmpireData empire)
+        public bool IsValid(EmpireData empire)
         {           
-            switch(Mode)
+            switch (Mode)
             {
                 case CommandMode.Add:
                     if (empire.Designs.ContainsKey(Design.Key))
@@ -135,7 +135,7 @@ namespace Nova.Common.Commands
         
         public void ApplyToState(EmpireData empire)
         {
-            switch(Mode)
+            switch (Mode)
             {
                 case CommandMode.Add:
                     empire.Designs.Add(Design.Key, Design);
@@ -150,7 +150,6 @@ namespace Nova.Common.Commands
                     empire.Designs.Add(Design.Key, Design);
                 break;
             }
-            
         }
         
         
@@ -194,12 +193,11 @@ namespace Nova.Common.Commands
                 empire.OwnedFleets.Remove(fleet.Key);
                 empire.FleetReports.Remove(fleet.Key);
             }
-            
         }
         
         
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

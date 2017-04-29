@@ -28,7 +28,7 @@ namespace Nova.Common.Components
     using Nova.Common;
 
     /// <summary>
-    /// Defines a colletion of Component objects using Dictionary to represent
+    /// Defines a collection of Component objects using Dictionary to represent
     /// the components which are available to a given race.
     /// Allows these to be accessed as either Strings or Component objects, with 
     /// Component.Name acting as the dictionary key. A Component can be added or
@@ -119,7 +119,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Add a componenent to the list of available components.
+        /// Add a component to the list of available components.
         /// </summary>
         /// <param name="newComponent">The Component to add.</param>
         public void Add(Component newComponent)
@@ -147,7 +147,7 @@ namespace Nova.Common.Components
         {
             if (allComponents.Contains(componentName))
             {
-                Component c =allComponents.Fetch(componentName);
+                Component c = allComponents.Fetch(componentName);
 
                 Add(c.Name, c);
             }

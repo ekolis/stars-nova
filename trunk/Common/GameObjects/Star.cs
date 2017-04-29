@@ -316,7 +316,7 @@ namespace Nova.Common
             // is set as 100 colonists. A planet does not track colonists
             // by the tens. While visually this does not matter much,
             // the compounding effect of growth can make those extra tens of
-            // colonists matter in the long run and mismatch the behaviour
+            // colonists matter in the long run and mismatch the behabior
             // of Stars and Nova.
             int finalGrowth = (int)populationGrowth;
             finalGrowth /= 100;
@@ -521,7 +521,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load: Initialising constructor to read in a Star from an XmlNode (from a saved file).
+        /// Load: initializing constructor to read in a Star from an XmlNode (from a saved file).
         /// </summary>
         /// <param name="node">An XmlNode representing a Star.</param>
         public Star(XmlNode node)

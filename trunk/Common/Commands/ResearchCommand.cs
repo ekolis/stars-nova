@@ -52,10 +52,10 @@ namespace Nova.Common.Commands
         
         
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: Initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public ResearchCommand(XmlNode node)
         {
@@ -79,7 +79,7 @@ namespace Nova.Common.Commands
         }
         
         
-        public bool isValid(EmpireData empire)
+        public bool IsValid(EmpireData empire)
         {
             if (Budget < 0 || Budget > 100)
             {
@@ -104,7 +104,7 @@ namespace Nova.Common.Commands
         
         
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

@@ -51,7 +51,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Load: Initialising constructor to read in an empire report from an XmlNode (from a saved file).
+        /// Load: initializing constructor to read in an empire report from an XmlNode (from a saved file).
         /// </summary>
         /// <param name="node">An XmlNode representing an Empire report.</param>
         public EmpireIntel(XmlNode node)

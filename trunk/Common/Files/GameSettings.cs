@@ -157,7 +157,6 @@ namespace Nova.Common
                 {
                     throw new System.IO.IOException("File dialog cancelled.");
                 }
-
             }
             using (Stream stream = new FileStream(Data.SettingsPathName, FileMode.Create))
             {
@@ -165,7 +164,6 @@ namespace Nova.Common
                 XmlSerializer s = new XmlSerializer(typeof(GameSettings));
                 s.Serialize(stream, GameSettings.Data);
             }
-
         }
 
         #endregion

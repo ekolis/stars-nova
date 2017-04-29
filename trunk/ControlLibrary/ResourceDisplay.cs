@@ -26,12 +26,12 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.ComponentModel;
-using Nova.Common;
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.ComponentModel;
+    using Nova.Common;
+
     public class ResourceDisplay : System.Windows.Forms.UserControl
     {        
         private System.Windows.Forms.Label label1;

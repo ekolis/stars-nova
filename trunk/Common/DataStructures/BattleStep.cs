@@ -42,7 +42,7 @@ namespace Nova.Common.DataStructures
         #region Save Load Xml
 
         /// <summary>
-        /// Load: Initialising constructor from an XmlNode representing the BattleStep (from a save file).
+        /// Load: initializing constructor from an XmlNode representing the BattleStep (from a save file).
         /// </summary>
         /// <param name="node">An XmlNode representing the BattleStep.</param>
         public BattleStep(XmlNode node)

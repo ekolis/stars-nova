@@ -44,7 +44,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Copy (initialising) constructor. 
+        /// Copy (initializing) constructor. 
         /// </summary>
         /// <param name="existing"></param>
         public Mappable(Mappable existing) :
@@ -60,7 +60,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Load: Initialising constructor from an XmlNode representing the object (from a save file).
+        /// Load: initializing constructor from an XmlNode representing the object (from a save file).
         /// </summary>
         /// <param name="node">An XmlNode representing the Mappable object.</param>
         public Mappable(XmlNode node) :

@@ -88,7 +88,7 @@ namespace Nova.WinForms.Gui
         private readonly NovaPoint extraSpace = new NovaPoint(40, 40); // Extra padding round the map for star names etc.
 
 
-        private bool isInitialised;
+        private bool isinitialized;
         private bool displayStarNames = true;
         private bool displayBackground = true;
         private bool displayBorders = false;
@@ -129,7 +129,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Post-construction initialisation.
         /// </Summary>
-        public void Initialise(ClientData clientState)
+        public void initialize(ClientData clientState)
         {
             this.clientState = clientState;
             
@@ -143,7 +143,7 @@ namespace Nova.WinForms.Gui
             extent.Y = (int)(this.logical.Y * this.zoomFactor) + (extraSpace.Y * 2);
 
             turnData = this.clientState.InputTurn;
-            isInitialised = true;
+            isinitialized = true;
 
             horizontalScrollBar.Enabled = true;
             verticalScrollBar.Enabled = true;
@@ -174,7 +174,7 @@ namespace Nova.WinForms.Gui
         /// </remarks>
         private void DrawEverything(Graphics g)
         {
-            if (this.isInitialised == false)
+            if (this.isinitialized == false)
             {
                 return;
             }
@@ -216,11 +216,11 @@ namespace Nova.WinForms.Gui
                 borderPen.Dispose();
             }
             
-            Color lrScanColour = Color.FromArgb(128, 128, 0, 0);
-            SolidBrush lrScanBrush = new SolidBrush(lrScanColour);
+            Color lrScancolor = Color.FromArgb(128, 128, 0, 0);
+            SolidBrush lrScanBrush = new SolidBrush(lrScancolor);
 
-            Color srScanColour = Color.FromArgb(128, 128, 128, 0);
-            SolidBrush srScanBrush = new SolidBrush(srScanColour);
+            Color srScancolor = Color.FromArgb(128, 128, 128, 0);
+            SolidBrush srScanBrush = new SolidBrush(srScancolor);
 
             // (1a) Planetary long-range scanners.
 
@@ -317,8 +317,8 @@ namespace Nova.WinForms.Gui
             g.ResetClip();
             Font font = this.Font;
 
-            Color coordColour = Color.FromArgb(255, 255, 255, 0);
-            SolidBrush coordBrush = new SolidBrush(coordColour);
+            Color coordcolor = Color.FromArgb(255, 255, 255, 0);
+            SolidBrush coordBrush = new SolidBrush(coordcolor);
             string str = "Cursor Location (logical): " + this.cursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + this.cursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
             g.DrawString(str, font, coordBrush, 0, 20);                      
             str = "Zoom Factor: " + this.zoomFactor.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -419,7 +419,7 @@ namespace Nova.WinForms.Gui
         /// explored it. 
         /// </Summary>
         /// <remarks>
-        /// The colour of the Star symbol is based on its Star report (reports for stars
+        /// The color of the Star symbol is based on its Star report (reports for stars
         /// owned by the current player are always up-to-date). Unoccupied stars are
         /// white. Stars colonised by the player are green. Stars owned by other races
         /// are red.
@@ -838,7 +838,7 @@ namespace Nova.WinForms.Gui
             
             clientState.Commands.Push(command);
             
-            if (command.isValid(clientState.EmpireState))
+            if (command.IsValid(clientState.EmpireState))
             {
                 command.ApplyToState(clientState.EmpireState);
             }

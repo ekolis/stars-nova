@@ -45,9 +45,12 @@ namespace Nova.Common
         /// <summary>
         /// Stars are Keyed by name, so overload.
         /// </summary>
-        public new String Key
+        public new string Key
         {
-            get { return base.Name; }
+            get 
+            { 
+                return Name; 
+            }
         }
         
         /// <summary>
@@ -73,7 +76,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Load: Initialising constructor to read in a Star report from an XmlNode (from a saved file).
+        /// Load: initializing constructor to read in a Star report from an XmlNode (from a saved file).
         /// </summary>
         /// <param name="xmlnode">An XmlNode representing a Star report.</param>
         public StarIntel(XmlNode node) :
@@ -128,7 +131,7 @@ namespace Nova.Common
         public void Clear()
         {
             Year                    = Global.Unset;
-            Name                    = String.Empty;
+            Name                    = string.Empty;
             Position                = new NovaPoint();
             Owner                   = Global.Nobody;
             Type                    = ItemType.StarIntel;
@@ -155,7 +158,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="star">Star to report.</param>
         /// <param name="scan">Amount of Knowledge to set.</param>
-        /// <param name="year">Year of the udpated data.</param>
+        /// <param name="year">Year of the updated data.</param>
         public void Update(Star star, ScanLevel scan, int year)
         {
             Clear();

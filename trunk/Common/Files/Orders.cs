@@ -122,7 +122,6 @@ namespace Nova.Common
 
                         default: break;
                     }
-
                 }
                 catch (Exception e)
                 {

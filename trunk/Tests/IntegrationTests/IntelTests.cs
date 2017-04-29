@@ -60,7 +60,7 @@ namespace Nova.Tests.IntegrationTests
                 xmldoc.Save(memoryStream);
                 xmldoc.Save(stringStream);
 
-                // serialise to file
+                // Serialize to file
                 if (TestControls.CreateFiles)
                 {
                     using (Stream fileStream = new FileStream(saveFileName, FileMode.Create))
@@ -137,7 +137,7 @@ namespace Nova.Tests.IntegrationTests
                 xmldoc.Save(memoryStream);
                 xmldoc.Save(stringStream);
 
-                // serialise to file
+                // Serialize to file
                 if (TestControls.CreateFiles)
                 {
                     using (Stream fileStream = new FileStream(saveFileName, FileMode.Create))

@@ -29,10 +29,10 @@ namespace Nova.Server.NewGame
     using Nova.Common.Components;
 
     /// <summary>
-    /// This object contains static methods to initialise the star map. 
+    /// This object contains static methods to initialize the star map. 
     /// Note that SarsMapGenerator handles positioning of the stars.
     /// </summary>
-    public class StarMapInitialiser
+    public class StarMapinitializer
     {
         private ServerData serverState;
         private StarMapGenerator map;
@@ -40,7 +40,7 @@ namespace Nova.Server.NewGame
         private Resources homeStarDefaultMineralConcentration = new Resources();
         private Resources homeStarDefaultSurfaceMinerals = new Resources();
         
-        public StarMapInitialiser(ServerData serverState)
+        public StarMapinitializer(ServerData serverState)
         {
             this.serverState = serverState;
             this.map = new StarMapGenerator(
@@ -96,7 +96,7 @@ namespace Nova.Server.NewGame
         
 
         /// <summary>
-        /// Initialise the general game data for each player. E,g, picking a home
+        /// initialize the general game data for each player. E,g, picking a home
         /// planet, allocating initial resources, etc.
         /// </summary>
         public void GeneratePlayerAssets()
@@ -107,7 +107,7 @@ namespace Nova.Server.NewGame
                 
                 PrepareDesigns(empire, player);
                 PrepareResources();
-                InitialiseHomeStar(empire, player);
+                initializeHomeStar(empire, player);
             }
 
             Nova.Common.Message welcome = new Nova.Common.Message();
@@ -119,10 +119,10 @@ namespace Nova.Server.NewGame
   
         
         /// <summary>
-        /// Initialise some starting designs.
+        /// initialize some starting designs.
         /// </summary>
-        /// <param name="race">The <see cref="Race"/> of the player being initialised.</param>
-        /// <param name="player">The player being initialised.</param>
+        /// <param name="race">The <see cref="Race"/> of the player being initialized.</param>
+        /// <param name="player">The player being initialized.</param>
         private void PrepareDesigns(EmpireData empire, string player)
         {
             // Read components data and create some basic stuff
@@ -322,7 +322,7 @@ namespace Nova.Server.NewGame
         /// </summary>
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
-        private void InitialiseHomeStar(EmpireData empire, string player)
+        private void initializeHomeStar(EmpireData empire, string player)
         {
             if (map.Homeworlds.Count > 0)
             {

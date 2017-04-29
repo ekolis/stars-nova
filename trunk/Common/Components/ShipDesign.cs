@@ -28,13 +28,17 @@ namespace Nova.Common.Components
 
     /// <summary>
     /// This module defines the potential design of a ship. Details of the actual
-    /// design are ony available once the hull modules have been populated.
+    /// design are only available once the hull modules have been populated.
     /// </summary>
     [Serializable]
     public class ShipDesign : Item
     {
         // This is the component that contains the Hull property, to which all other ships components attach.
-        public Component Blueprint {get; set;}
+        public Component Blueprint 
+        {
+            get; 
+            set;
+        }
 
         // Note there are get properties for: Armor, Shield, FuelCapcity, CargoCapacity, etc
 
@@ -98,7 +102,7 @@ namespace Nova.Common.Components
         }
         
         /// <summary>
-        /// Get the total sheild value of this ShipDesign.
+        /// Get the total shield value of this ShipDesign.
         /// </summary>
         public int Shield
         {
@@ -152,7 +156,10 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (Summary.Properties.Count == 0) Update();
+                if (Summary.Properties.Count == 0)
+                {
+                    Update();
+                }
                 if (Summary.Properties.ContainsKey("Fuel"))
                 {
                     return ((Fuel)Summary.Properties["Fuel"]).Capacity;
@@ -322,7 +329,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Get the total beam defletion capability.
+        /// Get the total beam deflection capability.
         /// </summary>
         public double BeamDeflectors
         {
@@ -418,7 +425,7 @@ namespace Nova.Common.Components
         /// Get total bomb capability. 
         /// </summary>
         /// <remarks>
-        /// TODO (priority 6) Whatever code uses this seems to be ignoring smart bombs?
+        /// TODO (priority 6) Whatever code uses this seems to be ignoring smart bombs.
         /// </remarks>
         public Bomb BombCapability
         {
@@ -525,20 +532,19 @@ namespace Nova.Common.Components
         /// <summary>
         /// Copy Constructor.
         /// </summary>
-        /// <param name="copy">ShipDesign to copy</param>
+        /// <param name="copy">ShipDesign to copy.</param>
         public ShipDesign(ShipDesign copy)
             : base(copy)
         {
             Icon = (ShipIcon)copy.Icon.Clone();
             Blueprint = new Component(copy.Blueprint);
             Update();
-                        
         }
 
         /// <summary>
         /// The ship design object has all information that could be found from a scan
         /// of the the ship hull modules. However scanning these for a particular piece
-        /// of information is inefficient. This method reorganises the information
+        /// of information is inefficient. This method reorganizes the information
         /// to save other routines from having to do this.
         /// </summary>
         public void Update()
@@ -745,7 +751,7 @@ namespace Nova.Common.Components
         /// </summary>
         public void ClearAllocated()
         {
-            foreach(HullModule module in Hull.Modules)
+            foreach (HullModule module in Hull.Modules)
             {
                 module.Empty();
             }
@@ -770,7 +776,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">A "ShipDesign" node Nova save file (xml document).</param>
         public ShipDesign(XmlNode node)
