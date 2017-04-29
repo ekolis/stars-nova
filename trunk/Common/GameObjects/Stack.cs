@@ -130,7 +130,8 @@ namespace Nova.Common
         /// <param name="copy">The fleet to copy.</param>
         /// <remarks>
         /// Why are we copying Stacks? 
-        /// For the battle viewer, copies are required so the originals are not destroyed in the battle report. this allows the battle to be replayed multiple times.
+        /// For the battle viewer, copies are required so the originals are not destroyed in the battle report. 
+        /// This allows the battle to be replayed multiple times.
         /// In the battle engine, copies are required to create the battle report, so all stacks present at the start of the battle are represented.
         /// </remarks>
         public Stack(Stack copy)
