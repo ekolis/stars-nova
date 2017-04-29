@@ -15,7 +15,7 @@ namespace Nova.Server.TurnSteps
             foreach (Fleet fleet in serverState.IterateAllFleets())
             {
                 Waypoint waypointZero = fleet.Waypoints[0];
-                if (waypointZero.Task is ScrapTask && waypointZero.Task.isValid(fleet, null, null))
+                if (waypointZero.Task is ScrapTask && waypointZero.Task.IsValid(fleet, null, null))
                 {
                     Star targetStar = null;
                     serverState.AllStars.TryGetValue(waypointZero.Destination, out targetStar);

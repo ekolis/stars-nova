@@ -136,7 +136,7 @@ namespace Nova.Common.Waypoints
 
         
         /// <inheritdoc />
-        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
+        public bool IsValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {
             if (fleet.InOrbit == null || target == null || !(target is Star))
             {
@@ -156,7 +156,7 @@ namespace Nova.Common.Waypoints
                 
                 InvadeTask invade = new InvadeTask();
                 
-                if (invade.isValid(fleet, target, sender, receiver))
+                if (invade.IsValid(fleet, target, sender, receiver))
                 {
                     toReturn = invade.Perform(fleet, target, sender, receiver);
                 }

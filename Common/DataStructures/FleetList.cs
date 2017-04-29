@@ -28,7 +28,7 @@ namespace Nova.Common
     using System.Text;
     
     /// <summary> 
-    /// Defines a colletion of FleetIntel objects using DictionaryBase.
+    /// Defines a collection of FleetIntel objects using DictionaryBase.
     /// Allows these to be accessed by the fleet's key (which is a unique key),
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
@@ -95,7 +95,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="fleet">The current report.</param>
         /// <returns>The next fleet report, or the current if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if fleet is null.</exception>
+        /// <exception cref="NullReferenceException">If fleet is null.</exception>
         public Fleet GetNext(Fleet fleet)
         {
             if (fleet == null)
@@ -131,7 +131,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="fleet">The current report.</param>
         /// <returns>The next fleet report, or the current if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if fleet is null.</exception>
+        /// <exception cref="NullReferenceException">If fleet is null.</exception>
         public Fleet GetPrevious(Fleet fleet)
         {
             if (fleet == null)

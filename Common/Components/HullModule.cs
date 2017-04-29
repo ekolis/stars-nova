@@ -120,10 +120,10 @@ namespace Nova.Common.Components
         
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> named "Module" within a "Property" node with Type=="Hull" 
-        /// in a Nova compenent definition file (xml document).
+        /// in a Nova component definition file (xml document).
         /// </param>
         public HullModule(XmlNode node)
         {
@@ -169,7 +169,7 @@ namespace Nova.Common.Components
 
 
         /// <summary>
-        /// Serialise a <see cref="HullModule"/> to xml.
+        /// Serialize a <see cref="HullModule"/> to xml.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An XmlElement representation of the HullModule.</returns>

@@ -190,11 +190,11 @@ namespace Nova.ControlLibrary
 
                     clientData.Commands.Push(command);
 
-                    if (command.isValid(clientData.EmpireState))
+                    if (command.IsValid(clientData.EmpireState))
                     {
                         command.ApplyToState(clientData.EmpireState);
                         // Also perform it here, to update client state for manual xfer.
-                        if (command.Waypoint.Task.isValid(fleet, fleet.InOrbit, clientData.EmpireState, null))
+                        if (command.Waypoint.Task.IsValid(fleet, fleet.InOrbit, clientData.EmpireState, null))
                         {
                             command.Waypoint.Task.Perform(fleet, fleet.InOrbit, clientData.EmpireState, null); // Load, Unload
                         }
@@ -204,7 +204,7 @@ namespace Nova.ControlLibrary
         }
 
         /// <summary>
-        /// Initialise the various fields in the dialog.
+        /// initialize the various fields in the dialog.
         /// </summary>
         /// <param name="targetFleet">The <see cref="Fleet"/> transferring cargo.</param>
         public void SetTarget(Fleet targetFleet)

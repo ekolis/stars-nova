@@ -75,7 +75,7 @@ namespace Nova.Tests.IntegrationTests
             serverState.AllEmpires[Player1Id].OwnedFleets[fleet1.Key] = fleet1;
             serverState.AllEmpires[Player2Id].OwnedFleets[fleet2.Key] =  fleet2;
 
-            // serialise
+            // Serialize
             serverState.Save();
 
             // change the value to ensure it is restored.
@@ -91,7 +91,7 @@ namespace Nova.Tests.IntegrationTests
             serverState.AllEmpires[Player1Id].OwnedFleets[fleet1.Key] = fleet1;
             serverState.AllEmpires[Player2Id].OwnedFleets[fleet2.Key] = fleet2;
 
-            // deserialise
+            // deSerialize
             serverState.Restore();
 
             // test

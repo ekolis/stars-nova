@@ -47,7 +47,7 @@ namespace Nova.ControlLibrary
         /// </summary>
         public CargoTransfer()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Nova.ControlLibrary
             {
                 if (components != null)
                 {
-                    components.Dispose();
+                    this.components.Dispose();
                 }
             }
             base.Dispose(disposing);
@@ -76,7 +76,7 @@ namespace Nova.ControlLibrary
             this.sliderTitle = new System.Windows.Forms.Label();
             this.sliderBar = new System.Windows.Forms.TrackBar();
             this.shipAmount = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.sliderBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)this.sliderBar).BeginInit();
             this.SuspendLayout();
             // 
             // planetAmount
@@ -122,9 +122,8 @@ namespace Nova.ControlLibrary
             this.Controls.Add(this.sliderBar);
             this.Name = "CargoTransfer";
             this.Size = new System.Drawing.Size(384, 32);
-            ((System.ComponentModel.ISupportInitialize)(this.sliderBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)this.sliderBar).EndInit();
             this.ResumeLayout(false);
-
         }
 
         /// <summary>

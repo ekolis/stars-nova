@@ -31,7 +31,12 @@ namespace Nova.Common.DataStructures
     [Serializable]
     public class BattleStepMovement : BattleStep
     {
-        public long StackKey {get; set;}
+        public long StackKey 
+        {
+            get; 
+            set;
+        }
+
         public NovaPoint Position = new NovaPoint();
 
         /// <summary>
@@ -43,7 +48,7 @@ namespace Nova.Common.DataStructures
         }
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleStepTarget"/> XmlNode from a Nova save file (xml document). </param>
         public BattleStepMovement(XmlNode node)

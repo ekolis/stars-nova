@@ -51,7 +51,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Determine the Defenses of a planet. Note: results are normalised so that
+        /// Determine the Defenses of a planet. Note: results are normalized so that
         /// 100% = 1.0.
         /// </summary>
         /// <param name="star">The <see cref="Star"/> to calculate defenses for.</param>
@@ -69,7 +69,7 @@ namespace Nova.Common
 
             double baseLevel   = DefenseTypes[star.DefenseType];
 
-            PopulationCoverage = 1.0 - Math.Pow((1.0 - baseLevel), star.Defenses);
+            PopulationCoverage = 1.0 - Math.Pow(1.0 - baseLevel, star.Defenses);
             BuildingCoverage   = PopulationCoverage * 0.5;
             InvasionCoverage   = PopulationCoverage * 0.75;
 

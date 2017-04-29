@@ -53,7 +53,7 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public event ResearchAllocationChanged ResearchAllocationChangedEvent;
 
-        private readonly bool dialogInitialised;
+        private readonly bool dialoginitialized;
         
         private readonly ClientData clientState;
 
@@ -90,7 +90,7 @@ namespace Nova.WinForms.Gui
 
             // Ensure that the correct RadioButton is checked to reflect the
             // current research selection and the budget up-down control is
-            // initialised with the correct value.
+            // initialized with the correct value.
             
             // Find the first research priority
             // TODO: Implement a proper hierarchy of research ("next research field") system.
@@ -110,7 +110,7 @@ namespace Nova.WinForms.Gui
             availableEnergy = CountEnergy();
             availableResources.Text = this.availableEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
             budgetPercentage.Value = this.clientState.EmpireState.ResearchBudget;
-            dialogInitialised = true;
+            dialoginitialized = true;
 
             ParameterChanged(null, null);
         }
@@ -124,7 +124,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void CheckChanged(object sender, EventArgs e)
         {
-            if (dialogInitialised == false)
+            if (dialoginitialized == false)
             {
                 return;
             }
@@ -181,7 +181,7 @@ namespace Nova.WinForms.Gui
             command.Topics.Zero();
             command.Topics[targetArea] = 1;    
             
-            if (command.isValid(clientState.EmpireState))
+            if (command.IsValid(clientState.EmpireState))
             {
                 clientState.Commands.Push(command);
                 command.ApplyToState(clientState.EmpireState);

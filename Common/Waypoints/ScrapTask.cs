@@ -63,7 +63,7 @@ namespace Nova.Common.Waypoints
             }    
         }
         
-        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver = null)
+        public bool IsValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver = null)
         {
             return true; // fleet.GetTravelStatus() == Fleet.TravelStatus.Arrived;           
         }

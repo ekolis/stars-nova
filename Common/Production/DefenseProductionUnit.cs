@@ -73,7 +73,7 @@ namespace Nova.Common
 
 
         /// <summary>
-        /// Initialising constructor.
+        /// initializing constructor.
         /// </summary>
         /// <param name="star">The <see cref="Star"/> to create the defense on.</param>
         public DefenseProductionUnit()

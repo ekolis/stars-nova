@@ -28,7 +28,7 @@ namespace Nova.Common
     /// <summary>
     /// This object defines the class ShipIcon which manages an icon as a paired
     /// Bitmap and a String holding the image file's path. The Bitmap is for 
-    /// display purposes and the flie path is for loading/saving.
+    /// display purposes and the file path is for loading/saving.
     /// </summary>
     [Serializable]
     public class ShipIcon : ICloneable
@@ -67,7 +67,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// Initializing constructor.
         /// </summary>
         /// <param name="source">The path and file name to the icon.</param>
         /// <param name="image">The loaded image.</param>
@@ -81,7 +81,6 @@ namespace Nova.Common
 
             // get the hull number of this icon
             index = int.Parse(Source.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength));
-
         }
 
         /// <summary>
@@ -109,7 +108,7 @@ namespace Nova.Common
                 nextIconIndex = 0;
             }
             // check for a missing index, this might happen if the hulls are not numbered sequentially
-            if (! AllShipIcons.Data.Hulls[baseHull].ContainsKey(nextIconIndex))
+            if ( !AllShipIcons.Data.Hulls[baseHull].ContainsKey(nextIconIndex))
             {
                 nextIconIndex = 0; // only "safe" option
             }
@@ -148,7 +147,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="xmlnode">An <see cref="XmlNode"/> within 
         /// a Nova game file (xml document).
@@ -163,7 +162,6 @@ namespace Nova.Common
                     if (subnode.Name.ToLower() == "shipicon")
                     {
                         Source = subnode.FirstChild.Value;
-
                     }
                 }
                 catch (Exception e)
@@ -175,7 +173,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Serialise this object to an <see cref="XmlElement"/>.
+        /// Save: Serialize this object to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the ScoreRecord.</returns>

@@ -167,7 +167,7 @@ namespace Nova.WinForms.Gui
             }
             DesignCommand command = new DesignCommand(CommandMode.Add, newDesign);
             
-            if (command.isValid(clientState.EmpireState))
+            if (command.IsValid(clientState.EmpireState))
             {
                 clientState.Commands.Push(command);
                 command.ApplyToState(clientState.EmpireState);

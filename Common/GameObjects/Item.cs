@@ -124,7 +124,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Copy (initialising) constructor.
+        /// Copy (initializing) constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Item"/>.</param>
         public Item(Item copy)
@@ -140,7 +140,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Load: Initialising constructor from an XmlNode representing the Item (from a save file).
+        /// Load: initializing constructor from an XmlNode representing the Item (from a save file).
         /// </summary>
         /// <param name="node">An XmlNode representing the Item.</param>
         public Item(XmlNode node)

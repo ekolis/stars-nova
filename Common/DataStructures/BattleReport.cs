@@ -56,7 +56,7 @@ namespace Nova.Common.DataStructures
         #region Xml
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleReport"/> XmlNode from a Nova save file (xml document).</param>
         public BattleReport(XmlNode node)
@@ -148,7 +148,6 @@ namespace Nova.Common.DataStructures
             foreach (BattleStep step in Steps)
             {
                 switch (step.Type)
-                
                 {
                     case "Movement":
                         xmlelBattleReport.AppendChild(((BattleStepMovement)step).ToXml(xmldoc));

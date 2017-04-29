@@ -54,7 +54,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Temporarily added to allow binary serialisation ??? (priority 9) .
+        /// Temporarily added to allow binary serialization ??? (priority 9) .
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>

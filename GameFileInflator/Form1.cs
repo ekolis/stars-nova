@@ -49,7 +49,7 @@ namespace GameFileInflator
     public partial class GameFileInflator : Form
     {
         /// <summary>
-        /// Initialise a GameFileInflator object.
+        /// initialize a GameFileInflator object.
         /// </summary>
         public GameFileInflator()
         {
@@ -57,7 +57,7 @@ namespace GameFileInflator
         }
 
         /// <summary>
-        /// Initialise the gameFilesLocationTextBox from the Nova.conf, if any.
+        /// initialize the gameFilesLocationTextBox from the Nova.conf, if any.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>

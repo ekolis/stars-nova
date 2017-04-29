@@ -58,7 +58,7 @@ namespace Nova.Common
         
         
         /// <summary>
-        /// Initialising constructor.
+        /// initializing constructor.
         /// </summary>
         /// <param name="star">Star with this production queue.</param>
         /// <param name="shipDesign"><see cref="ShipDesign"/> to produce.</param>

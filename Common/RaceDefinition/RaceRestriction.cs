@@ -187,7 +187,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initializes a new instance of the RaceRestriction class.
-        /// Load a RaceRestriction from XML: Initialising constructor from an XML node.
+        /// Load a RaceRestriction from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova xml file.
@@ -219,7 +219,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Save: Serialise this RaceRestriction to an <see cref="XmlElement"/>.
+        /// Save: Serialize this RaceRestriction to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the RaceRestriction.</returns>

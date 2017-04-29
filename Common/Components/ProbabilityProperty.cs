@@ -65,7 +65,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// Initializing constructor.
         /// </summary>
         /// <param name="existing">Initial value.</param>
         public ProbabilityProperty(double existing)
@@ -114,7 +114,7 @@ namespace Nova.Common.Components
         /// <param name="op1">LHS operand.</param>
         /// <param name="op2">RHS operand.</param>
         /// <returns>A <see cref="ProbabilityProperty"/> with value (as a percentage) 
-        /// equal to the independed probability of op1 or op2.</returns>
+        /// equal to the independent probability of op1 or op2.</returns>
         public static ProbabilityProperty operator +(ProbabilityProperty op1, ProbabilityProperty op2)
         {
             return new ProbabilityProperty(100 - (((100 - op1.Value) * (100 - op2.Value)) / 100));
@@ -141,10 +141,10 @@ namespace Nova.Common.Components
         #region Load Save Xml
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public ProbabilityProperty(XmlNode node)
         {
@@ -167,7 +167,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

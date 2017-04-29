@@ -71,7 +71,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Copy constructor.
         /// </summary>
-        /// <param name="existing">An existing <see cref="Weapon"/> compoenent.</param>
+        /// <param name="existing">An existing <see cref="Weapon"/> component.</param>
         public Weapon(Weapon existing)
         {
             this.Power = existing.Power;
@@ -130,12 +130,12 @@ namespace Nova.Common.Components
         /// <param name="op2"></param>
         public override void Add(ComponentProperty op2)
         {
-            if (! IsSameWeaponType((Weapon)op2))
+            if ( ! IsSameWeaponType((Weapon)op2))
             {
                 Report.Error("Attempted to add different weapon types.");
                 return;
             }
-            Power += ((Weapon)op2).Power;
+            Power += ( (Weapon) op2).Power;
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="node">
         /// A node is a "Property" node with Type=="Weapon" in a Nova 
-        /// compenent definition file (xml document).
+        /// component definition file (xml document).
         /// </param>
         public Weapon(XmlNode node)
         {

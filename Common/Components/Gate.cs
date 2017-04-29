@@ -96,7 +96,7 @@ namespace Nova.Common.Components
 
         /// <summary>
         /// Provide a way to add properties in the ship design.
-        /// (Gates are not addative, see the remarks).
+        /// (Gates are not additive, see the remarks).
         /// </summary>
         /// <param name="op1">LHS operand.</param>
         /// <param name="op2">RHS operand.</param>
@@ -107,7 +107,7 @@ namespace Nova.Common.Components
         /// Stars! works with gates. One gate gets precedence and the other is ignored.
         /// TODO (priority 2) check that the same orbital slot takes precedence as
         /// in Stars!
-        /// TODO (priority 3) add a game option to modify this behaviour so gates
+        /// TODO (priority 3) add a game option to modify this behavior so gates
         /// can add in a ?meaningful? way (or allow the best gate for the 
         /// circumstances to be used).
         /// </remarks>
@@ -133,10 +133,10 @@ namespace Nova.Common.Components
         #region Load Save Xml
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public Gate(XmlNode node)
         {
@@ -163,7 +163,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

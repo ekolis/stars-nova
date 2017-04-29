@@ -174,7 +174,7 @@ namespace Nova.Server
                     {
                         ICommand command = serverState.AllCommands[empire.Id].Pop();
                         
-                        if (command.isValid(empire))
+                        if (command.IsValid(empire))
                         {
                             command.ApplyToState(empire);
                         }
@@ -452,7 +452,7 @@ namespace Nova.Server
                     // Waypoint 1 Tasks
                     // -------------------------
 
-                    if (waypointZero.Task.isValid(fleet, target, sender, reciever))
+                    if (waypointZero.Task.IsValid(fleet, target, sender, reciever))
                     {
                         waypointZero.Task.Perform(fleet, target, sender, reciever); // ToDo: scrapping fleet may be performed as waypoint 1 task here which is not correct.
                     }

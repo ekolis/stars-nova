@@ -289,11 +289,11 @@ namespace Nova.WinForms.Gui
             // ironiumGauge
             // 
             this.ironiumGauge.BackColor = System.Drawing.Color.Black;
-            this.ironiumGauge.BarColour = System.Drawing.Color.Blue;
+            this.ironiumGauge.Barcolor = System.Drawing.Color.Blue;
             this.ironiumGauge.BottomValue = 0D;
             this.ironiumGauge.Location = new System.Drawing.Point(0, 2);
             this.ironiumGauge.Marker = 0;
-            this.ironiumGauge.MarkerColour = System.Drawing.Color.Blue;
+            this.ironiumGauge.Markercolor = System.Drawing.Color.Blue;
             this.ironiumGauge.Maximum = 5000D;
             this.ironiumGauge.Minimum = 0D;
             this.ironiumGauge.Name = "ironiumGauge";
@@ -307,11 +307,11 @@ namespace Nova.WinForms.Gui
             // boraniumGauge
             // 
             this.boraniumGauge.BackColor = System.Drawing.Color.Black;
-            this.boraniumGauge.BarColour = System.Drawing.Color.GreenYellow;
+            this.boraniumGauge.Barcolor = System.Drawing.Color.GreenYellow;
             this.boraniumGauge.BottomValue = 0D;
             this.boraniumGauge.Location = new System.Drawing.Point(0, 19);
             this.boraniumGauge.Marker = 0;
-            this.boraniumGauge.MarkerColour = System.Drawing.Color.GreenYellow;
+            this.boraniumGauge.Markercolor = System.Drawing.Color.GreenYellow;
             this.boraniumGauge.Maximum = 5000D;
             this.boraniumGauge.Minimum = 0D;
             this.boraniumGauge.Name = "boraniumGauge";
@@ -325,11 +325,11 @@ namespace Nova.WinForms.Gui
             // germaniumGauge
             // 
             this.germaniumGauge.BackColor = System.Drawing.Color.Black;
-            this.germaniumGauge.BarColour = System.Drawing.Color.Yellow;
+            this.germaniumGauge.Barcolor = System.Drawing.Color.Yellow;
             this.germaniumGauge.BottomValue = 0D;
             this.germaniumGauge.Location = new System.Drawing.Point(0, 36);
             this.germaniumGauge.Marker = 0;
-            this.germaniumGauge.MarkerColour = System.Drawing.Color.Gold;
+            this.germaniumGauge.Markercolor = System.Drawing.Color.Gold;
             this.germaniumGauge.Maximum = 5000D;
             this.germaniumGauge.Minimum = 0D;
             this.germaniumGauge.Name = "germaniumGauge";
@@ -355,11 +355,11 @@ namespace Nova.WinForms.Gui
             // gravityGauge
             // 
             this.gravityGauge.BackColor = System.Drawing.Color.Black;
-            this.gravityGauge.BarColour = System.Drawing.Color.Aquamarine;
+            this.gravityGauge.Barcolor = System.Drawing.Color.Aquamarine;
             this.gravityGauge.BottomValue = 15D;
             this.gravityGauge.Location = new System.Drawing.Point(-2, 2);
             this.gravityGauge.Marker = 50;
-            this.gravityGauge.MarkerColour = System.Drawing.Color.Green;
+            this.gravityGauge.Markercolor = System.Drawing.Color.Green;
             this.gravityGauge.Maximum = 100D;
             this.gravityGauge.Minimum = 0D;
             this.gravityGauge.Name = "gravityGauge";
@@ -373,11 +373,11 @@ namespace Nova.WinForms.Gui
             // temperatureGauge
             // 
             this.temperatureGauge.BackColor = System.Drawing.Color.Black;
-            this.temperatureGauge.BarColour = System.Drawing.Color.LightSteelBlue;
+            this.temperatureGauge.Barcolor = System.Drawing.Color.LightSteelBlue;
             this.temperatureGauge.BottomValue = 15D;
             this.temperatureGauge.Location = new System.Drawing.Point(-2, 19);
             this.temperatureGauge.Marker = 50;
-            this.temperatureGauge.MarkerColour = System.Drawing.Color.Blue;
+            this.temperatureGauge.Markercolor = System.Drawing.Color.Blue;
             this.temperatureGauge.Maximum = 100D;
             this.temperatureGauge.Minimum = 0D;
             this.temperatureGauge.Name = "temperatureGauge";
@@ -391,11 +391,11 @@ namespace Nova.WinForms.Gui
             // radiationGauge
             // 
             this.radiationGauge.BackColor = System.Drawing.Color.Black;
-            this.radiationGauge.BarColour = System.Drawing.Color.Plum;
+            this.radiationGauge.Barcolor = System.Drawing.Color.Plum;
             this.radiationGauge.BottomValue = 15D;
             this.radiationGauge.Location = new System.Drawing.Point(-2, 36);
             this.radiationGauge.Marker = 50;
-            this.radiationGauge.MarkerColour = System.Drawing.Color.Red;
+            this.radiationGauge.Markercolor = System.Drawing.Color.Red;
             this.radiationGauge.Maximum = 100D;
             this.radiationGauge.Minimum = 0D;
             this.radiationGauge.Name = "radiationGauge";

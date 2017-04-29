@@ -28,7 +28,7 @@ namespace Nova.Common
     using System.Text;
     
     /// <summary> 
-    /// Defines a colletion of Star objects using Dictionary.
+    /// Defines a collection of Star objects using Dictionary.
     /// Allows these to be accessed by the star's name (which is a unique key),
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
@@ -94,7 +94,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="star">The current star.</param>
         /// <returns>The next star, or the current if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if star is null.</exception>
+        /// <exception cref="NullReferenceException">If star is null.</exception>
         public Star GetNext(Star star)
         {
             if (star == null)

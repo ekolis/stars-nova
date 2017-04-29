@@ -184,7 +184,7 @@ Are you sure you want to do this?";
 
             DesignCommand command = new DesignCommand(CommandMode.Delete, design.Key);
             
-            if (command.isValid(clientState.EmpireState))
+            if (command.IsValid(clientState.EmpireState))
             {
                 clientState.Commands.Push(command);
                 command.ApplyToState(clientState.EmpireState);

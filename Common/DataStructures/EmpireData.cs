@@ -320,7 +320,7 @@ namespace Nova.Common
         /// Save: Generate an XmlElement representation of the EmpireData.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument.</param>
-        /// <returns>An XmlElement reprsenting the EmpireData (to be written to file).</returns>
+        /// <returns>An XmlElement representing the EmpireData (to be written to file).</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEmpireData = xmldoc.CreateElement("EmpireData");
@@ -446,10 +446,10 @@ namespace Nova.Common
         
         
         /// <summary>
-        /// Adds a new fleet to this empire. Generates an appropiate report.
+        /// Adds a new fleet to this empire. Generates an appropriate report.
         /// </summary>
-        /// <param name="fleet">Fleet to add</param>
-        /// <returns>False if the fleet already exists for this empire</returns>
+        /// <param name="fleet">Fleet to add.</param>
+        /// <returns>False if the fleet already exists for this empire.</returns>
         public bool AddOrUpdateFleet(Fleet fleet)
         {
             if (OwnedFleets.ContainsKey(fleet.Key))
@@ -506,7 +506,7 @@ namespace Nova.Common
         
         
         /// <summary>
-        /// Removes an existing fleet from this empire. Deletes appropiate report.
+        /// Removes an existing fleet from this empire. Deletes appropriate report.
         /// </summary>
         /// <param name="fleet">Fleet to remove.</param>
         /// <returns>False if empire does not own the fleet.</returns>
@@ -517,7 +517,7 @@ namespace Nova.Common
         
         
         /// <summary>
-        /// Removes an existing fleet from this empire. Deletes appropiate report.
+        /// Removes an existing fleet from this empire. Deletes appropriate report.
         /// </summary>
         /// <param name="fleet">Fleet Key to remove.</param>
         /// <returns>False if empire does not own the fleet.</returns>

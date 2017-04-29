@@ -497,7 +497,7 @@ namespace Nova.WinForms.Gui
             while (queueList.ProductionCommands.Count > 0)
             {
                 ICommand command = queueList.ProductionCommands.Dequeue();
-                if (command.isValid(clientState.EmpireState))
+                if (command.IsValid(clientState.EmpireState))
                 {
                     clientState.Commands.Push(command);
                     command.ApplyToState(clientState.EmpireState);
@@ -794,7 +794,7 @@ namespace Nova.WinForms.Gui
                         }
                         // end of the while loop to determine years to build items in the stack
 
-                        // once *YearsCurrent have been determined set font colour appropriately
+                        // once *YearsCurrent have been determined set font color appropriately
                         if (minYearsCurrent == 1)
                         {
                             if (maxYearsCurrent == 1)

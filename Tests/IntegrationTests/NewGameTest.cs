@@ -80,7 +80,7 @@ namespace Nova.Tests.IntegrationTests
                     GameSettings.Data.StarSeparation = 10;
                     GameSettings.Data.StarUniformity = 60;
      
-                    StarMapInitialiser starMapInitializer = new StarMapInitialiser(serverState);
+                    StarMapinitializer starMapInitializer = new StarMapinitializer(serverState);
                     
                     starMapInitializer.GenerateStars();
                     starMapInitializer.GeneratePlayerAssets();

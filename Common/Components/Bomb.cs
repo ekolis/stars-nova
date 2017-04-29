@@ -64,7 +64,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// Initializing constructor.
         /// </summary>
         /// <param name="installations">Initial value for the number of installation destroyed per bomb.</param>
         /// <param name="popKill">Initial value for the amount of population killed per bomb.</param>
@@ -180,10 +180,10 @@ namespace Nova.Common.Components
         #region Load Save Xml
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: Initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public Bomb(XmlNode node)
         {
@@ -218,7 +218,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

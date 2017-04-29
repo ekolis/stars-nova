@@ -52,7 +52,7 @@ namespace Nova.Common.DataStructures
         #region Load Save Xml
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleStepWeapons"/> XmlNode from a Nova save file (xml document). </param>
         public BattleStepWeapons(XmlNode node)

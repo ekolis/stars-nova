@@ -81,7 +81,7 @@ namespace Nova.Common
         /// Save: Generate an XmlElement representation of the PlayerSettings.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument.</param>
-        /// <returns>An XmlElement reprsenting the PlayerSettings (to be written to file).</returns>
+        /// <returns>An XmlElement representing the PlayerSettings (to be written to file).</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelPlayerSettings = xmldoc.CreateElement("PlayerSettings");

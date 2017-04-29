@@ -60,7 +60,7 @@ namespace Nova.Common
 
         
         /// <summary>
-        /// Initialising constructor.
+        /// initializing constructor.
         /// </summary>
         /// <param name="quantity">The number of items to produce.</param>
         /// <param name="design">The <see cref="Design"/> to build.</param>

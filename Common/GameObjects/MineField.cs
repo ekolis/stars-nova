@@ -79,7 +79,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="Minefield"/> node Nova save file (xml document).</param>
         public Minefield(XmlNode node)

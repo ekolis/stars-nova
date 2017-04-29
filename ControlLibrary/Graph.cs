@@ -25,17 +25,18 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Text;
-using System.Windows.Forms;
 
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Text;
+    using System.Windows.Forms;
+
     /// <summary>
     /// Simple control that can display 2d graph.
     /// </summary>
@@ -62,7 +63,7 @@ namespace Nova.ControlLibrary
         public double HoriozontalSpace { get; set; }
 
         /// <summary>
-        /// How much veritcal space should be left blank on left side of the graph. Value in percent 0.03 = 3%.
+        /// How much vertical space should be left blank on left side of the graph. Value in percent 0.03 = 3%.
         /// </summary>
         public double VerticalSpace { get; set; }
 

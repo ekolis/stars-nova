@@ -31,7 +31,11 @@ namespace Nova.Common.DataStructures
     [Serializable]
     public class BattleStepDestroy : BattleStep
     {
-        public long StackKey {get; set;}
+        public long StackKey 
+        {
+            get; 
+            set;
+        }
         
         /// <summary>
         /// Default constructor.
@@ -42,7 +46,7 @@ namespace Nova.Common.DataStructures
         }
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleStepDestroy"/> XmlNode from a Nova save file (xml document). </param>
         public BattleStepDestroy(XmlNode node)

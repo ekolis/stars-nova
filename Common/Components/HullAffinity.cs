@@ -61,7 +61,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// Initializing constructor.
         /// </summary>
         /// <param name="existing">The name of the hull type this affinity is for.</param>
         public HullAffinity(string existing)
@@ -138,10 +138,10 @@ namespace Nova.Common.Components
         #region Load Save Xml
 
         /// <summary>
-        /// Load: Initialising Constructor from an xml node.
+        /// Load: initializing Constructor from an xml node.
         /// </summary>
         /// <param name="node">A "Property" <see cref="XmlNode"/> with Type equal 
-        /// to "Hull Affinity" in a Nova compenent definition file (xml document).</param>
+        /// to "Hull Affinity" in a Nova component definition file (xml document).</param>
         public HullAffinity(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -163,7 +163,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>

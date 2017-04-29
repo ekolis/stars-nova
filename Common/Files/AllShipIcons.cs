@@ -80,14 +80,14 @@ namespace Nova.Common
         /// <summary>
         /// Load the race images.
         /// </summary>
-        /// <returns>true if the race icons were successfuly loaded.</returns>
+        /// <returns>true if the race icons were successfully loaded.</returns>
         public static bool Restore()
         {
             if (Data.IconList.Count < 1)
             {
                 try
                 {
-                    using(Config conf = new Config())
+                    using (Config conf = new Config())
                     {
                         // load the icons
                         DirectoryInfo info = new DirectoryInfo(Path.Combine(conf[Global.GraphicsFolderKey], "Ship"));
@@ -107,7 +107,6 @@ namespace Nova.Common
                     Report.Error("RaceIcon: Restore() - Failed to load ship icons.");
                     return false;
                 }
-
             }
             return true;
         }

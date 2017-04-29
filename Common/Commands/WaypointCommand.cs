@@ -84,8 +84,8 @@ namespace Nova.Common.Commands
         /// <summary>
         /// Add/Edit Constructor.
         /// </summary>
-        /// <param name="mode">CommandMode</param>
-        /// <param name="waypoint">New Waipoint to create or that will replace an existing one.</param>
+        /// <param name="mode">CommandMode.</param>
+        /// <param name="waypoint">New Waypoint to create or that will replace an existing one.</param>
         /// <param name="fleetKey">Fleet key whose waypoints will be affected.</param>
         /// <param name="index">Waypoint Index to edit, or where to insert.</param>
         public WaypointCommand(CommandMode mode, Waypoint waypoint, long fleetKey = Global.None, int index = 0)
@@ -98,10 +98,10 @@ namespace Nova.Common.Commands
                 
         
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: Initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public WaypointCommand(XmlNode node)
         {
@@ -131,7 +131,7 @@ namespace Nova.Common.Commands
         
         
         /// <inheritdoc />
-        public bool isValid(EmpireData empire)
+        public bool IsValid(EmpireData empire)
         {
             if (!empire.OwnedFleets.ContainsKey(FleetKey))
             {
@@ -145,7 +145,7 @@ namespace Nova.Common.Commands
         /// <inheritdoc />
         public void ApplyToState(EmpireData empire)
         {
-            switch(Mode)
+            switch (Mode)
             {
                 case CommandMode.Add:
                     empire.OwnedFleets[FleetKey].Waypoints.Add(Waypoint);
@@ -158,12 +158,11 @@ namespace Nova.Common.Commands
                     empire.OwnedFleets[FleetKey].Waypoints.Insert(Index, Waypoint);
                 break;
             }
-            
         }
         
         
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
@@ -174,7 +173,10 @@ namespace Nova.Common.Commands
             Global.SaveData(xmldoc, xmlelCom, "Mode", Mode.ToString());
             Global.SaveData(xmldoc, xmlelCom, "FleetKey", FleetKey.ToString("X"));
             Global.SaveData(xmldoc, xmlelCom, "Index", Index.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Waypoint != null) xmlelCom.AppendChild(Waypoint.ToXml(xmldoc));            
+            if (Waypoint != null)
+            {
+                xmlelCom.AppendChild(Waypoint.ToXml(xmldoc));
+            }
             
             return xmlelCom;    
         }

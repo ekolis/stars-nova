@@ -48,7 +48,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// initializing constructor.
         /// </summary>
         /// <param name="star">Star on which the mine is to be constructed.</param>
         public MineProductionUnit(Race race)

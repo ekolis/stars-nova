@@ -74,7 +74,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Initialising constructor.
+        /// initializing constructor.
         /// </summary>
         /// <param name="source">The path and file name to the icon.</param>
         /// <param name="image">The loaded image.</param>
@@ -149,7 +149,7 @@ namespace Nova.Common
         #region Xml
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="xmlnode">An <see cref="XmlNode"/> within 
         /// a Nova game file (xml document).
@@ -175,7 +175,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Serialise this object to an <see cref="XmlElement"/>.
+        /// Save: Serialize this object to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the ScoreRecord.</returns>

@@ -244,7 +244,6 @@ namespace Nova.Common
         public static bool operator >(TechLevel lhs, TechLevel rhs)
         {
             return !(lhs <= rhs);
-        
         }
 
         /// <summary>
@@ -304,10 +303,10 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         public TechLevel(XmlNode node)
         {
@@ -321,7 +320,6 @@ namespace Nova.Common
                         if (subnode.Name.ToLower() == key.ToLower())
                         {
                             this.techValues[key] = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-
                         }
                     }
                 }
@@ -334,7 +332,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Tech Level.</returns>
@@ -344,7 +342,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Save: Serialise this property to an <see cref="XmlElement"/> with a specified
+        /// Save: Serialize this property to an <see cref="XmlElement"/> with a specified
         /// node name.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
@@ -368,8 +366,8 @@ namespace Nova.Common
 		/// <summary>
 		/// Provides a string representation of this tech level. Useful for debugging!
 		/// </summary>
-		/// <returns></returns>
-		public override string ToString()
+        /// <returns></returns>
+        public override string ToString()
 		{
 			return string.Join(", ", techValues.Where(tech => tech.Value > 0).Select(tech => tech.Key + ": " + tech.Value).ToArray());
 		}

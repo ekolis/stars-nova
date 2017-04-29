@@ -48,7 +48,7 @@ namespace Nova.WinForms.ComponentEditor
 
 
         /// <Summary>
-        /// Initialising constructor for the dialog
+        /// initializing constructor for the dialog
         /// </Summary>
         /// <param name="existingName">The component's name.</param>
         /// <param name="existingImage">The component's Image</param> 
@@ -166,7 +166,7 @@ namespace Nova.WinForms.ComponentEditor
             this.radioMap[23, 1] = this.notRequiredRS;
             this.radioMap[23, 2] = this.requiredRS;
 
-            // Initialise race restriction radio button selections.
+            // initialize race restriction radio button selections.
             if (existingRestrictions != null)
             {
                 Restrictions = new RaceRestriction(existingRestrictions);

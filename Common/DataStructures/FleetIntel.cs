@@ -99,7 +99,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load: Initialising constructor to read in a Fleet report from an XmlNode (from a saved file).
+        /// Load: initializing constructor to read in a Fleet report from an XmlNode (from a saved file).
         /// </summary>
         /// <param name="xmlnode">An XmlNode representing a Fleet report.</param>
         public FleetIntel(XmlNode xmlnode) :
@@ -162,7 +162,7 @@ namespace Nova.Common
         public void Clear()
         {
             Year                    = Global.Unset;
-            Name                    = String.Empty;
+            Name                    = string.Empty;
             Position                = new NovaPoint();
             Owner                   = Global.Nobody;
             Type                    = ItemType.FleetIntel;
@@ -176,7 +176,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="fleet">Fleet to report.</param>
         /// <param name="scan">Amount of Knowledge to set.</param>
-        /// <param name="year">Year of the udpated data.</param>
+        /// <param name="year">Year of the updated data.</param>
         public void Update(Fleet fleet, ScanLevel scan, int year)
         {
             if (fleet == null) 

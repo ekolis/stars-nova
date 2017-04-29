@@ -105,7 +105,7 @@ namespace Nova.Common
         /// <summary>
         /// Initializes a new instance of the CommandArguments class.
         /// </summary>
-        /// <param name="args">An array of string arguments, the format normally recived by a main function.</param>
+        /// <param name="args">An array of string arguments, the format normally received by a main function.</param>
         public CommandArguments(string[] args) 
         {
             // process the argument list
@@ -151,7 +151,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Check if the CommandArgument(s) contains a particulat option.
+        /// Check if the CommandArgument(s) contains a particular option.
         /// </summary>
         /// <param name="option">From CommandArgument.Option or of the form -[:alpha:].</param>
         /// <returns></returns>
@@ -216,7 +216,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Convert the CommandArguments to an array of strings as they would be recieved by a main function.
+        /// Convert the CommandArguments to an array of strings as they would be received by a main function.
         /// The arguments are returned in the same order that they were added.
         /// </summary>
         /// <returns>An array of strings containing all the option and argument pairs.</returns>
@@ -275,7 +275,7 @@ namespace Nova.Common
         /// <summary>
         /// Process one or more arguments passed as a string[].
         /// </summary>
-        /// <param name="args">The aray of string arguments.</param>
+        /// <param name="args">The array of string arguments.</param>
         private void Parse(string[] args)
         {
             Queue<string> arguments = new Queue<string>(args);

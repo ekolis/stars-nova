@@ -26,13 +26,12 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.ComponentModel;
-using System.Windows.Forms;
-
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.ComponentModel;
+    using System.Windows.Forms;
+
     public class ResearchCost : System.Windows.Forms.UserControl
     {
         public delegate void SelectionChangedHandler(object sender, int value);
@@ -233,6 +232,5 @@ namespace Nova.ControlLibrary
         }
 
         #endregion Properties
-
     }
 }

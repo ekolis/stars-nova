@@ -62,7 +62,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML: initializing constructor from an XML node.
         /// </summary>
         /// <param name="xmlnode">An <see cref="XmlNode"/> within 
         /// a Nova game file (xml document).
@@ -126,7 +126,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Serialise this object to an <see cref="XmlElement"/>.
+        /// Save: Serialize this object to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the ScoreRecord.</returns>

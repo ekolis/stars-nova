@@ -613,7 +613,7 @@ namespace Nova.Common
         
 
         /// <summary>
-        /// Load: Initialising constructor to load a fleet from an XmlNode (save file).
+        /// Load: initializing constructor to load a fleet from an XmlNode (save file).
         /// </summary>
         /// <param name="node">An XmlNode representing the fleet.</param>
         public Fleet(XmlNode node)

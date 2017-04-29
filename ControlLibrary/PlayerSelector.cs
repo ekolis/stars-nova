@@ -27,10 +27,10 @@
 // ===========================================================================
 #endregion
 
-using System.Windows.Forms;
-
 namespace Nova.ControlLibrary
 {
+    using System.Windows.Forms;
+
     public partial class PlayerSelector : UserControl
     {
         public PlayerSelector()

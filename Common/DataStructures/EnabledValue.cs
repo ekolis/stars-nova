@@ -48,7 +48,7 @@ namespace Nova.Common
         #region Construction
 
         /// <summary>
-        /// Initialising constructor.
+        /// Initializing constructor.
         /// </summary>
         /// <param name="check"></param>
         /// <param name="value"></param>

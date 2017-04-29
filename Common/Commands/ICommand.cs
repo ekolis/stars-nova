@@ -30,12 +30,11 @@ namespace Nova.Common.Commands
     /// </summary>
     public interface ICommand
     {
-        bool isValid(EmpireData empire);
+        bool IsValid(EmpireData empire);
         
         void ApplyToState(EmpireData empire);
         
         XmlElement ToXml(XmlDocument xmldoc);
-        
     }
     
     public enum CommandMode
