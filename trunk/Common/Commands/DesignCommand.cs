@@ -91,15 +91,19 @@ namespace Nova.Common.Commands
                 {
                     case "mode":
                         Mode = (CommandMode)Enum.Parse(typeof(CommandMode), mainNode.FirstChild.Value);
-                    break;                   
+                        break;                   
                     
                     case "design":
                         Design = new ShipDesign(mainNode);
-                    break;
+                        break;
                     
                     case "shipdesign":
                         Design = new ShipDesign(mainNode);
-                    break;
+                        break;
+
+                    case "key": // occurs if CommandMode is Delete
+                        Design = new ShipDesign(long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
+                        break;
                 }
             
                 mainNode = mainNode.NextSibling;
@@ -206,7 +210,17 @@ namespace Nova.Common.Commands
             XmlElement xmlelCom = xmldoc.CreateElement("Command");
             xmlelCom.SetAttribute("Type", "Design");
             Global.SaveData(xmldoc, xmlelCom, "Mode", Mode.ToString());
-            xmlelCom.AppendChild(Design.ToXml(xmldoc));
+            if (Mode != CommandMode.Delete)
+            {
+                // serialise a normal design
+                xmlelCom.AppendChild(Design.ToXml(xmldoc));
+            }
+            else
+            {
+                // For CommandMode.Delete the design only contains a valid Tag
+                Global.SaveData(xmldoc, xmlelCom, "Key", Design.Key);
+
+            }
             
             return xmlelCom;    
         }
