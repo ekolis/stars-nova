@@ -247,6 +247,7 @@ namespace Nova.Common
             return rhs * lhs;
         }
         
+        // Rounding can cause one more resource to be consumed than we have
         public static Resources operator *(Resources lhs, double rhs)
         {
             Resources result = new Resources();
