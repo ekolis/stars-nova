@@ -130,12 +130,12 @@ namespace Nova.Common.Components
         /// <param name="op2"></param>
         public override void Add(ComponentProperty op2)
         {
-            if ( ! IsSameWeaponType((Weapon)op2))
+            if (!IsSameWeaponType((Weapon)op2))
             {
                 Report.Error("Attempted to add different weapon types.");
                 return;
             }
-            Power += ( (Weapon) op2).Power;
+            Power += ((Weapon)op2).Power;
         }
 
         /// <summary>

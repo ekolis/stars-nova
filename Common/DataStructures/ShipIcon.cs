@@ -108,7 +108,7 @@ namespace Nova.Common
                 nextIconIndex = 0;
             }
             // check for a missing index, this might happen if the hulls are not numbered sequentially
-            if ( !AllShipIcons.Data.Hulls[baseHull].ContainsKey(nextIconIndex))
+            if (!AllShipIcons.Data.Hulls[baseHull].ContainsKey(nextIconIndex))
             {
                 nextIconIndex = 0; // only "safe" option
             }
