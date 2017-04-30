@@ -136,7 +136,7 @@ namespace Nova.Common
             }
             else
             {
-                return ! lhs.Equals(rhs);
+                return !lhs.Equals(rhs);
             }
         }
 

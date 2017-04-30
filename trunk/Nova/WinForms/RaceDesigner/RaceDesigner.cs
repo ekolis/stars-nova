@@ -1996,20 +1996,24 @@ namespace Nova.WinForms.RaceDesigner
                 Race raceParameters = new Race(fileName);
 
                 // TODO (priority 6) - This level of security is not good enough as the race is stored un-encrypted.
-                // ControlLibrary.CheckPassword password =
-//                   new ControlLibrary.CheckPassword(raceParameters);
+                /*
+                 ControlLibrary.CheckPassword password =
+                   new ControlLibrary.CheckPassword(raceParameters);
 
-  //              password.ShowDialog();
-    //            if (password.DialogResult == DialogResult.OK)
-      //          {
+                password.ShowDialog();
+                if (password.DialogResult == DialogResult.OK)
+                {
+                */
                     ReloadRace(raceParameters);
                     ReloadSecondaryTraits(raceParameters);
                     ReloadBuildCosts(raceParameters);
                     ReloadEnvironmentalTolerance(raceParameters);
                     ReloadResearchCosts(raceParameters);
-        //        }
+                /*
+                }
 
-          //      password.Dispose();
+                password.Dispose();
+                */
             }
             catch (Exception ex)
             {

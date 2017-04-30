@@ -75,7 +75,7 @@ namespace Nova.Common
                 Bomb totalBombs = new Bomb();
                 foreach (ShipToken token in tokens.Values)
                 {
-                    Bomb bomb = (token.Design.BombCapability * token.Quantity);
+                    Bomb bomb = token.Design.BombCapability * token.Quantity;
                     totalBombs.PopKill += bomb.PopKill;
                     totalBombs.Installations += bomb.Installations;
                     totalBombs.MinimumKill += bomb.MinimumKill;
@@ -254,7 +254,7 @@ namespace Nova.Common
 
                 foreach (ShipToken token in tokens.Values)
                 {
-                    totalMass += (token.Design.Mass * token.Quantity);
+                    totalMass += token.Design.Mass * token.Quantity;
                 }
                 totalMass += Cargo.Mass;
 
@@ -273,7 +273,7 @@ namespace Nova.Common
 
                 foreach (ShipToken token in tokens.Values)
                 {
-                    mineCount += (token.Design.MineCount * token.Quantity);
+                    mineCount += token.Design.MineCount * token.Quantity;
                 }
 
                 return mineCount;
@@ -282,7 +282,7 @@ namespace Nova.Common
         
         /// <summary>
         /// Return the penetrating range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear).
+        /// FIXME (priority 4) - scanning capability can be addattive (but the formula is non-linear).
         /// </summary>
         public int PenScanRange
         {
@@ -303,7 +303,7 @@ namespace Nova.Common
         
         /// <summary>
         /// Return the non penetrating range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear).
+        /// FIXME (priority 4) - scanning capability can be addattive (but the formula is non-linear).
         /// </summary>
         public int ScanRange
         {

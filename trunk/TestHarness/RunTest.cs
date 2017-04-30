@@ -26,22 +26,22 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Nova.Common;
-using Nova.Common.DataStructures;
-using Nova.Tests;
-using Nova.Tests.IntegrationTests;
-using Nova.Tests.UnitTests;
-
 namespace TestHarness
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+    using Nova.Tests;
+    using Nova.Tests.IntegrationTests;
+    using Nova.Tests.UnitTests;
+
     /// <summary>
     /// This module provides a means of running a test in the debugger without 
-    /// the aid of a thrid party tool (such as ReSharper).
+    /// the aid of a third party tool (such as ReSharper).
     /// </summary>
     public class RunTest
     {
@@ -92,7 +92,6 @@ namespace TestHarness
             BattleReport test = new BattleReport();
             test.SerialisationTestBattleReport();
              */
-
         }
     }
 }
