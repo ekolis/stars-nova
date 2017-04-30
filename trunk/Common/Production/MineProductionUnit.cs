@@ -99,7 +99,7 @@ namespace Nova.Common
                 return true;
             }
 
-            if (star.ResourcesOnHand.Energy == 0)
+            if (star.ResourcesOnHand.Energy <= 0)
             {
                 return true;
             }

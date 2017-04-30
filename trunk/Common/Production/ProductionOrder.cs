@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-#region Copyright Notice
+﻿#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2010, 2011 stars-nova
 //
@@ -23,6 +22,7 @@
 namespace Nova.Common
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Xml;
 

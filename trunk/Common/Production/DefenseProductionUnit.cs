@@ -91,7 +91,7 @@ namespace Nova.Common
                 return true;
             }
 
-            if (star.ResourcesOnHand.Energy == 0 || star.ResourcesOnHand.Ironium == 0 || star.ResourcesOnHand.Boranium == 0 || star.ResourcesOnHand.Germanium == 0)
+            if (star.ResourcesOnHand.Energy <= 0 || star.ResourcesOnHand.Ironium <= 0 || star.ResourcesOnHand.Boranium <= 0 || star.ResourcesOnHand.Germanium <= 0)
             {
                 return true;
             }

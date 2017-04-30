@@ -116,12 +116,12 @@ namespace Nova.Common
         public bool IsSkipped(Star star)
         {
             // Skip if unit needs a resource and there is no amount of that resource available
-            // Note that a zero resrouce cost unit does not exist.
+            // Note that a zero resource cost unit does not exist in Stars!, but check just incase a mod adds one.
             if (
-                star.ResourcesOnHand.Energy == 0 ||
-                (star.ResourcesOnHand.Germanium == 0 && cost.Germanium > 0) ||
-                (star.ResourcesOnHand.Boranium == 0 && cost.Boranium > 0) ||
-                (star.ResourcesOnHand.Ironium == 0 && cost.Ironium > 0)
+                star.ResourcesOnHand.Energy <= 0 && cost.Energy > 0||
+                (star.ResourcesOnHand.Germanium <= 0 && cost.Germanium > 0) ||
+                (star.ResourcesOnHand.Boranium <= 0 && cost.Boranium > 0) ||
+                (star.ResourcesOnHand.Ironium <= 0 && cost.Ironium > 0)
                 )
             {
                 return true;
