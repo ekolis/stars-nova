@@ -76,7 +76,7 @@ namespace Nova.Common
             // Coverage against smart bombs is calculated slightly differently
 
             baseLevel *= 0.5;
-            SmartBombCoverage = 1.0 - Math.Pow((1.0 - baseLevel), star.Defenses);
+            SmartBombCoverage = 1.0 - Math.Pow(1.0 - baseLevel, star.Defenses);
 
             double summary = ((BuildingCoverage + PopulationCoverage
                               + InvasionCoverage) / 3) * 100;

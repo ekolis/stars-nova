@@ -3,6 +3,7 @@
     <CollectionProperty Name="RecognizedWords">
       <Value>alphanum</Value>
       <Value>Cloneable</Value>
+      <Value>conf</Value>
       <Value>ironium</Value>
       <Value>kTs</Value>
       <Value>lhs</Value>
