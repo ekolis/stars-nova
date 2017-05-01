@@ -118,7 +118,6 @@ namespace Nova.Common
                 {
                     throw new System.IO.IOException("File dialog cancelled.");
                 }
-
             }
 
             bool waitingForConfigFile = false;

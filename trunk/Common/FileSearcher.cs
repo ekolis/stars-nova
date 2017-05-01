@@ -32,7 +32,7 @@ namespace Nova.Common
 
     /// <summary>
     /// The FileSearcher object is used to find a file that is part of Nova. It uses
-    /// the following stratergy:
+    /// the following strategy:
     /// First, check if the file path is defined by a key in nova.conf, else
     /// see if the file is in the expected relative path location, else
     /// see if the file can be found by searching the nova installation directory, else
