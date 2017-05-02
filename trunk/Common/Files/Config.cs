@@ -59,6 +59,7 @@ namespace Nova.Common
             if (File.Exists(fileName))
             {
                 bool success = false;
+                double waitTime = 0; //seconds
                 while (!success)
                 {
                     try
@@ -79,11 +80,10 @@ namespace Nova.Common
                     }
                     catch (Exception e)
                     {
-                        int hr = (int)e.GetType().GetProperty("HResult", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(e, null);
-
-                        if (hr == -2147024864)
+                        if (waitTime < 8.0)
                         {
-                            System.Threading.Thread.Sleep(1000); // Wait a second.
+                            System.Threading.Thread.Sleep(500); // Wait half a second.
+                            waitTime += 0.5;
                         }
                         else
                         {
