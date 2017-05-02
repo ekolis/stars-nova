@@ -382,8 +382,10 @@ namespace Nova.Common
                 }
                 else
                 {
-                    // FIXME (priority 7) - Game crashes if it tries to write out a fleet report for a fleet with no ships. Was this fleet partly deleted? I think this has something to do with colonisers not being deleted properly. - Dan 26 Feb 12
-                    // Report.Error("EmpireData.ToXml(): Fleet " + report.Name + " contains no ships.");
+                    // Game crashes if it tries to write out a fleet report for a fleet with no ships. 
+                    // Was this fleet partly deleted? I think this has something to do with colonisers not being deleted properly. - Dan 26 Feb 12
+                    // Dan 2 May 17 - unable to trigger this. Colonization works.
+                    Report.Error("EmpireData.ToXml(): Fleet " + report.Name + " contains no ships.");
                 }
             }
             xmlelEmpireData.AppendChild(xmlelFleetReports);
