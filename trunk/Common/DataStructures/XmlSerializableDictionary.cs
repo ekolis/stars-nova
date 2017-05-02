@@ -54,15 +54,6 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Temporarily added to allow binary serialization ??? (priority 9) .
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        protected XmlSerializableDictionary(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) 
-        { 
-        }
-
-        /// <summary>
         /// Determine if a given key is already in the dictionary.
         /// </summary>
         /// <param name="key">The key to test for.</param>
