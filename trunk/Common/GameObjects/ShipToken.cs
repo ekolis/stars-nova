@@ -62,12 +62,14 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Returns the percentage of damage done to the First "ship" of the token.
-        /// FIXME (priority 6): Whole token instead?
+        /// Returns the percentage of damage done to the token of ships.
         /// </summary>
         public double Damage
         {
-            get { return (100 * Armor / Design.Armor); }
+            get 
+            { 
+                return 100 * (this.Design.Armor - this.Armor) / this.Design.Armor; 
+            }
         }
         
         /// <summary>
