@@ -59,7 +59,7 @@ namespace Nova.Common
             if (File.Exists(fileName))
             {
                 bool success = false;
-                double waitTime = 0; //seconds
+                double waitTime = 0; // seconds
                 while (!success)
                 {
                     try
