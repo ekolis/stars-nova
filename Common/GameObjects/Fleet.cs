@@ -358,7 +358,7 @@ namespace Nova.Common
         {
             get
             {
-                return tokens.Values.Sum(token => token.Design.CargoCapacity);
+                return tokens.Values.Sum(token => token.Design.CargoCapacity * token.Quantity);
             }
         }
 
