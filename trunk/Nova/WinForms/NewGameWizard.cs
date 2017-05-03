@@ -187,7 +187,7 @@ namespace Nova.WinForms
         private void TutorialButton_Click(object sender, EventArgs eventArgs)
         {
             Report.Information("Sorry, there is no tutorial yet.");
-            // TODO (priority 7): Load or create the tutorial client data.
+            // TODO (priority 5): Load or create the tutorial client data.
         }
         
 
