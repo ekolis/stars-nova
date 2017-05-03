@@ -292,7 +292,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="configKey">The config file key we would like the folder path to be stored in.</param>
         /// <param name="defaultFolder">The default folder name, as in NovaRoot\defaultFolder, to use if the key is not set.</param>
-        /// <returns>The path to the folder, being either the folder defined by the key, or Path.Combine(NovaRoot, defaultFolder). Will create the folder if neccessary.</returns>
+        /// <returns>The path to the folder, being either the folder defined by the key, or Path.Combine(NovaRoot, defaultFolder). Will create the folder if necessary.</returns>
         public static string GetFolder(string configKey, string defaultFolder)
         {
             // Tempory storage for building the absolute path reference
@@ -389,7 +389,7 @@ namespace Nova.Common
         /// <summary>
         /// Ask the user to locate a file.
         /// </summary>
-        /// <param name="fileName">The name of the file to loacate.</param>
+        /// <param name="fileName">The name of the file to locate.</param>
         /// <returns>The path and filename given or null.</returns>
         private static string AskUserForFile(string fileName)
         {

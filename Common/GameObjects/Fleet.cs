@@ -20,11 +20,10 @@
 // ===========================================================================
 #endregion
 
-using System.Collections.Generic;
-
 namespace Nova.Common
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Xml;
 
@@ -42,14 +41,14 @@ namespace Nova.Common
     public class Fleet : Mappable
     {   
         /// <summary>
-        /// Holds the ship tokens in the format "ShipDesign, Quantity, Damage%"
+        /// Holds the ship tokens in the format "ShipDesign, Quantity, Damage%".
         /// </summary>
         private Dictionary<long, ShipToken> tokens  = new Dictionary<long, ShipToken>();
         public List<Waypoint> Waypoints   = new List<Waypoint>();
 
         /// <summary>
         /// The cargo carried by the entire fleet. 
-        /// To avoid issues with duplication cargo is traked at the fleet level only.
+        /// To avoid issues with duplication cargo is tracked at the fleet level only.
         /// </summary>
         public Cargo Cargo = new Cargo(); 
         
@@ -282,7 +281,7 @@ namespace Nova.Common
         
         /// <summary>
         /// Return the penetrating range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addattive (but the formula is non-linear).
+        /// FIXME (priority 4) - scanning capability can be additive (but the formula is non-linear).
         /// </summary>
         public int PenScanRange
         {
@@ -303,7 +302,7 @@ namespace Nova.Common
         
         /// <summary>
         /// Return the non penetrating range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addattive (but the formula is non-linear).
+        /// FIXME (priority 4) - scanning capability can be additive (but the formula is non-linear).
         /// </summary>
         public int ScanRange
         {

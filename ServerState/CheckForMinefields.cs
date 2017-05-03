@@ -49,8 +49,7 @@ namespace Nova.Server
         /// <returns>Returns false.</returns>
         public bool Check(Fleet fleet)
         {
-            foreach (Minefield minefield in
-                     serverState.AllMinefields.Values)
+            foreach (Minefield minefield in serverState.AllMinefields.Values)
             {
                 if (IsInField(fleet, minefield))
                 {

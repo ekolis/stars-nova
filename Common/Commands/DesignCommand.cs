@@ -219,7 +219,6 @@ namespace Nova.Common.Commands
             {
                 // For CommandMode.Delete the design only contains a valid Tag
                 Global.SaveData(xmldoc, xmlelCom, "Key", Design.Key);
-
             }
             
             return xmlelCom;    
