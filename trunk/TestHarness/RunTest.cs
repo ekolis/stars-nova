@@ -47,6 +47,15 @@ namespace TestHarness
     {
         public static void Main(string[] args)
         {
+            // Test star growth
+            StarTest test = new StarTest();
+            test.Init();
+            test.LowPopGrowth();
+            test.CrowdingPopGrowth();
+            test.MaxPopGrowth();
+            test.OvercrowdedPopGrowth();
+            test.VeryOvercrowdedPopGrowth();
+
             // ItemTest
             /*
             ItemTest test = new ItemTest();
@@ -56,10 +65,10 @@ namespace TestHarness
             */
 
             // ServerStateTest
-            
+            /*
             ServerStateTest test = new ServerStateTest();
             test.SerialisationTest();
-            
+            */
 
             // Debuging battle test
             /*

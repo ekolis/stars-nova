@@ -276,6 +276,12 @@ namespace Nova.Common
                 maxPopulation *= Global.PopulationFactorHyperExpansion;
             }
 
+            // handle negative hab worlds
+            if (race.HabitalValue(this) < 0.0)
+            {
+                maxPopulation = 25000.0;
+            }
+
             double capacity = (Colonists / maxPopulation) * 100;
             
             return (int)Math.Ceiling(capacity);
@@ -299,21 +305,32 @@ namespace Nova.Common
                 growthRate *= Global.GrowthFactorHyperExpansion;
             }
 
-            double populationGrowth = Colonists;
-            populationGrowth *= growthRate / 100.0;
-            populationGrowth *= habitalValue;
+            double populationGrowth = 0;
             
             double capacity = (double) Capacity(race) / 100.0;
 
-            if (capacity > 0.25)
+            if (capacity < 0.25)
             {
-                double crowdingFactor = Global.BaseCrowdingFactor;
-                crowdingFactor *= (1.0 - capacity) * (1.0 - capacity);
-                if (capacity > 1.0)
-                {
-                    crowdingFactor *= -1; // negative growth from over crowding
-                }
+                populationGrowth = Colonists * growthRate / 100.0 * habitalValue;
+            }
+            else if (capacity > 0.25 && capacity < 1.0)
+            {
+                populationGrowth = Colonists * growthRate / 100.0 * habitalValue;
+                double crowdingFactor = Global.BaseCrowdingFactor * (1.0 - capacity) * (1.0 - capacity);
                 populationGrowth *= crowdingFactor;
+            }
+            else if (capacity == 1.0)
+            {
+                populationGrowth = 0;
+            }
+            else if (capacity > 1.0 && capacity < 4.0)
+            {
+                populationGrowth = Colonists * (capacity - 1) * -4.0 / 100.0; // .04% per 1% over capacity
+            }
+            else if (capacity >= 4.0)
+            {
+                // crowding deaths cap at 12%
+                populationGrowth = Colonists * -0.12;
             }
             
             // As per vanilla Stars! the minimal colonist growth unit
