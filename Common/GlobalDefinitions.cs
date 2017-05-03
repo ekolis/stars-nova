@@ -89,7 +89,7 @@ namespace Nova.Common
        // Colonists
        public const int     ColonistsPerKiloton                     = 100;
        public const double  LowStartingPopulationFactor             = 0.7;
-       public const double  BaseCrowdingFactor                      = 16 / 9; // Taken from the Stars technical faq.
+       public const double  BaseCrowdingFactor                      = 16.0 / 9.0; // Taken from the Stars technical faq.
        public const int     StartingColonists                       = 25000;
        public const int     StartingColonistsAcceleratedBBS         = 100000;
        public const int     NominalMaximumPlanetaryPopulation       = 1000000; // use Race.MaxPopulation to get the maximum for a particular race.
