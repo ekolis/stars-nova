@@ -41,6 +41,116 @@ namespace Nova.Tests.UnitTests
             race.Traits.Remove("TT");
         }
 
+        // Tests for population growth
+        [Test]
+        public int LowPopGrowth()
+        {
+            // setup the star
+            star.Colonists = 100000;
+            star.Gravity = 50;
+            star.Radiation = 50;
+            star.Temperature = 50;
+
+            // set a growth rate
+            race.GrowthRate = 10; // 10% growth
+
+            // run the growth calculation
+            int growth = star.CalculateGrowth(race);
+
+            // check the growth
+            Assert.AreEqual(10000, growth);
+
+            return growth;
+        }
+
+        [Test]
+        public int CrowdingPopGrowth()
+        {
+            // setup the star
+            star.Colonists = 500000;
+            star.Gravity = 50;
+            star.Radiation = 50;
+            star.Temperature = 50;
+
+            // setup the race
+            race.GrowthRate = 10; // 10% growth
+            race.Traits.SetPrimary("SS"); // avoid the JoAT and HE complications
+
+            // run the growth calculation
+            int growth = star.CalculateGrowth(race);
+
+            // check the growth
+            Assert.AreEqual(22200, growth);
+
+            return growth;
+        }
+
+        [Test]
+        public int MaxPopGrowth()
+        {
+            // setup the star
+            star.Colonists = 1000000;
+            star.Gravity = 50;
+            star.Radiation = 50;
+            star.Temperature = 50;
+
+            // setup the race
+            race.GrowthRate = 10; // 10% growth
+            race.Traits.SetPrimary("SS"); // avoid the JoAT and HE complications
+
+            // run the growth calculation
+            int growth = star.CalculateGrowth(race);
+
+            // check the growth
+            Assert.AreEqual(0, growth);
+
+            return growth;
+        }
+
+        [Test]
+        public int OvercrowdedPopGrowth()
+        {
+            // setup the star
+            star.Colonists = 1500000;
+            star.Gravity = 50;
+            star.Radiation = 50;
+            star.Temperature = 50;
+
+            // setup the race
+            race.GrowthRate = 10; // 10% growth
+            race.Traits.SetPrimary("SS"); // avoid the JoAT and HE complications
+
+            // run the growth calculation
+            int growth = star.CalculateGrowth(race);
+
+            // check the growth
+            Assert.AreEqual(-30000, growth);
+
+            return growth;
+        }
+
+        [Test]
+        public int VeryOvercrowdedPopGrowth()
+        {
+            // setup the star
+            star.Colonists = 5000000;
+            star.Gravity = 50;
+            star.Radiation = 50;
+            star.Temperature = 50;
+
+            // setup the race
+            race.GrowthRate = 10; // 10% growth
+            race.Traits.SetPrimary("SS"); // avoid the JoAT and HE complications
+
+            // run the growth calculation
+            int growth = star.CalculateGrowth(race);
+
+            // check the growth
+            Assert.AreEqual(-600000, growth);
+
+            return growth;
+        }
+
         [Test]
         public void HabitalValue_AllImmune()
         {
