@@ -303,12 +303,16 @@ namespace Nova.Common
             populationGrowth *= growthRate / 100.0;
             populationGrowth *= habitalValue;
             
-            double capacity = Capacity(race) / 100.0;
+            double capacity = (double) Capacity(race) / 100.0;
 
             if (capacity > 0.25)
             {
                 double crowdingFactor = Global.BaseCrowdingFactor;
                 crowdingFactor *= (1.0 - capacity) * (1.0 - capacity);
+                if (capacity > 1.0)
+                {
+                    crowdingFactor *= -1; // negative growth from over crowding
+                }
                 populationGrowth *= crowdingFactor;
             }
             
@@ -316,7 +320,7 @@ namespace Nova.Common
             // is set as 100 colonists. A planet does not track colonists
             // by the tens. While visually this does not matter much,
             // the compounding effect of growth can make those extra tens of
-            // colonists matter in the long run and mismatch the behabior
+            // colonists matter in the long run and mismatch the behaviour
             // of Stars and Nova.
             int finalGrowth = (int)populationGrowth;
             finalGrowth /= 100;
