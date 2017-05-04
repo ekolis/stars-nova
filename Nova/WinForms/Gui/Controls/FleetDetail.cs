@@ -462,10 +462,15 @@ namespace Nova.WinForms.Gui
             groupFleetSelection.Text = "Fleet " + selectedFleet.Name;
 
             fleetComposition.Items.Clear();
+            fleetComposition.ShowItemToolTips = true;
 
             foreach (ShipToken token in selectedFleet.Composition.Values)
             {
                 ListViewItem listItem = new ListViewItem(token.Design.Name);
+
+                // Show % damage & remaining armor in a tool tip.
+                listItem.ToolTipText = token.Damage.ToString() + "% damage (" + token.Armor.ToString() + " armor remaining.)";
+
                 listItem.SubItems.Add(token.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 fleetComposition.Items.Add(listItem);
             }
