@@ -41,6 +41,32 @@ namespace Nova.Tests.UnitTests
             race.Traits.Remove("TT");
         }
 
+        /// <summary>
+        /// Test population growth for a negative hab planet.
+        /// </summary>
+        /// <returns>The amount of popluation added (may be negative).</returns>
+        [Test]
+        public double NegativeHabPopGrowth()
+        {
+            // setup the star
+            star.Colonists = 100000;
+            star.Gravity = 10;
+            star.Radiation = 10;
+            star.Temperature = 10;
+
+            // setup the race
+            race.GrowthRate = 10; // 10% growth
+            race.Traits.SetPrimary("SS"); // avoid the JoAT and HE complications
+
+            // run the growth calculation
+            int growth = star.CalculateGrowth(race);
+
+            // check the growth
+            Assert.AreEqual(-1500, growth);
+
+            return growth;
+        }
+
         // Tests for population growth
         [Test]
         public int LowPopGrowth()

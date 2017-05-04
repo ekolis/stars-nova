@@ -50,6 +50,7 @@ namespace TestHarness
             // Test star growth
             StarTest test = new StarTest();
             test.Init();
+            test.NegativeHabPopGrowth();
             test.LowPopGrowth();
             test.CrowdingPopGrowth();
             test.MaxPopGrowth();

@@ -67,11 +67,11 @@ namespace Nova.Common
 
         /// <summary>
         /// A reference to the race information for the owner of this star.
-        /// This is a convinience for the server. It will be null for races other than the player's race in the client.
+        /// This is a convenience for the server. It will be null for races other than the player's race in the client.
         /// </summary>
         public Race ThisRace = null;
 
-        private HashSet<IStarObserver> ObserverList = new HashSet<IStarObserver>();
+        private HashSet<IStarObserver> observerList = new HashSet<IStarObserver>();
 
         /// <summary>
         /// Default constructor.
@@ -263,7 +263,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Calculate the utilised capacity (as a percentage).
+        /// Calculate the utilized capacity (as a percentage).
         /// </summary>
         /// <param name="race"></param>
         /// <returns>Capacity in the range 1 - 100 (%).</returns>
@@ -293,7 +293,7 @@ namespace Nova.Common
         /// <param name="race"></param>
         /// <returns>The amount of colonists the star will gain on update.</returns>
         /// <remarks>
-        /// See Upadate()
+        /// See Update().
         /// </remarks>
         public int CalculateGrowth(Race race)
         {
@@ -307,29 +307,38 @@ namespace Nova.Common
 
             double populationGrowth = 0;
             
-            double capacity = (double) Capacity(race) / 100.0;
+            double capacity = (double)Capacity(race) / 100.0;
 
-            if (capacity < 0.25)
+            if (habitalValue < 0.0)
             {
+                // negative hab planet
+                populationGrowth = 0.1 * this.Colonists * habitalValue;
+            }
+            else if (capacity < 0.25)
+            {
+                // low pop planet
                 populationGrowth = Colonists * growthRate / 100.0 * habitalValue;
             }
             else if (capacity > 0.25 && capacity < 1.0)
             {
+                // early crowding
                 populationGrowth = Colonists * growthRate / 100.0 * habitalValue;
                 double crowdingFactor = Global.BaseCrowdingFactor * (1.0 - capacity) * (1.0 - capacity);
                 populationGrowth *= crowdingFactor;
             }
             else if (capacity == 1.0)
             {
+                // full planet
                 populationGrowth = 0;
             }
             else if (capacity > 1.0 && capacity < 4.0)
             {
+                // over full planet
                 populationGrowth = Colonists * (capacity - 1) * -4.0 / 100.0; // .04% per 1% over capacity
             }
             else if (capacity >= 4.0)
             {
-                // crowding deaths cap at 12%
+                // very over full planet: crowding deaths cap at 12%
                 populationGrowth = Colonists * -0.12;
             }
             
@@ -338,7 +347,7 @@ namespace Nova.Common
             // by the tens. While visually this does not matter much,
             // the compounding effect of growth can make those extra tens of
             // colonists matter in the long run and mismatch the behaviour
-            // of Stars and Nova.
+            // of Stars! and Nova.
             int finalGrowth = (int)populationGrowth;
             finalGrowth /= 100;
             finalGrowth *= 100;
@@ -351,7 +360,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="race"></param>
         /// <remarks>
-        /// See Upadate()
+        /// See Update().
         /// </remarks>
         public void UpdatePopulation(Race race)
         {
@@ -381,7 +390,7 @@ namespace Nova.Common
         /// Update the resources available to a star system.
         /// </summary>
         /// <remarks>
-        /// See UpadateMinerals()
+        /// See UpdateMinerals().
         /// </remarks>
         public void UpdateResources()
         {
@@ -407,7 +416,7 @@ namespace Nova.Common
         /// Update the minerals available on a star system.
         /// </summary>
         /// <remarks>
-        /// See UpadateResources()
+        /// See UpdateResources().
         /// </remarks>
         public void UpdateMinerals()
         {            
@@ -419,14 +428,14 @@ namespace Nova.Common
         /// <summary>
         /// Mine minerals.
         /// </summary>
-        /// <param name="concentration">The mineral concentraion in this system, (1.0 = 100%). 
+        /// <param name="concentration">The mineral concentration in this system, (1.0 = 100%). 
         /// Mining alters the concentration of minerals.</param>
         /// <returns>The number of minerals mined.</returns>
         /// <remarks>
         /// Mining rate = Number of Mines * Efficiency * Mineral Concentration %.
         ///
         /// Mining efficiency is a race parameter (MineProductionRate per 10 mines)
-        /// Concentration is in % and is normalised so that 1.0 = 100%
+        /// Concentration is in % and is normalized so that 1.0 = 100%
         /// 
         /// Note also that this method does not actually modify the Star's minerals. It
         /// merely returns the amount mined and decreases concentration.
@@ -514,17 +523,17 @@ namespace Nova.Common
 
         public void AddObserver(IStarObserver observer)
         {
-            ObserverList.Add(observer);
+            observerList.Add(observer);
         }
 
         public void RemoveObserver(IStarObserver observer)
         {
-            ObserverList.Remove(observer);
+            observerList.Remove(observer);
         }
 
         public void NotifyObserver()
         {
-            foreach (IStarObserver observer in ObserverList)
+            foreach (IStarObserver observer in observerList)
             {
                 observer.Update(this);
             }
