@@ -68,7 +68,7 @@ namespace Nova.Common
         {
             get 
             { 
-                return 100 * (this.Design.Armor - this.Armor) / this.Design.Armor; 
+                return 100 * (this.Design.Armor * this.Quantity - this.Armor) / (this.Design.Armor * this.Quantity); 
             }
         }
         
