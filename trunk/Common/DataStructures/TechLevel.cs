@@ -133,7 +133,7 @@ namespace Nova.Common
                 {
                     throw new System.NullReferenceException("TechLevel.cs : index operator - attempt to index with no TechValues defined.");
                 }
-                int techLevel = -1;
+                int techLevel = 0; // default tech level
                 switch (index)
                 {
                     case ResearchField.Biotechnology:
@@ -154,10 +154,8 @@ namespace Nova.Common
                     case ResearchField.Weapons:
                         techLevel = techValues["Weapons"];
                         break;
-                }
-                if (techLevel == -1)
-                {
-                    throw new System.ArgumentException("TechLevel.cs: indexing operator - Unknown field of research", index.ToString());
+                    default:
+                        throw new System.ArgumentException("TechLevel.cs: indexing operator - Unknown field of research", index.ToString());
                 }
                 return techLevel;
             }
@@ -183,6 +181,8 @@ namespace Nova.Common
                     case ResearchField.Weapons:
                         this.techValues["Weapons"] = value;
                         break;
+                    default:
+                        throw new System.ArgumentException("TechLevel.cs: indexing operator - Unknown field of research", index.ToString());
                 }
             }
         }
