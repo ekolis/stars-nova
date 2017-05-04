@@ -312,6 +312,7 @@ namespace Nova.Server
             {
                 star = serverState.AllStars[fleet.InOrbit.Name];
             }
+
             // refuel
             if (star != null && star.Owner == fleet.Owner /* TODO (priority 6) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
             {
@@ -367,14 +368,16 @@ namespace Nova.Server
                 }
             }
 
+            // repair ships/tokens
             foreach (ShipToken token in fleet.Composition.Values)
             {
-                token.Shields = token.Design.Shield;
+                token.Shields = token.Design.Shield * token.Quantity; // note: token.Sheild is for all ships in the token
                 if (repairRate > 0)
                 {
-                    int repairAmount = Math.Min(token.Design.Armor * repairRate / 100, 1);
+                    // note: token.Armor is for all ships in the token
+                    int repairAmount = Math.Max(token.Design.Armor * token.Quantity * repairRate / 100, 1);
                     token.Armor += repairAmount;
-                    token.Armor = Math.Min(token.Armor, token.Design.Armor);
+                    token.Armor = Math.Min(token.Armor, token.Design.Armor * token.Quantity);
                 }
             }
         }
