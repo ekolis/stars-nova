@@ -710,7 +710,7 @@ namespace Nova.Server
             // FIXME (Priority 7) What about losses of a single ship within the token???
             if (target.Token.Armor <= 0) 
             {
-                DestroyStack(target);
+                DestroyStack(attacker, target);
             }
         }
 
@@ -721,7 +721,7 @@ namespace Nova.Server
         /// update the battle visualisation display.
         /// </summary>
         /// <param name="target"></param>
-        private void DestroyStack(Stack target)
+        private void DestroyStack(Stack attacker, Stack target)
         {
             // report the losses
             battle.Losses[target.Owner] = battle.Losses[target.Owner] + target.Token.Quantity; 
@@ -740,6 +740,7 @@ namespace Nova.Server
                 {
                     serverState.AllEmpires[target.Owner].OwnedFleets.Remove(target.ParentKey);
                     serverState.AllEmpires[target.Owner].FleetReports.Remove(target.ParentKey);
+                    serverState.AllEmpires[attacker.Owner].FleetReports.Remove(target.ParentKey);  // added in Rev# 872
                 }
             }
 
