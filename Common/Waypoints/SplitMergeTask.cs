@@ -32,7 +32,7 @@ namespace Nova.Common.Waypoints
     using Nova.Common.Components;
     
     /// <summary>
-    /// Performs Star Colonisation.
+    /// Performs split or merge of fleets.
     /// </summary>
     public class SplitMergeTask : IWaypointTask
     {           
@@ -41,13 +41,14 @@ namespace Nova.Common.Waypoints
         /// <inheritdoc />
         public List<Message> Messages
         {
-            get{return messages;}
+            get { return messages; }
         }
         
         /// <inheritdoc />
         public string Name
         {
-            get {
+            get 
+            {
                 if (OtherFleetKey == 0)
                 {
                     return "Split Fleet";
@@ -60,20 +61,25 @@ namespace Nova.Common.Waypoints
         }
         
         /// <summary>
-        /// Cargo object representing the amount to Load or Unload
+        /// Composition of the fleet on the left side of the SplitFleetsDialog dialog.
         /// </summary>
-        public Dictionary<long, ShipToken> LeftComposition {get; set;}
+        public Dictionary<long, ShipToken> LeftComposition { get; set; }
         
         /// <summary>
-        /// Load or Unload cargo. Mixed operations are represented by more than one Task.
+        /// Composition of the fleet on the right side of the SplitFleetsDialog dialog.
         /// </summary>
-        public Dictionary<long, ShipToken> RightComposition {get; set;}
-        
-        public long OtherFleetKey {get; set;}
-        
+        public Dictionary<long, ShipToken> RightComposition { get; set; }
         
         /// <summary>
-        /// Default Constructor
+        /// The Fleet.Key of the target fleet to merge with, if any.
+        /// </summary>
+        /// <remarks>
+        /// The "this" fleet is the fleet this waypoint task belongs to.
+        /// </remarks>
+        public long OtherFleetKey { get; set; }
+        
+        /// <summary>
+        /// Default Constructor.
         /// </summary>
         public SplitMergeTask(Dictionary<long, ShipToken> leftComposition, Dictionary<long, ShipToken> rightComposition, long otherFleetKey = 0)
         {
@@ -82,11 +88,11 @@ namespace Nova.Common.Waypoints
             OtherFleetKey = otherFleetKey;
         }
         
-        
+
         /// <summary>
         /// Copy Constructor.
         /// </summary>
-        /// <param name="other">SplitTask to copy</param>
+        /// <param name="other">SplitTask to copy.</param>
         public SplitMergeTask(SplitMergeTask copy)
         {
             LeftComposition = new Dictionary<long, ShipToken>(copy.LeftComposition);            
@@ -98,7 +104,7 @@ namespace Nova.Common.Waypoints
         /// <summary>
         /// Load: Read an object of this class from and XmlNode representation.
         /// </summary>
-        /// <param name="node">An XmlNode containing a representation of this object</param>
+        /// <param name="node">An XmlNode containing a representation of this object.</param>
         public SplitMergeTask(XmlNode node)
         {
             if (node == null)
@@ -161,6 +167,7 @@ namespace Nova.Common.Waypoints
             // and for a split, one key and 2 compositions. Avoid extra XML clutter.
             if (OtherFleetKey != 0)
             {
+                // ??? How is a partial merge handled? - Dan 04 May 17
                 Global.SaveData(xmldoc, xmlelTask, "RightKey", OtherFleetKey.ToString("X"));
             }
             else
@@ -190,7 +197,7 @@ namespace Nova.Common.Waypoints
             // fleet is the original fleet to split, or the recipient of a merge.
             // target (as Fleet) is the new fleet in a split, or the fleet to be merged into FirstFleet.           
             
-            //TODO (priority 5) - Validate:
+            // TODO (priority 5) - Validate SplitMergeTask:
             // fleet & target valid vs sender versions
             // FirstFleet cargo + SecondFleet cargo = original cargo from either fleet + target or senders's fleets.
             return true;
@@ -210,8 +217,9 @@ namespace Nova.Common.Waypoints
                 {
                     secondFleet = receiver.OwnedFleets[OtherFleetKey];
                 }
-                else if (sender.OwnedFleets.ContainsKey(OtherFleetKey)) // Do we own the key?
+                else if (sender.OwnedFleets.ContainsKey(OtherFleetKey)) 
                 {
+                    // The other fleet is also ours: OtherFleetKey belongs to the same Race/Player as the fleet with the SplitMergeTask waypoint order.
                     secondFleet = sender.OwnedFleets[OtherFleetKey];    
                 }
             }
@@ -235,13 +243,44 @@ namespace Nova.Common.Waypoints
 
             return true;            
         }
-                
-        
+
+
         /// <summary>
-        /// Reassign Fleet compositions and Cargo
+        /// Used to merge fleets. Much cruder than ReassignShips, but requires
+        /// less information.
         /// </summary>
-        /// <param name="left">Original Fleet</param>
-        /// <param name="right">New Fleet</param>
+        /// <remarks>
+        /// This is a simple merge where all the ships end up in one fleet.
+        /// All ships end up in the left fleet.
+        /// </remarks>
+        /// <param name="left">The composition of ships on the left side of the SplitFleetsDialog dialog.</param>
+        /// <param name="right">The composition of ships on the right side of the SplitFleetsDialog dialog.</param>
+        private void MergeFleets(Fleet left, Fleet right)
+        {
+            foreach (ShipToken token in right.Composition.Values)
+            {
+                if (!left.Composition.ContainsKey(token.Key))
+                {
+                    left.Composition.Add(token.Key, token);
+                }
+                else
+                {
+                    left.Composition[token.Key].Quantity += token.Quantity;
+                    left.Composition[token.Key].Armor += token.Armor;
+                }
+            }
+
+            left.FuelAvailable += right.FuelAvailable;
+            left.Cargo.Add(right.Cargo);
+            right.Composition.Clear();
+        }
+
+
+        /// <summary>
+        /// Reassign Fleet compositions and Cargo. 
+        /// </summary>
+        /// <param name="left">Original Fleet.</param>
+        /// <param name="right">New Fleet.</param>
         private void ReassignShips(Fleet left, Fleet right)
         {            
             foreach (long key in LeftComposition.Keys)
@@ -287,37 +326,10 @@ namespace Nova.Common.Waypoints
                 ReassignCargo(left, right);
             }            
         }
-        
-        
-        /// <summary>
-        /// Used to merge fleets. Much cruder than ReassignShips, but requires
-        /// less information.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        private void MergeFleets(Fleet left, Fleet right)
-        {
-            foreach (ShipToken token in right.Composition.Values)
-            {
-                if (!left.Composition.ContainsKey(token.Key))
-                {
-                    left.Composition.Add(token.Key, token);
-                }
-                else
-                {
-                    left.Composition[token.Key].Quantity += token.Quantity;
-                    left.Composition[token.Key].Armor += token.Armor; 
-                }
-            }
-
-            left.FuelAvailable += right.FuelAvailable;
-            left.Cargo.Add(right.Cargo);
-            right.Composition.Clear();
-        }
-        
+      
         
         /// <summary>
-        /// Used to redistribute cargo once fleets are split.
+        /// Used to redistribute cargo (including colonists) and fuel once fleets are split.
         /// </summary>
         private void ReassignCargo(Fleet left, Fleet right)
         {
