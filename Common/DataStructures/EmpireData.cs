@@ -79,6 +79,7 @@ namespace Nova.Common
         public Dictionary<long, FleetIntel> FleetReports  = new Dictionary<long, FleetIntel>();
         
         // This is Fleet Limbo~
+        // ??? What is this for?
         public List<Fleet> TemporaryFleets = new List<Fleet>();
         
         public Dictionary<ushort, EmpireIntel>  EmpireReports   = new Dictionary<ushort, EmpireIntel>();
@@ -383,8 +384,9 @@ namespace Nova.Common
                 else
                 {
                     // Game crashes if it tries to write out a fleet report for a fleet with no ships. 
-                    // Was this fleet partly deleted? I think this has something to do with colonisers not being deleted properly. - Dan 26 Feb 12
-                    // Dan 2 May 17 - unable to trigger this. Colonization works.
+                    // This has been added to avoid the crash, but still let us know if zero ship fleets get this far, so we can find the cause.
+                    // Dan 04 May 17 - this is triggered after a battle (and each turn there after) in Rev# 871
+                    // Dan 04 May 17 - I think I fixed this with Rev# 872 by updating the attacker's fleet reports after combat.
                     Report.Error("EmpireData.ToXml(): Fleet " + report.Name + " contains no ships.");
                 }
             }
