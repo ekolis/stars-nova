@@ -347,7 +347,7 @@ namespace Nova.Common
         {
             get
             {
-                return tokens.Values.Sum(token => token.Armor);
+                return tokens.Values.Sum(token => token.Armor);  // note: token.Armour is a total so no need to * by quantity
             }
         }
 
@@ -398,7 +398,7 @@ namespace Nova.Common
         {
             get
             {
-                return tokens.Values.Sum(token => token.Design.FuelCapacity);
+                return tokens.Values.Sum(token => token.Design.FuelCapacity * token.Quantity);
             }
         }
 
@@ -409,7 +409,7 @@ namespace Nova.Common
         {
             get
             {
-                return tokens.Values.Sum(token => token.Shields);
+                return tokens.Values.Sum(token => token.Shields);  // note token.Shields is a total so no need to multiply by quantity
             }
         }
 
