@@ -295,7 +295,7 @@ namespace Nova.WinForms.Gui
             Fleet fleet = GetSelectedFleetInOrbit();
             if (fleet != null)
             {
-                OnPlanetSelectionChanged(new SelectionArgs(selectedStar));
+                OnPlanetSelectionChanged(new SelectionArgs(fleet));
             }
         }
 

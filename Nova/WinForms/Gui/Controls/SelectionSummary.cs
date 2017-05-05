@@ -22,6 +22,7 @@
 
 namespace Nova.WinForms.Gui
 {
+    using System;
     using System.Drawing;
     using System.Windows.Forms;
     
@@ -152,9 +153,47 @@ namespace Nova.WinForms.Gui
             }
         }
         
+        /// <summary>
+        /// ??? Selection Summary event handler for when the selected Mappable object is changed.
+        /// </summary>
+        /// <param name="sender">The control signaling the event.</param>
+        /// <param name="e">The event args, possibly null.</param>
+        /// <remarks>
+        /// Currently this occurs when selected via the StarMap, or when the goto button is pressed in teh FleetDetail or PlanetDetail controls.
+        /// </remarks>
         public void SummaryChangeSelection(object sender, SelectionArgs e)
         {
-            Value = e.Selection;
+            // FIXME (Priority 8) - Orbiting planet goto crash.
+            // Dan 6 May 17 
+            // In Rev# 879, with a fleet selected that is orbiting a planet, 
+            // pressing the Fleet Details->Orbiting Planet->Goto (FleetDetail.buttonGotoPlanet) button
+            // caused this to crash as it did not handle e == null
+            if (e != null)
+            {
+                // Change the selection to the selected object (planet or ship) from the map.
+                Value = e.Selection;
+            }
+            else
+            {
+                if (sender != null)
+                {
+                    try
+                    {
+                        // Handle the case that we are selecting an the planet from and orbiting fleet.
+                        Value = (sender as FleetDetail).Value.InOrbit;
+                    }
+                    catch
+                    {
+                        // Default to showing nothing selected.
+                        Value = null;
+                    }
+                }
+                else
+                {
+                    // was the selection changed to nothing?
+                    Value = null;
+                }
+            }
         }
        
         /// <Summary>
