@@ -293,7 +293,7 @@ namespace Nova.WinForms.Gui
 
                 // Make sure it's the same waypoint except for speed/task, and that it's not a freshly added
                 // waypoint.
-                if (lastCommand is WaypointCommand)
+                if (lastCommand is WaypointCommand && (lastCommand as WaypointCommand).Waypoint != null)
                 {
                     if ((lastCommand as WaypointCommand).Waypoint.Destination == editedWaypoint.Destination &&
                         (lastCommand as WaypointCommand).Waypoint.Position == editedWaypoint.Position &&
