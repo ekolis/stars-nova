@@ -164,7 +164,7 @@ namespace Nova.Common.Components
             }
             else
             {
-                Report.Debug("Components file to be loaded: " + saveFilePath);
+                // Report.Debug("Components file to be loaded: \"" + saveFilePath + "\"");
             }
             
             ProgressDialog progress = new ProgressDialog();
@@ -177,6 +177,7 @@ namespace Nova.Common.Components
                 Report.FatalError("Failed to load component file: ProgressDialog returned false.");
                 throw new System.Exception();
             }
+            isLoaded = true;
         }
 
 
@@ -191,75 +192,94 @@ namespace Nova.Common.Components
         {
             IProgressCallback callback = status as IProgressCallback;
 
-            try
-            {
-                // blank the component data
-                components = new ConcurrentDictionary<string, Component>();
-                isLoaded = false;
+            // blank the component data
+            components = new ConcurrentDictionary<string, Component>();
                 
-                XmlDocument xmldoc = new XmlDocument();
-
-                using (FileStream componentFileStream = new FileStream(saveFilePath, FileMode.Open, FileAccess.Read))
+            XmlDocument xmldoc = new XmlDocument();
+            bool waitForFile = false;
+            double waitTime = 0; // seconds
+            do
+            {
+                try
                 {
-                    xmldoc.Load(componentFileStream);
-
-                    XmlNode xmlnode = xmldoc.DocumentElement;
-
-                    int nodesLoaded = 0;
-                    while (xmlnode != null)
+                    using (FileStream componentFileStream = new FileStream(saveFilePath, FileMode.Open, FileAccess.Read))
                     {
-                        // Report.Information("node name = '" + xmlnode.Name + "'");
-                        if (xmlnode.Name == "ROOT")
-                        {
-                            callback.Begin(0, xmlnode.ChildNodes.Count);
+                        xmldoc.Load(componentFileStream);
 
-                            xmlnode = xmlnode.FirstChild;
-                        }
-                        else if (xmlnode.Name == "Component")
-                        {
-                            ++nodesLoaded;
-                            callback.SetText(string.Format("Loading component: {0}", nodesLoaded));
-                            callback.StepTo(nodesLoaded);
-                            Component newComponent = new Component(xmlnode);
-                            components[newComponent.Name] = newComponent;
-                            xmlnode = xmlnode.NextSibling;
-                        }
-                        else
-                        {
-                            xmlnode = xmlnode.NextSibling;
-                        }
+                        XmlNode xmlnode = xmldoc.DocumentElement;
 
-                        // check for user Cancel
-                        if (callback.IsAborting)
+                        int nodesLoaded = 0;
+                        while (xmlnode != null)
                         {
-                            return;
+                            // Report.Information("node name = '" + xmlnode.Name + "'");
+                            if (xmlnode.Name == "ROOT")
+                            {
+                                callback.Begin(0, xmlnode.ChildNodes.Count);
+
+                                xmlnode = xmlnode.FirstChild;
+                            }
+                            else if (xmlnode.Name == "Component")
+                            {
+                                ++nodesLoaded;
+                                callback.SetText(string.Format("Loading component: {0}", nodesLoaded));
+                                callback.StepTo(nodesLoaded);
+                                Component newComponent = new Component(xmlnode);
+                                components[newComponent.Name] = newComponent;
+                                xmlnode = xmlnode.NextSibling;
+                            }
+                            else
+                            {
+                                xmlnode = xmlnode.NextSibling;
+                            }
+
+                            // check for user Cancel
+                            if (callback.IsAborting)
+                            {
+                                return;
+                            }
                         }
                     }
-                    isLoaded = true;
+                    waitForFile = false;
+                   
                     callback.Success = true;
                 }
-            }
-            catch (System.Threading.ThreadAbortException)
-            {
-                // We want to exit gracefully here (if we're lucky)
-                Report.Error("AllComponents: LoadComponents() - Thread Abort Exception.");
-            }
-            catch (System.Threading.ThreadInterruptedException)
-            {
-                // And here, if we can
-                Report.Error("AllComponents: LoadComponents() - Thread Interrupted Exception.");
-            }
-            catch (Exception e)
-            {
-                Report.Error("Failed to load file: \r\n" + e.Message);
-            }
-            finally
-            {
-                if (callback != null)
+                catch (System.IO.IOException)
                 {
-                    callback.End();
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime); 
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw; 
+                    }
                 }
-            }
+                catch (System.Threading.ThreadAbortException)
+                {
+                    // We want to exit gracefully here (if we're lucky)
+                    Report.Error("AllComponents: LoadComponents() - Thread Abort Exception.");
+                }
+                catch (System.Threading.ThreadInterruptedException)
+                {
+                    // And here, if we can
+                    Report.Error("AllComponents: LoadComponents() - Thread Interrupted Exception.");
+                }
+                catch (Exception e)
+                {
+                    Report.Error("Failed to load file: \r\n" + e.Message);
+                }
+                finally
+                {
+                    if (callback != null)
+                    {
+                        callback.End();
+                    }
+                }
+            } while (waitForFile);
         }
 
         
@@ -268,37 +288,60 @@ namespace Nova.Common.Components
         /// </summary>
         public bool Save()
         {
-            try
+            bool waitForFile = false;
+            double waitTime = 0.0; // seconds
+            do
             {
-                // Setup the save location and stream.
-                FileStream saveFile = new FileStream(ComponentFile, FileMode.Create);
-
-                // Setup the XML document
-                XmlDocument xmldoc = new XmlDocument();
-                Global.InitializeXmlDocument(xmldoc);
-
-                // add the components to the document
-                foreach (Component thing in components.Values)
+                try
                 {
-                    xmldoc.ChildNodes.Item(1).AppendChild(thing.ToXml(xmldoc));
+                    // Setup the save location and stream.
+                    using (FileStream saveFile = new FileStream(ComponentFile, FileMode.Create))
+                    {
+
+                        // Setup the XML document
+                        XmlDocument xmldoc = new XmlDocument();
+                        Global.InitializeXmlDocument(xmldoc);
+
+                        // add the components to the document
+                        foreach (Component thing in components.Values)
+                        {
+                            xmldoc.ChildNodes.Item(1).AppendChild(thing.ToXml(xmldoc));
+                        }
+
+                        xmldoc.Save(saveFile);
+                    }
+
+                    Report.Information("Component data has been saved to " + saveFilePath);
+                    waitForFile = false;
                 }
+                catch (System.IO.FileNotFoundException)
+                {
+                    Report.Error("Error: File path not specified.");
+                    return false;
+                }
+                catch (System.IO.IOException)
+                {
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error("Error: Failed to save component definition file. " + e.Message);
+                    return false;
+                }
+            } while (waitForFile);
 
-                xmldoc.Save(saveFile);
-                saveFile.Close();
-
-                Report.Information("Component data has been saved to " + saveFilePath);
-                return true;
-            }
-            catch (System.IO.FileNotFoundException)
-            {
-                Report.Error("Error: File path not specified.");
-                return false;
-            }
-            catch (Exception e)
-            {
-                Report.Error("Error: Failed to save component definition file. " + e.Message);
-                return false;
-            }
+            return true;
         }
 
 

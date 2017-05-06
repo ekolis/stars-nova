@@ -128,12 +128,37 @@ namespace Nova.Common
             }
             if (File.Exists(fileName))
             {
-                using (FileStream state = new FileStream(fileName, FileMode.Open))
+                bool waitForFile = false;
+                double waitTime = 0.0; // seconds
+                do
                 {
-                    // Data = Serializer.Deserialize(state) as GameSettings;
-                    XmlSerializer s = new XmlSerializer(typeof(GameSettings));
-                    Data = (GameSettings)s.Deserialize(state);
-                }
+                    try
+                    {
+
+                        using (FileStream state = new FileStream(fileName, FileMode.Open))
+                        {
+                            // Data = Serializer.Deserialize(state) as GameSettings;
+                            XmlSerializer s = new XmlSerializer(typeof(GameSettings));
+                            Data = (GameSettings)s.Deserialize(state);
+                        }
+                        waitForFile = false;
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        // IOException. Is the file locked? Try waiting.
+                        if (waitTime < Global.TotalFileWaitTime)
+                        {
+                            waitForFile = true;
+                            System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                            waitTime += 0.1;
+                        }
+                        else
+                        {
+                            // Give up, maybe something else is wrong?
+                            throw;
+                        }
+                    }
+                } while (waitForFile);
             }
         }
 

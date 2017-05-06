@@ -354,24 +354,41 @@ namespace Nova.Client
         {            
             StatePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
             ClientData clientState = new ClientData();
-            
+
             if (File.Exists(StatePathName))
             {
-                try
+                bool waitForFile = false;
+                double waitTime = 0.0; // seconds
+                do
                 {
-                    using (FileStream stream = new FileStream(StatePathName, FileMode.Open))
+                    try
                     {
-                        XmlDocument xmldoc = new XmlDocument();
+                        using (FileStream stream = new FileStream(StatePathName, FileMode.Open))
+                        {
+                            XmlDocument xmldoc = new XmlDocument();
 
-                        xmldoc.Load(stream);
-                        
-                        clientState = new ClientData(xmldoc);                        
+                            xmldoc.Load(stream);
+
+                            clientState = new ClientData(xmldoc);
+                        }
+                        waitForFile = false;
                     }
-                }
-                catch (Exception e)
-                {
-                    Report.Error("Unable to read state file, race history will not be available." + Environment.NewLine + "Details: " + e.Message);
-                }
+                    catch (System.IO.IOException)
+                    {
+                        // IOException. Is the file locked? Try waiting.
+                        if (waitTime < Global.TotalFileWaitTime)
+                        {
+                            waitForFile = true;
+                            System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                            waitTime += 0.1;
+                        }
+                        else
+                        {
+                            // Give up, maybe something else is wrong?
+                            throw;
+                        }
+                    }
+                } while (waitForFile);
             }
             else
             {
@@ -393,10 +410,34 @@ namespace Nova.Client
         /// </summary>
         public void Save()
         {
-            using (FileStream stream = new FileStream(StatePathName, FileMode.Create))
+            bool waitForFile = false;
+            double waitTime = 0.0; // seconds
+            do
             {
-                ToXml(stream);    
-            }
+                try
+                {
+                    using (FileStream stream = new FileStream(StatePathName, FileMode.Create))
+                    {
+                        ToXml(stream);    
+                    }
+                    waitForFile = false;
+                }
+                catch (System.IO.IOException)
+                {
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
+                }
+            } while (waitForFile);
         }
         
         private void ToXml(FileStream stream)

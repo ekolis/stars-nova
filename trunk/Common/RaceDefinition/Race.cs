@@ -79,14 +79,40 @@ namespace Nova.Common
         public Race(string fileName)
         {
             XmlDocument xmldoc = new XmlDocument();
-            FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            bool waitForFile = false;
+            double waitTime = 0; // seconds
+            do
+            {
+                try
+                {
+                    using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                    {
 
-            xmldoc.Load(fileName);
-            XmlNode xmlnode = xmldoc.DocumentElement;
-            LoadRaceFromXml(xmlnode);
+                        xmldoc.Load(fileName);
+                        XmlNode xmlnode = xmldoc.DocumentElement;
+                        LoadRaceFromXml(xmlnode);
+                    }
+                    waitForFile = false;
 
-            fileStream.Close();
+                }
+                catch (System.IO.IOException)
+                {
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
+                }
+            } while (waitForFile);
         }
+
 
         
         /// <summary>

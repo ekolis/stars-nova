@@ -68,27 +68,51 @@ namespace Nova.Client
                 Report.FatalError("The Nova GUI cannot start unless a turn file is present");
             }
 
-            using (Stream turnFile = new FileStream(turnFileName, FileMode.Open))
+            bool waitForFile = false;
+            double waitTime = 0.0; // seconds
+            do
             {
-                XmlDocument xmldoc = new XmlDocument();
-
-                xmldoc.Load(turnFile);
-                Intel newIntel = new Intel(xmldoc);
-
-                // check this is a new turn, not an old one or the same one.
-                if (newIntel.EmpireState.TurnYear >= clientState.EmpireState.TurnYear)
+                try
                 {
-                    clientState.GameFolder = Path.GetDirectoryName(turnFileName);
-                    clientState.Restore();
-                    clientState.InputTurn = newIntel;
-                    ProcessIntel();
+                    using (Stream turnFile = new FileStream(turnFileName, FileMode.Open))
+                    {
+                        XmlDocument xmldoc = new XmlDocument();
+
+                        xmldoc.Load(turnFile);
+                        Intel newIntel = new Intel(xmldoc);
+
+                        // check this is a new turn, not an old one or the same one.
+                        if (newIntel.EmpireState.TurnYear >= clientState.EmpireState.TurnYear)
+                        {
+                            clientState.GameFolder = Path.GetDirectoryName(turnFileName);
+                            clientState.Restore();
+                            clientState.InputTurn = newIntel;
+                            ProcessIntel();
+                        }
+                        else
+                        {
+                            // exit without saving any files
+                            throw new System.Exception("Turn Year missmatch");
+                        }
+                    }
+                    waitForFile = false;
                 }
-                else
+                catch (System.IO.IOException)
                 {
-                    // exit without saving any files
-                    throw new System.Exception("Turn Year missmatch");
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
                 }
-            }
+            } while (waitForFile);
         }
 
         /// <summary>

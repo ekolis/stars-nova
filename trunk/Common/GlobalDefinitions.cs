@@ -142,6 +142,10 @@ namespace Nova.Common
        public const int None = Nobody;
        public const int Unset = -10000;
 
+       // System
+       public const double TotalFileWaitTime = 8.0; // (s) Maximum time to wait for a file to become available.
+       public const int FileWaitRetryTime = 100; // (ms) Time to wait before trying again to access the file.
+
        #endregion
 
        #region Methods
