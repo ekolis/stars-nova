@@ -209,11 +209,12 @@ namespace Nova.WinForms.Gui
             int yearsToComplete = 0;
 
             //stateData.EmpireState.ResearchBudget = (int)resourceBudget.Value;
-            int budgetedEnergy = (availableEnergy * (int)budgetPercentage.Value) / 100;                   
+            int budgetedEnergy = (availableEnergy * (int)budgetPercentage.Value) / 100;
+            int bankedResources = clientState.EmpireState.ResearchResources[targetArea];
             
             int targetCost = Research.Cost(targetArea, clientState.EmpireState.Race, currentLevel, currentLevel[targetArea] + 1);
 
-            resourcesRequired = targetCost - currentLevel[targetArea];
+            resourcesRequired = targetCost - currentLevel[targetArea] - bankedResources;
 
             if (currentLevel[targetArea] >= 26)
             {
