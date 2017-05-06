@@ -80,7 +80,7 @@ namespace Nova.Common
             int extensionSeperatorIndex = Source.LastIndexOf('.'); // position of the '.' in the file name
 
             // get the hull number of this icon
-            index = int.Parse(Source.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength));
+            index = int.Parse(Source.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength), System.Globalization.CultureInfo.InvariantCulture);
         }
 
         /// <summary>

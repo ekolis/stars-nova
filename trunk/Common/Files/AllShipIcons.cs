@@ -128,7 +128,7 @@ namespace Nova.Common
             // Report.Information(baseHull);
 
             // get the hull number of this icon
-            int iconNumber = int.Parse(fi.Name.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength));
+            int iconNumber = int.Parse(fi.Name.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength), System.Globalization.CultureInfo.InvariantCulture);
 
 
             // add to the list of hulls
@@ -159,7 +159,7 @@ namespace Nova.Common
             string iconFileName = fileParts[fileParts.Length - 1];
             int extensionSeperatorIndex = iconFileName.IndexOf('.');
             string baseHull = iconFileName.Substring(0, extensionSeperatorIndex - Global.ShipIconNumberingLength);
-            int iconIndex = int.Parse(iconFileName.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength));
+            int iconIndex = int.Parse(iconFileName.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength), System.Globalization.CultureInfo.InvariantCulture);
 
             if (AllShipIcons.Data.Hulls.ContainsKey(baseHull))
             {

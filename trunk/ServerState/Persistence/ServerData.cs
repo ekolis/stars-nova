@@ -30,9 +30,10 @@ namespace Nova.Server
     using System.Xml;
     
     using Nova.Common;
-    using Nova.Common.Components;
     using Nova.Common.Commands;
+    using Nova.Common.Components;
     using Nova.Common.DataStructures;
+    
     using Message = Nova.Common.Message;
     
     /// <summary>
@@ -57,7 +58,7 @@ namespace Nova.Server
         public string GameFolder        = null; // The path&folder where client files are held.
         public string StatePathName     = null; // path&file name to the saved state data
 
-        private Dictionary<string, Star> StarPositionDictionary = null;
+        private Dictionary<string, Star> starPositionDictionary = null;
         
         /// <summary>
         /// Creates a new fresh server state.
@@ -117,7 +118,7 @@ namespace Nova.Server
                             textNode = xmlnode.FirstChild;
                             while (textNode != null)
                             {
-                                AllTechLevels.Add(int.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), int.Parse(textNode.FirstChild.Value));
+                                AllTechLevels.Add(int.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), int.Parse(textNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
                                 textNode = textNode.NextSibling;
                             }
                             break;
@@ -173,7 +174,6 @@ namespace Nova.Server
                     }
                     
                     xmlnode = xmlnode.NextSibling;
-
                 }
                 catch (Exception e)
                 {
@@ -187,7 +187,6 @@ namespace Nova.Server
         /// </summary>
         public void Restore()
         {
-
             bool waitForFile = false;
             double waitTime = 0.0; // seconds
             do
@@ -196,7 +195,6 @@ namespace Nova.Server
                 {
                     using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
                     {
-
                         XmlDocument xmldoc = new XmlDocument();
 
                         xmldoc.Load(stateFile);
@@ -238,7 +236,8 @@ namespace Nova.Server
                         throw;
                     }
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
         }
 
         /// <summary>
@@ -496,7 +495,7 @@ namespace Nova.Server
 
         /// <summary>
         /// Remove fleets that no longer have ships.
-        /// This needs to be done after each time the fleet list is processed, as fleets can not be destroyed until the itterator complets.
+        /// This needs to be done after each time the fleet list is processed, as fleets can not be destroyed until the iterator completes.
         /// </summary>
         public void CleanupFleets()
         {
@@ -531,7 +530,6 @@ namespace Nova.Server
             foreach (string key in destroyedStations)
             {
                 AllStars[key].Starbase = null;
-
             }
 
             // Get fleets out of limbo.
@@ -562,16 +560,16 @@ namespace Nova.Server
 
         public Star GetStarAtPosition(NovaPoint position)
         {
-            if (StarPositionDictionary == null)
+            if (starPositionDictionary == null)
             {
-                StarPositionDictionary = new Dictionary<string, Star>();
+                starPositionDictionary = new Dictionary<string, Star>();
                 foreach (Star star in AllStars.Values)
                 {
-                    StarPositionDictionary.Add(star.Position.ToHashString(), star);
+                    starPositionDictionary.Add(star.Position.ToHashString(), star);
                 }
             }
 
-            return StarPositionDictionary[position.ToHashString()];
+            return starPositionDictionary[position.ToHashString()];
         }
     }
 }

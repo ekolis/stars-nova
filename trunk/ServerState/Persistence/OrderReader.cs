@@ -91,8 +91,8 @@ namespace Nova.Server
                         xmldoc.Load(input);
 
                         // check these orders are for the right turn
-                        int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Turn").InnerText);
-                        int empireId = int.Parse(xmldoc.SelectSingleNode("ROOT/Id").InnerText);
+                        int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Turn").InnerText, System.Globalization.CultureInfo.InvariantCulture);
+                        int empireId = int.Parse(xmldoc.SelectSingleNode("ROOT/Id").InnerText, System.Globalization.CultureInfo.InvariantCulture);
 
                         // Only read current orders.
                         if (ordersTurn != turnYear)
