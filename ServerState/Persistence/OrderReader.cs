@@ -69,79 +69,98 @@ namespace Nova.Server
         {
             Stack<ICommand> commands = new Stack<ICommand>();
 
-            try
+            string fileName = Path.Combine(gameFolder, empire.Race.Name + Global.OrdersExtension);
+
+            if (!File.Exists(fileName))
             {
-                string fileName = Path.Combine(gameFolder, empire.Race.Name + Global.OrdersExtension);
-
-                if (!File.Exists(fileName))
-                {
-                    return;
-                }
-
-                // Load from an xml file
-                XmlDocument xmldoc = new XmlDocument();
-                using (Stream disposeMe = new FileStream(fileName, FileMode.Open, FileAccess.Read))
-                {
-                    Stream input = disposeMe;
-                    // input = new GZipStream(input, CompressionMode.Decompress);
-                    xmldoc.Load(input);
-
-                    // check these orders are for the right turn
-                    int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Turn").InnerText);
-                    int empireId = int.Parse(xmldoc.SelectSingleNode("ROOT/Id").InnerText);
-
-                    // Only read current orders.
-                    if (ordersTurn != turnYear)
-                    {
-                        return;
-                    }
-
-                    // Prevent reading orders tagged for another empire
-                    if (empireId != empire.Id)
-                    {
-                        return;
-                    }
-
-                    XmlNode subnode = xmldoc.SelectSingleNode("ROOT/Orders").FirstChild;
-
-                    // Note that this assembles the command stack reversed with respect to the client's stack;
-                    // The file contains the newest commands first, and the oldest last. Thus the server's
-                    // stack for the turn pops the oldest commands first, thus applying them in the correct order.                    
-                    while (subnode != null)
-                    {
-                        switch (subnode.Attributes["Type"].Value.ToString().ToLower())
-                        {
-                            case "research":
-                                commands.Push(new ResearchCommand(subnode));
-                            break;
-                                
-                            case "waypoint":
-                                commands.Push(new WaypointCommand(subnode));
-                            break;
-                            
-                            case "design":
-                                commands.Push(new DesignCommand(subnode));
-                            break;
-                            
-                            case "production":
-                                commands.Push(new ProductionCommand(subnode));
-                            break;
-                            
-                        }
-                        subnode = subnode.NextSibling;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Report.Error(Environment.NewLine + "There was a problem reading in the orders for " + empire.Race.Name + Environment.NewLine + "Details: " + e.Message);
                 return;
             }
+
+            // Load from an xml file
+            XmlDocument xmldoc = new XmlDocument();
+            bool waitForFile = false;
+            double waitTime = 0; // seconds
+            do
+            {
+                try
+                {
+                    using (Stream disposeMe = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                    {
+                        Stream input = disposeMe;
+                        // input = new GZipStream(input, CompressionMode.Decompress);
+                        xmldoc.Load(input);
+
+                        // check these orders are for the right turn
+                        int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Turn").InnerText);
+                        int empireId = int.Parse(xmldoc.SelectSingleNode("ROOT/Id").InnerText);
+
+                        // Only read current orders.
+                        if (ordersTurn != turnYear)
+                        {
+                            return;
+                        }
+
+                        // Prevent reading orders tagged for another empire
+                        if (empireId != empire.Id)
+                        {
+                            return;
+                        }
+
+                        XmlNode subnode = xmldoc.SelectSingleNode("ROOT/Orders").FirstChild;
+
+                        // Note that this assembles the command stack reversed with respect to the client's stack;
+                        // The file contains the newest commands first, and the oldest last. Thus the server's
+                        // stack for the turn pops the oldest commands first, thus applying them in the correct order.                    
+                        while (subnode != null)
+                        {
+                            switch (subnode.Attributes["Type"].Value.ToString().ToLower())
+                            {
+                                case "research":
+                                    commands.Push(new ResearchCommand(subnode));
+                                    break;
+
+                                case "waypoint":
+                                    commands.Push(new WaypointCommand(subnode));
+                                    break;
+
+                                case "design":
+                                    commands.Push(new DesignCommand(subnode));
+                                    break;
+
+                                case "production":
+                                    commands.Push(new ProductionCommand(subnode));
+                                    break;
+                            }
+                            subnode = subnode.NextSibling;
+                        }
+                    }
+                    waitForFile = false;
+                }
+                catch (System.IO.IOException)
+                {
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error(Environment.NewLine + "There was a problem reading in the orders for " + empire.Race.Name + Environment.NewLine + "Details: " + e.Message);
+                    return;
+                }
+            } while (waitForFile);
 
             allEmpires[empire.Id].LastTurnSubmitted = turnYear;
             allEmpires[empire.Id].TurnSubmitted = true;
             allCommands[empire.Id] = commands;
         }
-
     }
 }

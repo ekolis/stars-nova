@@ -58,9 +58,9 @@ namespace Nova.Common
 
             if (File.Exists(fileName))
             {
-                bool success = false;
+                bool waitForFile = false;
                 double waitTime = 0; // seconds
-                while (!success)
+                do
                 {
                     try
                     {
@@ -73,24 +73,34 @@ namespace Nova.Common
 
                             foreach (KeyValuePair<string, string> setting in data.settings)
                             {
-                                this.settings.Add(setting.Key, setting.Value);
+                                if (this.settings.ContainsKey(setting.Key))
+                                {
+                                    this.settings[setting.Key] = setting.Value.ToString();
+                                }
+                                else
+                                {
+                                    this.settings.Add(setting.Key, setting.Value);
+                                }
                             }
-                            success = true;
+                            waitForFile = false;
                         }
                     }
-                    catch (Exception e)
+                    catch (System.IO.IOException)
                     {
-                        if (waitTime < 8.0)
+                        // IOException. Is the file locked? Try waiting.
+                        if (waitTime < Global.TotalFileWaitTime)
                         {
-                            System.Threading.Thread.Sleep(500); // Wait half a second.
-                            waitTime += 0.5;
+                            waitForFile = true;
+                            System.Threading.Thread.Sleep(Global.FileWaitRetryTime); 
+                            waitTime += 0.1;
                         }
                         else
                         {
-                            throw; // Not an exception we recognize; rethrow.
+                            // Give up, maybe something else is wrong?
+                            throw; 
                         }
                     }
-                }
+                } while (waitForFile);
             }
 
             this.initialized = true;
@@ -120,7 +130,8 @@ namespace Nova.Common
                 }
             }
 
-            bool waitingForConfigFile = false;
+            bool waitForFile = false;
+            double waitTime = 0.0; // seconds
             do
             {
                 try
@@ -130,15 +141,24 @@ namespace Nova.Common
                         XmlSerializer s = new XmlSerializer(typeof(Config));
                         s.Serialize(stream, this);
                     }
-                    waitingForConfigFile = false;
+                    waitForFile = false;
                 }
                 catch (System.IO.IOException)
                 {
-                    // handle "The process cannot access the file 'D:\Dan\src\stars\nova\stars-nova\nova.conf' because it is being used by another process."
-                    waitingForConfigFile = true;
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
                 }
-            }
-            while (waitingForConfigFile);
+            } while (waitForFile);
         }
 
         /// <summary>

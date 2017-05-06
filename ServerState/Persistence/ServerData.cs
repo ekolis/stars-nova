@@ -187,32 +187,58 @@ namespace Nova.Server
         /// </summary>
         public void Restore()
         {
-            using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
-            {
-                XmlDocument xmldoc = new XmlDocument();
 
-                xmldoc.Load(stateFile);
+            bool waitForFile = false;
+            double waitTime = 0.0; // seconds
+            do
+            {
+                try
+                {
+                    using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
+                    {
+
+                        XmlDocument xmldoc = new XmlDocument();
+
+                        xmldoc.Load(stateFile);
                 
-                // Temporary data store only!
-                ServerData restoredState = new ServerData(xmldoc);
+                        // Temporary data store only!
+                        ServerData restoredState = new ServerData(xmldoc);
                 
-                // We need to copy the restored values
-                AllCommands     = restoredState.AllCommands;
-                AllPlayers      = restoredState.AllPlayers;
-                AllTechLevels   = restoredState.AllTechLevels;
-                AllEmpires      = restoredState.AllEmpires;
-                AllRaces        = restoredState.AllRaces;
-                AllStars        = restoredState.AllStars;
-                AllMinefields   = restoredState.AllMinefields;
-                AllMessages     = restoredState.AllMessages;
+                        // We need to copy the restored values
+                        AllCommands     = restoredState.AllCommands;
+                        AllPlayers      = restoredState.AllPlayers;
+                        AllTechLevels   = restoredState.AllTechLevels;
+                        AllEmpires      = restoredState.AllEmpires;
+                        AllRaces        = restoredState.AllRaces;
+                        AllStars        = restoredState.AllStars;
+                        AllMinefields   = restoredState.AllMinefields;
+                        AllMessages     = restoredState.AllMessages;
         
-                GameInProgress    = restoredState.GameInProgress;
-                TurnYear          = restoredState.TurnYear;
-                GameFolder        = restoredState.GameFolder; // The path&folder where client files are held.
-                StatePathName     = restoredState.StatePathName;
+                        GameInProgress    = restoredState.GameInProgress;
+                        TurnYear          = restoredState.TurnYear;
+                        GameFolder        = restoredState.GameFolder; // The path&folder where client files are held.
+                        StatePathName     = restoredState.StatePathName;
                 
-                LinkServerStateReferences(); 
-            }
+                        LinkServerStateReferences(); 
+                    }
+                    waitForFile = false;
+                }
+                catch (System.IO.IOException)
+                {
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
+                }
+            } while (waitForFile);
         }
 
         /// <summary>

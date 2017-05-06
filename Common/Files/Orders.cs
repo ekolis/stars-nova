@@ -146,7 +146,7 @@ namespace Nova.Common
 
             // Place the turn year first, so it can be determined quickly
             Global.SaveData(xmldoc, xmlelOrders, "Turn", EmpireStatus.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            
+
             // store the designs, for any new designs
             foreach (ShipDesign design in RaceDesigns.Values)
             {
@@ -173,13 +173,36 @@ namespace Nova.Common
 
             xmlelOrders.AppendChild(EmpireStatus.ToXml(xmldoc));
 
-            Stream output = new FileStream(ordersFileName, FileMode.Create);
-            // output = new GZipStream(output, CompressionMode.Compress);
+            bool waitForFile = false;
+            double waitTime = 0.0; // seconds
+            do
+            {
+                try
+                {
+                    using (Stream output = new FileStream(ordersFileName, FileMode.Create))
+                    {
+                        // output = new GZipStream(output, CompressionMode.Compress);
 
-            xmldoc.Save(output);
-            output.Close();
-
-            output.Close();
-        }
+                        xmldoc.Save(output);
+                    }
+                    waitForFile = false;
+                }
+                catch (System.IO.IOException)
+                {
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
+                }
+            } while (waitForFile);
+        }    
     }
 }

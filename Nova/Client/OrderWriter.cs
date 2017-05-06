@@ -81,10 +81,36 @@ namespace Nova.Client
 
                 string ordersFileName = Path.Combine(clientState.GameFolder, clientState.EmpireState.Race.Name + Global.OrdersExtension);
 
-                Stream output = new FileStream(ordersFileName, FileMode.Create);
+                bool waitForFile = false;
+                double waitTime = 0.0; // seconds
+                do
+                {
+                    try
+                    {
+                        using (Stream output = new FileStream(ordersFileName, FileMode.Create))
+                {
 
-                xmldoc.Save(output);
-                output.Close();
+                    xmldoc.Save(output);
+                }
+                    waitForFile = false;
+                }
+                catch (System.IO.IOException)
+                {
+                    // IOException. Is the file locked? Try waiting.
+                    if (waitTime < Global.TotalFileWaitTime)
+                    {
+                        waitForFile = true;
+                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                        waitTime += 0.1;
+                    }
+                    else
+                    {
+                        // Give up, maybe something else is wrong?
+                        throw;
+                    }
+                }
+            } while (waitForFile);
+
             }
         }
     

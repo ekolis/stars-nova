@@ -96,12 +96,11 @@ namespace Nova.Server
                 }
                 string turnFileName = Path.Combine(serverState.GameFolder, empire.Race.Name + Global.IntelExtension);
 
-                // Write out the intel file, as xml, but also handle the case of it being locked (in use).
-                bool locked = false;
-               
+                // Write out the intel file, as xml
+                bool waitForFile = false;
+                double waitTime = 0.0; // seconds
                 do
                 {
-                    locked = false;
                     try
                     {
                         using (Stream turnFile = new FileStream(turnFileName /*+ ".xml"*/, FileMode.Create))
@@ -115,14 +114,24 @@ namespace Nova.Server
 
                             xmldoc.Save(turnFile);
                         }
+                        waitForFile = false;
                     }
                     catch (System.IO.IOException)
                     {
-                        locked = true;
-                        System.Threading.Thread.Sleep(100);
+                        // IOException. Is the file locked? Try waiting.
+                        if (waitTime < Global.TotalFileWaitTime)
+                        {
+                            waitForFile = true;
+                            System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                            waitTime += 0.1;
+                        }
+                        else
+                        {
+                            // Give up, maybe something else is wrong?
+                            throw;
+                        }
                     }
-                }
-                while (locked);
+                } while (waitForFile);
             }
 
         }
