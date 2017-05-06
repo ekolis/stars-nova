@@ -28,8 +28,8 @@ namespace Nova.Server
     using System.Xml;
     
     using Nova.Common;
-    using Nova.Common.Components;
     using Nova.Common.Commands;
+    using Nova.Common.Components;
 
     /// <summary>
     /// This class processes the reading of race orders files.
@@ -156,7 +156,8 @@ namespace Nova.Server
                     Report.Error(Environment.NewLine + "There was a problem reading in the orders for " + empire.Race.Name + Environment.NewLine + "Details: " + e.Message);
                     return;
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
 
             allEmpires[empire.Id].LastTurnSubmitted = turnYear;
             allEmpires[empire.Id].TurnSubmitted = true;

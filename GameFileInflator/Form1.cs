@@ -26,22 +26,21 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-using Nova.Common;
-
-
 namespace GameFileInflator
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Linq;
+    using System.Text;
+    using System.Windows.Forms;
+
+    using Nova.Common;
+
     /// <summary>
     /// This module provides a means of un-compressing and re-compressing the 
     /// game files to aid in debugging.
@@ -49,7 +48,7 @@ namespace GameFileInflator
     public partial class GameFileInflator : Form
     {
         /// <summary>
-        /// initialize a GameFileInflator object.
+        /// Initialize a GameFileInflator object.
         /// </summary>
         public GameFileInflator()
         {
@@ -57,29 +56,28 @@ namespace GameFileInflator
         }
 
         /// <summary>
-        /// initialize the gameFilesLocationTextBox from the Nova.conf, if any.
+        /// Initialize the gameFilesLocationTextBox from the Nova.conf, if any.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void GameFileInflator_Load(object sender, EventArgs e)
         {
             string gameFiles = FileSearcher.GetFolder(Global.ClientFolderKey, Global.ClientFolderName);
-            if (!String.IsNullOrEmpty(gameFiles))
+            if (!string.IsNullOrEmpty(gameFiles))
             {
                 gameFilesLocationTextBox.Text = gameFiles;
             }
-
         }
 
         /// <summary>
-        /// Starting from the location specified by gameFilesLocationTextBox, uncompress any files found.
+        /// Starting from the location specified by gameFilesLocationTextBox, un-compress any files found.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void DecompressButton_Click(object sender, EventArgs e)
         {
             string gameFolder = gameFilesLocationTextBox.Text;
-            if (String.IsNullOrEmpty(gameFolder))
+            if (string.IsNullOrEmpty(gameFolder))
             {
                 Report.Error("Please provide the location of the game files to de-compress.");
                 return;

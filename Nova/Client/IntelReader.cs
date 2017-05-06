@@ -112,7 +112,8 @@ namespace Nova.Client
                         throw;
                     }
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
         }
 
         /// <summary>
@@ -180,7 +181,7 @@ namespace Nova.Client
         /// Run through the full list of messages and populate the message store in the
         /// state data with the messages relevant to the player's selected race. The
         /// actual message control will be populated within the main window
-        /// initialisation.
+        /// initialization.
         /// </summary>
         private void ProcessMessages()
         {

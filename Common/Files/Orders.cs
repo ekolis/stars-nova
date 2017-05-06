@@ -202,7 +202,8 @@ namespace Nova.Common
                         throw;
                     }
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
         }    
     }
 }

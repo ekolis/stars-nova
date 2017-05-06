@@ -23,16 +23,16 @@
 namespace Nova.Common
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Xml;
-    using System.Collections.Generic;
 
     using Nova.Common.RaceDefinition;
 
     /// <summary>
     /// This Class defines all the parameters that define the characteristics of a
     /// race. These values are all set in the race designer. This object also manages
-    /// the loading ans saving of race data to a file.
+    /// the loading and saving of race data to a file.
     /// </summary>
     [Serializable]
     public class Race
@@ -73,7 +73,7 @@ namespace Nova.Common
 
         /// <summary>
         /// Constructor for Race. 
-        /// Reads all the race data in from an xml formated save file.
+        /// Reads all the race data in from an xml formatted save file.
         /// </summary>
         /// <param name="fileName">A nova save file containing a race.</param>
         public Race(string fileName)
@@ -87,13 +87,11 @@ namespace Nova.Common
                 {
                     using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
                     {
-
                         xmldoc.Load(fileName);
                         XmlNode xmlnode = xmldoc.DocumentElement;
                         LoadRaceFromXml(xmlnode);
                     }
                     waitForFile = false;
-
                 }
                 catch (System.IO.IOException)
                 {
@@ -110,7 +108,8 @@ namespace Nova.Common
                         throw;
                     }
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
         }
 
 
@@ -119,12 +118,12 @@ namespace Nova.Common
         /// Calculate this race's Habitability for a given star.
         /// </summary>
         /// <param name="star">The star for which the Habitability is being determined.</param>
-        /// <returns>The normalised habitability of the star (-1 to +1).</returns>
+        /// <returns>The normalized habitability of the star (-1 to +1).</returns>
         /// <remarks>
         /// This algorithm is taken from the Stars! Technical FAQ:
         /// http://www.starsfaq.com/advfaq/contents.htm
         ///
-        /// Return the habital value of this star for the specified race (in the range
+        /// Return the hab value of this star for the specified race (in the range
         /// -1 to +1 where 1 = 100%). Note that the star environment values are
         /// percentages of the total range.
         ///
@@ -141,9 +140,9 @@ namespace Nova.Common
         /// y=t-1/2 for t>1/2
         /// y=0 for t less than 1/2 
         /// z=r-1/2 for r>1/2
-        /// z=0 for r less than 1/2 
+        /// z=0 for r less than 1/2.
         /// </remarks>
-        public double HabitalValue(Star star)
+        public double HabValue(Star star)
         {
             double r = NormalizeHabitalityDistance(RadiationTolerance, star.Radiation);
             double g = NormalizeHabitalityDistance(GravityTolerance, star.Gravity);
@@ -196,7 +195,7 @@ namespace Nova.Common
         /// Calculate this race's Habitability for a given star report.
         /// </summary>
         /// <param name="report">The star report for which the Habitability is being determined.</param>
-        /// <returns>The normalised habitability of the star (-1 to +1).</returns>
+        /// <returns>The normalized habitability of the star (-1 to +1).</returns>
         public double HabitalValue(StarIntel report)
         {
             Star star = new Star();
@@ -204,7 +203,7 @@ namespace Nova.Common
             star.Radiation = report.Radiation;
             star.Temperature = report.Temperature;
             
-            return HabitalValue(star);
+            return HabValue(star);
         }
 
         public virtual int GetAdvantagePoints()
@@ -554,7 +553,7 @@ namespace Nova.Common
             }
         }
 
-        public int lowerHab(int habIndex)
+        public int LowerHab(int habIndex)
         {
             switch (habIndex)
             {
@@ -568,7 +567,7 @@ namespace Nova.Common
             return 0;
         }
 
-        public int upperHab(int habIndex)
+        public int UpperHab(int habIndex)
         {
             switch (habIndex)
             {
@@ -582,7 +581,7 @@ namespace Nova.Common
             return 0;
         }
 
-        public int centerHab(int habIndex)
+        public int CenterHab(int habIndex)
         {
             switch (habIndex)
             {
@@ -596,7 +595,7 @@ namespace Nova.Common
             return 0;
         }
 
-        public bool isImmune(int habIndex)
+        public bool IsImmune(int habIndex)
         {
             switch (habIndex)
             {

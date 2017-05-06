@@ -279,7 +279,8 @@ namespace Nova.Common.Components
                         callback.End();
                     }
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
         }
 
         
@@ -297,7 +298,6 @@ namespace Nova.Common.Components
                     // Setup the save location and stream.
                     using (FileStream saveFile = new FileStream(ComponentFile, FileMode.Create))
                     {
-
                         // Setup the XML document
                         XmlDocument xmldoc = new XmlDocument();
                         Global.InitializeXmlDocument(xmldoc);
@@ -339,7 +339,8 @@ namespace Nova.Common.Components
                     Report.Error("Error: Failed to save component definition file. " + e.Message);
                     return false;
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
 
             return true;
         }

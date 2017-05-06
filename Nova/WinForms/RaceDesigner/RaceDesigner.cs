@@ -1565,7 +1565,7 @@ namespace Nova.WinForms.RaceDesigner
         /// </summary>
         private void ShowAvailablePoints()
         {
-            Race race = getRace();
+            Race race = GetRace();
             int newAdvantagePoints = race.GetAdvantagePoints();
             this.availablePoints.Text = newAdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
@@ -1610,11 +1610,11 @@ namespace Nova.WinForms.RaceDesigner
         /// </para></Summary>
         /// <remarks>
         /// <para>
-        /// Explicitly check for ColonistProduction as array indeces need dividing by
+        /// Explicitly check for ColonistProduction as array indexes need dividing by
         /// 100 to match its units. 
         /// </para><para>
         /// Note that element zero of each entry in the parameter definition array is
-        /// used to hold the previous valueof the up-down counter (so that we can "pay
+        /// used to hold the previous value of the up-down counter (so that we can "pay
         /// back" advantage points on a parameter change)
         /// </para><para>
         /// The actual advantage Point costs are defined in the file ParameterCosts.cs.
@@ -1623,7 +1623,7 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void UpDown_ValueChanged(object sender, EventArgs e)
         {
-        	ShowAvailablePoints();
+            ShowAvailablePoints();
             this.parametersChanged = true;
         }
 
@@ -1711,7 +1711,7 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void Finish_Click(object sender, System.EventArgs e)
         {
-            if (getRace().GetAdvantagePoints() < 0)
+            if (GetRace().GetAdvantagePoints() < 0)
             {
                 Report.Error("You are not allowed to generate a race file" +
                              "when you have less than zero Advantage Points");
@@ -1738,15 +1738,15 @@ namespace Nova.WinForms.RaceDesigner
                 return;
             }
 
-            saveRace(getRace());
+            SaveRace(GetRace());
         }
 
-        private Race getRace()
+        private Race GetRace()
         {
-            return makeRace();
+            return MakeRace();
         }
 
-        private Race makeRace()
+        private Race MakeRace()
         {
             Race race = new Race();
             race.Traits.SetPrimary(this.selectedRace);
@@ -1873,7 +1873,7 @@ namespace Nova.WinForms.RaceDesigner
             return race;
         }
 
-        private void saveRace(Race race)
+        private void SaveRace(Race race)
         {
             // ----------------------------------------------------------------------------
             // Generate the race definition file

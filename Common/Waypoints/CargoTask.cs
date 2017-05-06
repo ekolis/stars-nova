@@ -35,7 +35,7 @@ namespace Nova.Common.Waypoints
     }   
     
     /// <summary>
-    /// Performs Star Colonisation.
+    /// Performs Star Colonization.
     /// </summary>
     public class CargoTask : IWaypointTask
     {        
@@ -44,7 +44,7 @@ namespace Nova.Common.Waypoints
         /// <inheritdoc />
         public List<Message> Messages
         {
-            get{return messages;}
+            get { return messages; }
         }
         
         /// <inheritdoc />
@@ -52,24 +52,30 @@ namespace Nova.Common.Waypoints
         {
             get
             {
-                if (Mode == CargoMode.Load) {return "Load Cargo";}
-                else {return "Unload Cargo";}
+                if (Mode == CargoMode.Load) 
+                { 
+                    return "Load Cargo"; 
+                }
+                else 
+                { 
+                    return "Unload Cargo"; 
+                }
             }
         }
         
         /// <summary>
-        /// Cargo object representing the amount to Load or Unload
+        /// Cargo object representing the amount to Load or Unload.
         /// </summary>
-        public Cargo Amount {get; set;}
+        public Cargo Amount { get; set; }
         
         /// <summary>
         /// Load or Unload cargo. Mixed operations are represented by more than one Task.
         /// </summary>
-        public CargoMode Mode {get; set;}
+        public CargoMode Mode { get; set; }
         
         
         /// <summary>
-        /// Default Constructor
+        /// Default Constructor.
         /// </summary>
         public CargoTask()
         {
@@ -81,7 +87,7 @@ namespace Nova.Common.Waypoints
         /// <summary>
         /// Copy Constructor.
         /// </summary>
-        /// <param name="other">CargoTask to copy</param>
+        /// <param name="other">CargoTask to copy.</param>
         public CargoTask(CargoTask copy)
         {
             Amount = new Cargo(copy.Amount);
@@ -92,7 +98,7 @@ namespace Nova.Common.Waypoints
         /// <summary>
         /// Load: Read an object of this class from and XmlNode representation.
         /// </summary>
-        /// <param name="node">An XmlNode containing a representation of this object</param>
+        /// <param name="node">An XmlNode containing a representation of this object.</param>
         public CargoTask(XmlNode node)
         {
             if (node == null)
@@ -142,7 +148,7 @@ namespace Nova.Common.Waypoints
             {
                 Message message = new Message();            
                 message.Audience = fleet.Owner;
-                message.Text = "Fleet " + fleet.Name +" attempted to unload cargo while not in orbit.";
+                message.Text = "Fleet " + fleet.Name + " attempted to unload cargo while not in orbit.";
                 Messages.Add(message);
                 return false;
             }
@@ -173,7 +179,7 @@ namespace Nova.Common.Waypoints
         /// <inheritdoc />
         public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData receiver)
         {            
-            switch(Mode)
+            switch (Mode)
             {
                 case CargoMode.Load:
                     return Load(fleet, target, sender, receiver);

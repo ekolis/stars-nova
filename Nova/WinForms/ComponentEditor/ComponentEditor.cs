@@ -145,7 +145,6 @@ namespace Nova.WinForms.ComponentEditor
            this.propertyTabs.Width = 479; 
            // Start showing no property tabs, until some property is loaded.
            this.propertyTabs.TabPages.Clear();
-        
         }
         
         
@@ -206,7 +205,6 @@ namespace Nova.WinForms.ComponentEditor
                EditModeOff();
                UpdateTitleBar();
            }
-        
         }
         
         
@@ -447,7 +445,6 @@ namespace Nova.WinForms.ComponentEditor
            this.componentName.Text = "New Component";
            this.componentName.Focus();
            this.componentName.SelectAll();
-        
         }
         
         
@@ -482,7 +479,6 @@ namespace Nova.WinForms.ComponentEditor
         
            this.restrictionSummary.Text = restrictions.ToString();
            dialog.Dispose();
-        
         }
         
         
@@ -520,7 +516,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabMovement;
         
                this.battleMovement.Value = 0;
-        
            }
            else if (menuSelection == bombToolStripMenuItem)
            {
@@ -531,7 +526,6 @@ namespace Nova.WinForms.ComponentEditor
                this.minimumPopKill.Value = 0;
                this.installationsDestroyed.Value = 0;
                this.smartBomb.Checked = false;
-        
            }
            else if (menuSelection == capacitorToolStripMenuItem)
            {
@@ -539,7 +533,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabCapacitor;
         
                this.beamDamage.Value = 0;
-        
            }
            else if (menuSelection == cargoToolStripMenuItem)
            {
@@ -547,7 +540,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabCargo;
         
                this.cargoCapacity.Value = 0;
-        
            }
            else if (menuSelection == cloakToolStripMenuItem)
            {
@@ -555,7 +547,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabCloak;
         
                this.cloaking.Value = 0;
-        
            }
            else if (menuSelection == colonizationToolStripMenuItem)
            {
@@ -563,7 +554,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabColonization;
         
                this.colonizationModule.Checked = true;
-        
            }
            else if (menuSelection == computerToolStripMenuItem)
            {
@@ -609,7 +599,6 @@ namespace Nova.WinForms.ComponentEditor
                this.warp8Fuel.Value = 0;
                this.warp9Fuel.Value = 0;
                this.warp10Fuel.Value = 0;
-        
            }
            else if (menuSelection == fuelToolStripMenuItem)
            {
@@ -618,7 +607,6 @@ namespace Nova.WinForms.ComponentEditor
         
                this.fuelCapacity.Value = 0;
                this.fuelGeneration.Value = 0;
-        
            }
            else if (menuSelection == gateToolStripMenuItem)
            {
@@ -627,7 +615,6 @@ namespace Nova.WinForms.ComponentEditor
         
                this.safeHullMass.Value = 0;
                this.safeRange.Value = 0;
-        
            }
            else if (menuSelection == hullToolStripMenuItem)
            {
@@ -641,8 +628,6 @@ namespace Nova.WinForms.ComponentEditor
                this.hullCargoCapacity.Value = 0;
                this.hullDockCapacity.Value = 0;
                this.alternateRealityMaxPop.Value = 0;
-        
-        
            }
            else if (menuSelection == hullAffinityToolStripMenuItem)
            {
@@ -658,7 +643,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabJammer;
         
                this.deflection.Value = 0;
-        
            }
            else if (menuSelection == massDriverToolStripMenuItem)
            {
@@ -666,7 +650,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabDriver;
         
                this.massDriverSpeed.Value = 0;
-        
            }
            else if (menuSelection == mineLayerToolStripMenuItem)
            {
@@ -680,7 +663,6 @@ namespace Nova.WinForms.ComponentEditor
                this.mineMinFleetDamage.Value = 0;
                this.mineMinRamScoopDamage.Value = 0;
                this.mineHitChance.Value = 0.0M;
-        
            }
            else if (menuSelection == layerEfficencyToolStripMenuItem)
            {
@@ -695,7 +677,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabRobot;
         
                this.miningRate.Value = 0;
-        
            }
            else if (menuSelection == orbitalAdjusterToolStripMenuItem)
            {
@@ -703,7 +684,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabOrbitalAdjuster;
         
                this.adjusterRate.Value = 0;
-        
            }
            else if (menuSelection == radiationToolStripMenuItem)
            {
@@ -719,7 +699,6 @@ namespace Nova.WinForms.ComponentEditor
         
                this.normalRange.Value = 0;
                this.penetratingRange.Value = 0;
-        
            }
            else if (menuSelection == shieldToolStripMenuItem)
            {
@@ -727,7 +706,6 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.SelectedTab = tabShield;
         
                this.shield.Value = 0;
-        
            }
            else if (menuSelection == tachyonDetectorToolStripMenuItem)
            {
@@ -743,7 +721,6 @@ namespace Nova.WinForms.ComponentEditor
                this.gravityMod.Value = 0;
                this.temperatureMod.Value = 0;
                this.radiationMod.Value = 0;
-        
            }
            else if (menuSelection == transportOnlyToolStripMenuItem)
            {
@@ -755,16 +732,13 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.TabPages.Add(tabWeapon);
                this.propertyTabs.SelectedTab = tabWeapon;
         
-        
                this.weaponPower.Value = 0;
                this.weaponRange.Value = 0;
                this.weaponInitiative.Value = 0;
                this.weaponAccuracy.Value = 0;
         
                isStandardBeam.Checked = true;
-        
            }
-        
            EditModeOn();
         }
         
@@ -903,7 +877,6 @@ namespace Nova.WinForms.ComponentEditor
         
                    this.propertyTabs.TabPages.Add(tabColonization);
                    this.propertyTabs.SelectedTab = tabColonization;
-        
                }
                if (selectedComponent.Properties.ContainsKey("Computer"))
                {
@@ -1160,19 +1133,16 @@ namespace Nova.WinForms.ComponentEditor
                        default:
                            isStandardBeam.Checked = true;
                            break;
-        
                    }
         
                    this.propertyTabs.TabPages.Add(tabWeapon);
                    this.propertyTabs.SelectedTab = tabWeapon;
                }
-        
            }
            catch
            {
                MessageBox.Show("Error accessing component properties.");
            }
-        
         }
         
         
@@ -1203,9 +1173,7 @@ namespace Nova.WinForms.ComponentEditor
                    this.description.Text = "";
                    this.techRequirements.Value = new TechLevel(0);
                }
-        
            }
-        
         }
         
         
@@ -1259,7 +1227,6 @@ namespace Nova.WinForms.ComponentEditor
            }
         
            this.labelFreeWarpValue.Text = fastestFreeWarpSpeed.ToString();
-        
         }
         
         
@@ -1293,7 +1260,6 @@ namespace Nova.WinForms.ComponentEditor
            stringFlags.LineAlignment = StringAlignment.Center;
            
            g.DrawString(tabPage.Text, tabFont, textBrush, tabBounds, new StringFormat(stringFlags));
-           
         }
         
         
@@ -1318,7 +1284,6 @@ namespace Nova.WinForms.ComponentEditor
            hullMap = dialog.HullGrid.ActiveModules;
         
            dialog.Dispose();
-        
         }
         
         
@@ -1400,7 +1365,6 @@ namespace Nova.WinForms.ComponentEditor
                IntegerProperty armorProperty = new IntegerProperty();
                armorProperty.Value = (int)this.armor.Value;
                newComponent.Properties.Add("Armor", armorProperty);
-        
            }
            if (this.propertyTabs.Contains(tabMovement))
            {
@@ -1483,7 +1447,6 @@ namespace Nova.WinForms.ComponentEditor
                engineProperties.FuelConsumption[8] = (int)this.warp9Fuel.Value;
                engineProperties.FuelConsumption[9] = (int)this.warp10Fuel.Value;
                newComponent.Properties.Add("Engine", engineProperties);
-        
            }
            if (this.propertyTabs.Contains(tabFuel))
            {
@@ -1660,7 +1623,7 @@ namespace Nova.WinForms.ComponentEditor
            using (Config conf = new Config())
            {
                Text = "Nova Component Editor - ";
-               if (!String.IsNullOrEmpty(conf[Global.ComponentFileName]))
+               if (!string.IsNullOrEmpty(conf[Global.ComponentFileName]))
                {
                    Text += conf[Global.ComponentFileName];
                }
@@ -1777,7 +1740,6 @@ namespace Nova.WinForms.ComponentEditor
           this.description.ReadOnly = true;
           // TODO (priority 2) - disable all component editing fields.
           UpdateTitleBar();
-        
         }
         
         
