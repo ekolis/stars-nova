@@ -82,7 +82,7 @@ namespace Nova.Common
         {
             get
             {
-                return (Token == null || Token.Quantity <= 0 || Token.Armor <= 0);
+                return Token == null || Token.Quantity <= 0 || Token.Armor <= 0;
             }
         }
 
@@ -93,7 +93,10 @@ namespace Nova.Common
         {
             get
             {
-                if (Composition.Count == 0) return null;
+                if (Composition.Count == 0)
+                {
+                    return null;
+                }
 
                 return Composition.First().Value;
             }
@@ -108,9 +111,9 @@ namespace Nova.Common
         /// <summary>
         /// Generates a Stack from a fleet and a specified ShipToken.
         /// </summary>
-        /// <param name="fleet">Parent Fleet</param>
-        /// <param name="stackId">Unique Battle Engine ID</param>
-        /// <param name="token">Shiptoken for this Stack</param>
+        /// <param name="fleet">Parent Fleet.</param>
+        /// <param name="stackId">Unique Battle Engine ID.</param>
+        /// <param name="token">Ship Token for this Stack.</param>
         public Stack(Fleet fleet, uint stackId, ShipToken token)
             : base(fleet)
         {
@@ -153,7 +156,6 @@ namespace Nova.Common
         public Stack(XmlNode node)
             : base(node)
         {
-        
         }
     }
 }
