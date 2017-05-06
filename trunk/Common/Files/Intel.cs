@@ -45,7 +45,6 @@ namespace Nova.Common
     using System.Resources;
     using System.Runtime.Serialization;
     using System.Runtime.Serialization.Formatters;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.Xml;
     using System.Xml.Serialization;
 

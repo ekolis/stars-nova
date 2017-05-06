@@ -23,6 +23,7 @@
 // ===========================================================================
 // Serializes and deserializes an object, or an entire graph of connected 
 // objects, in binary format.
+// Depreciated: This does not appear to be used any more. - Dan 06 May 17
 // ===========================================================================
 #endregion
 
