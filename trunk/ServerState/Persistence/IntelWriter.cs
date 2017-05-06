@@ -29,8 +29,8 @@ namespace Nova.Server
     using System.Xml;
 
     using Nova.Common;
-    using Nova.Common.DataStructures;
     using Nova.Common.Components;
+    using Nova.Common.DataStructures;
 
     /// <summary>
     /// This module converts the console's state into Intel and saves it, thereby 
@@ -39,13 +39,13 @@ namespace Nova.Server
     public class IntelWriter
     {
         private readonly ServerData serverState;
-        private readonly Scores Scores;
+        private readonly Scores scores;
         private Intel turnData;
         
         public IntelWriter(ServerData serverState, Scores scores)
         {
             this.serverState = serverState;
-            this.Scores = scores;
+            this.scores = scores;
         }
 
 
@@ -81,7 +81,7 @@ namespace Nova.Server
 
                 if (serverState.TurnYear > Global.StartingYear)
                 {
-                    turnData.AllScores = Scores.GetScores();
+                    turnData.AllScores = scores.GetScores();
                 }
                 else
                 {
@@ -131,11 +131,10 @@ namespace Nova.Server
                             throw;
                         }
                     }
-                } while (waitForFile);
+                } 
+                while (waitForFile);
             }
-
         }
-
     }
 }
 

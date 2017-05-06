@@ -100,7 +100,8 @@ namespace Nova.Common
                             throw; 
                         }
                     }
-                } while (waitForFile);
+                } 
+                while (waitForFile);
             }
 
             this.initialized = true;
@@ -158,7 +159,8 @@ namespace Nova.Common
                         throw;
                     }
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
         }
 
         /// <summary>

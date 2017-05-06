@@ -26,6 +26,7 @@ namespace Nova.WinForms.Console
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
+    using System.Threading;
     using System.Windows.Forms;
     
     using Nova.Common;
@@ -295,6 +296,7 @@ namespace Nova.WinForms.Console
                     generateTurnMenuItem.Enabled = true;
                     if (autoGenerateCheckBox.Checked)
                     {
+                        // TODO (Priority 4) Grey out the players or something so it is clearer you can not click to play at the moment.
                         GenerateTurn();
                     }
                 }
@@ -302,7 +304,9 @@ namespace Nova.WinForms.Console
                 {
                     if (runAiCheckBox.Checked)
                     {
-                        RunAI();
+                        // Look for AIs to run, and launch their processes. Do this in a seperate thread, so it does not stop the human player from opening a turn.
+                        // Dan 7 May 17 - not sure if putting this in a thread improved performance or not. Doesn't seem to hurt so I am leaving it in.
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(RunAI));
                     }
                 }
             }
@@ -438,7 +442,7 @@ namespace Nova.WinForms.Console
                 }
 
 
-                if (empireData == null || empireData.TurnYear != serverState.TurnYear || ! empireData.TurnSubmitted)
+                if (empireData == null || empireData.TurnYear != serverState.TurnYear || !empireData.TurnSubmitted)
                 {
                     // FIXME (priority 3) - Display the turn year color coded - red for waiting, green for turned in.
                     yearItem.ForeColor = System.Drawing.Color.Red;
@@ -504,8 +508,10 @@ namespace Nova.WinForms.Console
 
         /// <Summary>
         /// Launch the AI program to take any turns for AI players.
+        /// 
         /// </Summary>
-        private void RunAI()
+        /// <param name="status">Required as this is called in as a worker thread, but unused.</param>
+        private void RunAI(object status)
         {
             if (runAiCheckBox.Checked)
             {
@@ -520,7 +526,7 @@ namespace Nova.WinForms.Console
 
                     EmpireData empireData;
                     serverState.AllEmpires.TryGetValue(settings.PlayerNumber, out empireData);
-                    if (empireData == null || empireData.TurnYear != serverState.TurnYear || ! empireData.TurnSubmitted)
+                    if (empireData == null || empireData.TurnYear != serverState.TurnYear || !empireData.TurnSubmitted)
                     {
                         // TODO: Add support for running custom AIs based on settings.AiProgram.
                         CommandArguments args = new CommandArguments();

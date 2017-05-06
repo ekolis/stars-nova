@@ -1,4 +1,3 @@
-using System.Reflection;
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
@@ -26,6 +25,7 @@ namespace Nova.Server
     using System;    
     using System.Collections.Generic;
     using System.IO;
+    using System.Reflection;
     
     using Nova.Common;
     using Nova.Common.Commands;
@@ -236,7 +236,6 @@ namespace Nova.Server
                 {
                     fi.CopyTo(Path.Combine(target.ToString(), fi.Name), true);
                 }
-
             }
             catch (Exception e)
             {
@@ -350,7 +349,6 @@ namespace Nova.Server
                     // TODO (priority 6) 0% if bombing
                     // orbiting, but not bombing an enemy planet
                     repairRate = 3;
-
                 }
             }
             else
@@ -395,7 +393,7 @@ namespace Nova.Server
             Waypoint currentPosition = new Waypoint();
             double availableTime = 1.0;
 
-            while (fleet.Waypoints.Count > 0) // stops when the actual waypoint target is not reached
+            while (fleet.Waypoints.Count > 0) 
             {
                 Waypoint waypointZero = fleet.Waypoints[0];
                    
@@ -437,8 +435,9 @@ namespace Nova.Server
                     currentPosition.WarpFactor = waypointZero.WarpFactor;
                     break;
                 }
-                else // Arrived
+                else 
                 {
+                    // Arrived
                     EmpireData sender = serverState.AllEmpires[fleet.Owner];
                     EmpireData reciever = null;
                     Star target = null;
@@ -492,7 +491,7 @@ namespace Nova.Server
         }
         
         /// <summary>
-        /// This is a utility function. Sets intel for the first tun.
+        /// This is a utility function. Sets intel for the first turn.
         /// </summary>
         public void AssembleEmpireData()
         {
