@@ -134,7 +134,6 @@ namespace Nova.Common
                 {
                     try
                     {
-
                         using (FileStream state = new FileStream(fileName, FileMode.Open))
                         {
                             // Data = Serializer.Deserialize(state) as GameSettings;
@@ -158,7 +157,8 @@ namespace Nova.Common
                             throw;
                         }
                     }
-                } while (waitForFile);
+                } 
+                while (waitForFile);
             }
         }
 

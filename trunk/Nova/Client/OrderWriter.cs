@@ -28,8 +28,8 @@ namespace Nova.Client
     using System.Xml;
     
     using Nova.Common;
-    using Nova.Common.Components;
     using Nova.Common.Commands;
+    using Nova.Common.Components;
  
     /// <summary>
     /// This GUI module will generate the player's Orders, which are written to 
@@ -88,29 +88,28 @@ namespace Nova.Client
                     try
                     {
                         using (Stream output = new FileStream(ordersFileName, FileMode.Create))
-                {
-
-                    xmldoc.Save(output);
-                }
-                    waitForFile = false;
-                }
-                catch (System.IO.IOException)
-                {
-                    // IOException. Is the file locked? Try waiting.
-                    if (waitTime < Global.TotalFileWaitTime)
-                    {
-                        waitForFile = true;
-                        System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
-                        waitTime += 0.1;
+                        {
+                            xmldoc.Save(output);
+                        }
+                        waitForFile = false;
                     }
-                    else
+                    catch (System.IO.IOException)
                     {
-                        // Give up, maybe something else is wrong?
-                        throw;
+                        // IOException. Is the file locked? Try waiting.
+                        if (waitTime < Global.TotalFileWaitTime)
+                        {
+                            waitForFile = true;
+                            System.Threading.Thread.Sleep(Global.FileWaitRetryTime);
+                            waitTime += 0.1;
+                        }
+                        else
+                        {
+                            // Give up, maybe something else is wrong?
+                            throw;
+                        }
                     }
                 }
-            } while (waitForFile);
-
+                while (waitForFile);
             }
         }
     

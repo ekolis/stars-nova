@@ -1,10 +1,14 @@
 <StyleCopSettings Version="105">
   <GlobalSettings>
     <CollectionProperty Name="RecognizedWords">
+      <Value>advfaq</Value>
       <Value>alphanum</Value>
       <Value>Cloneable</Value>
       <Value>concentration</Value>
       <Value>conf</Value>
+      <Value>Hab</Value>
+      <Value>htm</Value>
+      <Value>html</Value>
       <Value>ironium</Value>
       <Value>kTs</Value>
       <Value>lhs</Value>
@@ -14,6 +18,7 @@
       <Value>recursing</Value>
       <Value>rhs</Value>
       <Value>starbase</Value>
+      <Value>starsfaq</Value>
       <Value>terraform</Value>
       <Value>Terraformers</Value>
       <Value>Ts</Value>

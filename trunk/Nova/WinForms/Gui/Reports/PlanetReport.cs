@@ -81,7 +81,7 @@ namespace Nova.WinForms.Gui
                     row[i++] = starbase;
                     row[i++] = report.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = report.Capacity(empireState.Race).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = Math.Ceiling(empireState.Race.HabitalValue(report) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = Math.Ceiling(empireState.Race.HabValue(report) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = report.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = report.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture);
 

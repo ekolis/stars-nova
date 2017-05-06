@@ -186,7 +186,7 @@ namespace Nova.Tests.UnitTests
             race.RadiationTolerance.Immune = true;
             race.TemperatureTolerance.Immune = true;
             race.GravityTolerance.Immune = true;
-            habitalValue = race.HabitalValue(star);
+            habitalValue = race.HabValue(star);
             Assert.AreEqual(1.0, habitalValue);
         }
 
@@ -202,7 +202,7 @@ namespace Nova.Tests.UnitTests
             race.TemperatureTolerance.MinimumValue = 16;
             race.GravityTolerance.MaximumValue = 2;
             race.GravityTolerance.MinimumValue = 0;
-            habitalValue = race.HabitalValue(star);
+            habitalValue = race.HabValue(star);
             Assert.AreEqual(1.0, habitalValue);
         }
 
@@ -218,7 +218,7 @@ namespace Nova.Tests.UnitTests
             race.TemperatureTolerance.MinimumValue = 16;
             race.GravityTolerance.MaximumValue = 2;
             race.GravityTolerance.MinimumValue = 0;
-            habitalValue = race.HabitalValue(star);
+            habitalValue = race.HabValue(star);
             Assert.AreEqual(-0.15, habitalValue);
         }
 
@@ -234,7 +234,7 @@ namespace Nova.Tests.UnitTests
             race.TemperatureTolerance.MinimumValue = 56;
             race.GravityTolerance.MaximumValue = 60;
             race.GravityTolerance.MinimumValue = 50;
-            habitalValue = race.HabitalValue(star);
+            habitalValue = race.HabValue(star);
             Assert.AreEqual(-0.45, habitalValue);
         }
 
@@ -251,7 +251,7 @@ namespace Nova.Tests.UnitTests
             race.TemperatureTolerance.MinimumValue = 60;
             race.GravityTolerance.MaximumValue = 70;
             race.GravityTolerance.MinimumValue = 60;
-            habitalValue = race.HabitalValue(star);
+            habitalValue = race.HabValue(star);
             Assert.AreEqual(-0.90, habitalValue);
         }
 
@@ -267,7 +267,7 @@ namespace Nova.Tests.UnitTests
             race.TemperatureTolerance.MinimumValue = 16;
             race.GravityTolerance.MaximumValue = 5;
             race.GravityTolerance.MinimumValue = 0;
-            habitalValue = race.HabitalValue(star);
+            habitalValue = race.HabValue(star);
             Assert.AreEqual(-0.10, habitalValue);
         }
     }

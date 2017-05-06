@@ -277,7 +277,7 @@ namespace Nova.Common
             }
 
             // handle negative hab worlds
-            if (race.HabitalValue(this) < 0.0)
+            if (race.HabValue(this) < 0.0)
             {
                 maxPopulation = 25000.0;
             }
@@ -297,7 +297,7 @@ namespace Nova.Common
         /// </remarks>
         public int CalculateGrowth(Race race)
         {
-            double habitalValue = race.HabitalValue(this);
+            double habitalValue = race.HabValue(this);
             double growthRate = race.GrowthRate;
 
             if (race.HasTrait("HyperExpansion"))

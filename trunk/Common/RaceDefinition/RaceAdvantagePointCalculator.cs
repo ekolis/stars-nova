@@ -64,7 +64,7 @@ namespace Nova.Common.RaceDefinition
             star.Radiation = testPlanetHab[1];
             star.Temperature = testPlanetHab[2];
 
-            return race.HabitalValue(star) * 100.0;
+            return race.HabValue(star) * 100.0;
         }
 
         private int habPoints(Race race)
@@ -92,7 +92,7 @@ namespace Nova.Common.RaceDefinition
 
                 for (i=0; i<3; i++)
                 {
-                    if (race.isImmune(i))
+                    if (race.IsImmune(i))
                     {
                         testHabStart[i] = 50;
                         testHabWidth[i] = 11;
@@ -100,9 +100,9 @@ namespace Nova.Common.RaceDefinition
                     }
                     else
                     {
-                        testHabStart[i] = race.lowerHab(i)-TTCorrFactor;
+                        testHabStart[i] = race.LowerHab(i)-TTCorrFactor;
                         if (testHabStart[i]<0) testHabStart[i]=0;
-                        tmpHab = race.upperHab(i)+TTCorrFactor;
+                        tmpHab = race.UpperHab(i)+TTCorrFactor;
                         if (tmpHab>100) tmpHab=100;
                         testHabWidth[i] = tmpHab-testHabStart[i];
                         iterNum[i] = 11;
@@ -119,12 +119,12 @@ namespace Nova.Common.RaceDefinition
 
                     if (h!=0 && !race.GravityTolerance.Immune)
                     {
-                        v100 = race.centerHab(0) - tmpHab;
+                        v100 = race.CenterHab(0) - tmpHab;
                         if (Math.Abs(v100)<=TTCorrFactor) v100=0;
                         else if (v100<0) v100+=TTCorrFactor;
                         else v100-=TTCorrFactor;
                         v108[0] = v100;
-                        tmpHab = race.centerHab(0) - v100;
+                        tmpHab = race.CenterHab(0) - v100;
                     }
                     testPlanetHab[0] = tmpHab;
                     v136 = 0.0;
@@ -137,12 +137,12 @@ namespace Nova.Common.RaceDefinition
 
                         if (h != 0 && !race.TemperatureTolerance.Immune)
                         {
-                            v100 = race.centerHab(1) - tmpHab;
+                            v100 = race.CenterHab(1) - tmpHab;
                             if (Math.Abs(v100)<=TTCorrFactor) v100=0;
                             else if (v100<0) v100+=TTCorrFactor;
                             else v100-=TTCorrFactor;
                             v108[1] = v100;
-                            tmpHab = race.centerHab(1) - v100;
+                            tmpHab = race.CenterHab(1) - v100;
                         }
                         testPlanetHab[1] = tmpHab;
                         v12E = 0;
@@ -155,12 +155,12 @@ namespace Nova.Common.RaceDefinition
 
                             if (h != 0 && !race.RadiationTolerance.Immune)
                             {
-                                v100 = race.centerHab(2) - tmpHab;
+                                v100 = race.CenterHab(2) - tmpHab;
                                 if (Math.Abs(v100)<=TTCorrFactor) v100=0;
                                 else if (v100<0) v100+=TTCorrFactor;
                                 else v100-=TTCorrFactor;
                                 v108[2] = v100;
-                                tmpHab = race.centerHab(2) - v100;
+                                tmpHab = race.CenterHab(2) - v100;
                             }
                             testPlanetHab[2] = tmpHab;
 
@@ -239,13 +239,13 @@ namespace Nova.Common.RaceDefinition
             i = 0;
             for (j = 0; j < 3; j++)
             {
-                if (race.isImmune(j)) //if (race.centerHab(j) < 0)
+                if (race.IsImmune(j)) //if (race.centerHab(j) < 0)
                 {
                     i++;
                 }
                 else
                 {
-                    points += Math.Abs(race.centerHab(j) - 50) * 4;
+                    points += Math.Abs(race.CenterHab(j) - 50) * 4;
                 }
             }
 
