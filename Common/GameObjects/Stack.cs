@@ -116,7 +116,7 @@ namespace Nova.Common
         {
             Id = stackId;
             ParentKey = fleet.Key;
-            Name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            Name = "Stack #" + stackId.ToString("X");
             BattlePlan = fleet.BattlePlan;
             InOrbit = fleet.InOrbit;
             Token = token;  // note this is a reference to the actual token in the fleet

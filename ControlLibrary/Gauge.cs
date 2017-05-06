@@ -160,8 +160,8 @@ namespace Nova.ControlLibrary
             {
                 RectangleF rect = new RectangleF(this.bar.Location, this.bar.Size);
 
-                string description = topValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + " of "
-                                   + maximumValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + " " + barUnits;
+                string description = topValue.ToString(System.Globalization.CultureInfo.CurrentCulture) + " of "
+                                   + maximumValue.ToString(System.Globalization.CultureInfo.CurrentCulture) + " " + barUnits;
 
                 format.Alignment = StringAlignment.Center;
                 e.Graphics.DrawString(description, font, blackBrush, rect, format);

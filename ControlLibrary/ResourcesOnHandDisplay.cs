@@ -80,11 +80,11 @@ namespace Nova.ControlLibrary
                     // Do not refactor this to "resourceRate*(1-percentage/100)" as they are ints...
                     int currentEnergy = this.resourceRate - (this.resourceRate * percentage / 100);
                     
-                    this.ironium.Text = resources.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.boranium.Text = resources.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.germanium.Text = resources.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.energy.Text = currentEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture) + " of " 
-                        + this.resourceRate.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.ironium.Text = resources.Ironium.ToString(System.Globalization.CultureInfo.CurrentCulture);
+                    this.boranium.Text = resources.Boranium.ToString(System.Globalization.CultureInfo.CurrentCulture);
+                    this.germanium.Text = resources.Germanium.ToString(System.Globalization.CultureInfo.CurrentCulture);
+                    this.energy.Text = currentEnergy.ToString(System.Globalization.CultureInfo.CurrentCulture) + " of "
+                        + this.resourceRate.ToString(System.Globalization.CultureInfo.CurrentCulture);
                 }
                 catch
                 {
