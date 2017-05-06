@@ -156,11 +156,11 @@ namespace Nova.ControlLibrary
 
             cargoAmount = requestedCargo;
             sliderBar.Value = cargoAmount;
-            shipAmount.Text = cargoAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
+            shipAmount.Text = cargoAmount.ToString(System.Globalization.CultureInfo.CurrentCulture) + " kT";
             cargoBay.Value = cargoMass + cargoAmount;
 
             availableAmount = sourceAmount + initialAmount - cargoAmount;
-            planetAmount.Text = availableAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
+            planetAmount.Text = availableAmount.ToString(System.Globalization.CultureInfo.CurrentCulture) + " kT";
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Nova.ControlLibrary
                 cargoAmount = value;
                 initialAmount = cargoAmount;
                 sliderBar.Value = cargoAmount;
-                shipAmount.Text = cargoAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
+                shipAmount.Text = cargoAmount.ToString(System.Globalization.CultureInfo.CurrentCulture) + " kT";
             }
 
             get
@@ -212,7 +212,7 @@ namespace Nova.ControlLibrary
             set
             {
                 sourceAmount = value;
-                planetAmount.Text = sourceAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
+                planetAmount.Text = sourceAmount.ToString(System.Globalization.CultureInfo.CurrentCulture) + " kT";
             }
         }
 

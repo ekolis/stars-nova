@@ -246,11 +246,11 @@ namespace Nova.ControlLibrary
                     }
 
                     Resources resources = value;
-                    
-                    this.ironium.Text = resources.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.boranium.Text = resources.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.germanium.Text = resources.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.energy.Text = resources.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                    this.ironium.Text = resources.Ironium.ToString(System.Globalization.CultureInfo.CurrentCulture);
+                    this.boranium.Text = resources.Boranium.ToString(System.Globalization.CultureInfo.CurrentCulture);
+                    this.germanium.Text = resources.Germanium.ToString(System.Globalization.CultureInfo.CurrentCulture);
+                    this.energy.Text = resources.Energy.ToString(System.Globalization.CultureInfo.CurrentCulture);
                 }
                 catch
                 {
@@ -262,10 +262,10 @@ namespace Nova.ControlLibrary
             {
                 Resources resources = new Resources();
 
-                resources.Ironium = Convert.ToInt32(this.ironium.Text);
-                resources.Boranium = Convert.ToInt32(this.boranium.Text);
-                resources.Germanium = Convert.ToInt32(this.germanium.Text);
-                resources.Energy = Convert.ToInt32(this.energy.Text);
+                resources.Ironium = Convert.ToInt32(this.ironium.Text, System.Globalization.CultureInfo.CurrentCulture);
+                resources.Boranium = Convert.ToInt32(this.boranium.Text, System.Globalization.CultureInfo.CurrentCulture);
+                resources.Germanium = Convert.ToInt32(this.germanium.Text, System.Globalization.CultureInfo.CurrentCulture);
+                resources.Energy = Convert.ToInt32(this.energy.Text, System.Globalization.CultureInfo.CurrentCulture);
                 return resources;
             }
         }

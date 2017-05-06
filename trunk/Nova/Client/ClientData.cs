@@ -472,7 +472,7 @@ namespace Nova.Client
                 // FIXME (priority 6) - THIS HAS TO GO!
                 xmlelClientState.AppendChild(InputTurn.ToXml(xmldoc));
                 
-                Global.SaveData(xmldoc, xmlelClientState, "FirstTurn", FirstTurn.ToString());
+                Global.SaveData(xmldoc, xmlelClientState, "FirstTurn", FirstTurn.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 Global.SaveData(xmldoc, xmlelClientState, "GameFolder", GameFolder);
                 Global.SaveData(xmldoc, xmlelClientState, "StatePathName", StatePathName);
                 
