@@ -337,7 +337,6 @@ namespace Nova.Common
                 Waypoint target = Waypoints[0];
                 target.WarpFactor = 0;
             }
-
         }
 
         /// <summary>
@@ -440,7 +439,6 @@ namespace Nova.Common
         public Fleet(Fleet copy)
             : base(copy)
         {
-            
         }
         
         /// <summary>
@@ -483,7 +481,6 @@ namespace Nova.Common
         public Fleet(ShipDesign design, int quantity, Star star, long newKey) :
             this(new ShipToken(design, quantity), star, newKey)
         {
-            
         }
 
 
@@ -585,7 +582,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="warpFactor">The warp speed of the fleet.</param>
         /// <param name="race">The race this fleet belongs too.</param>
-        /// <returns>The rate of fuel consumptionin mg / year.</returns>
+        /// <returns>The rate of fuel consumption in mg / year.</returns>
         public double FuelConsumption(int warpFactor, Race race)
         {
             double fuelConsumption = 0;

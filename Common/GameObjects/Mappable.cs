@@ -27,7 +27,7 @@ namespace Nova.Common
     using Nova.Common.DataStructures;
     
     /// <summary>
-    /// An object which has a position in Nova
+    /// An object which has a position in Nova.
     /// </summary>
     public class Mappable : Item
     {
@@ -66,7 +66,6 @@ namespace Nova.Common
         public Mappable(XmlNode node) :
             base(node)
         {
-            
             if (node == null)
             {
                 Report.FatalError("Mappable.cs: Mappable(XmlNode node) - node is null - no Mappable found.");
@@ -112,7 +111,6 @@ namespace Nova.Common
 
                 mainNode = mainNode.NextSibling;
             }
-
         }
         
         /// <summary>
@@ -127,6 +125,5 @@ namespace Nova.Common
             xmlelMap.AppendChild(Position.ToXml(xmldoc));
             return xmlelMap;
         }
-
     }
 }

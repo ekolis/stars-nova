@@ -24,8 +24,8 @@ namespace Nova.Server
 {
     using System;    
     using System.Collections.Generic;
-    using System.Linq;
     using System.Drawing;
+    using System.Linq;
 
     using Nova.Common;
     using Nova.Common.Components;
@@ -41,7 +41,7 @@ namespace Nova.Server
         private readonly int movementPhasesPerRound = 3;
         private readonly int maxBattleRounds = 16;
         // The above table as a 2d lookup. Note round 8 moved to the first postion as we use battleRound % 8.
-        private readonly int[,] MovementTable = new int[,] 
+        private readonly int[,] movementTable = new int[,] 
         {
             {
                 0, 1, 0, 1, 0, 1, 0, 1
@@ -446,7 +446,10 @@ namespace Nova.Server
         /// FIXME (priority 3) - Implement the Stars! attractiveness model (and possibly others as options). Provide a reference to the source of the algorithm.
         public double GetAttractiveness(Stack target)
         {
-            if (target == null || target.IsDestroyed) return 0;
+            if (target == null || target.IsDestroyed) 
+            { 
+                return 0; 
+            }
 
             double cost = target.Mass + target.TotalCost.Energy;
             double dp = target.Defenses;
@@ -529,40 +532,40 @@ namespace Nova.Server
                         int movesThisRound = 1; // FIXME (priority 6) - kludge until I implement the above table 
                         if (stack.BattleSpeed <= 0.5)
                         {
-                            movesThisRound = MovementTable[0, battleRound % 8];
+                            movesThisRound = movementTable[0, battleRound % 8];
                         }
                         else if (stack.BattleSpeed <= 0.75)
                         {
-                            movesThisRound = MovementTable[1, battleRound % 8];
+                            movesThisRound = movementTable[1, battleRound % 8];
                         }
                         else if (stack.BattleSpeed <= 1.0)
                         {
-                            movesThisRound = MovementTable[2, battleRound % 8];
+                            movesThisRound = movementTable[2, battleRound % 8];
                         }
                         else if (stack.BattleSpeed <= 1.25)
                         {
-                            movesThisRound = MovementTable[3, battleRound % 8];
+                            movesThisRound = movementTable[3, battleRound % 8];
                         }
                         else if (stack.BattleSpeed <= 1.5)
                         {
-                            movesThisRound = MovementTable[4, battleRound % 8];
+                            movesThisRound = movementTable[4, battleRound % 8];
                         }
                         else if (stack.BattleSpeed <= 1.75)
                         {
-                            movesThisRound = MovementTable[5, battleRound % 8];
+                            movesThisRound = movementTable[5, battleRound % 8];
                         }
                         else if (stack.BattleSpeed <= 2.0)
                         {
-                            movesThisRound = MovementTable[6, battleRound % 8];
+                            movesThisRound = movementTable[6, battleRound % 8];
                         }
                         else if (stack.BattleSpeed <= 2.25)
                         {
-                            movesThisRound = MovementTable[7, battleRound % 8];
+                            movesThisRound = movementTable[7, battleRound % 8];
                         }
                         else 
                         {
                             // stack.BattleSpeed > 2.25
-                            movesThisRound = MovementTable[8, battleRound % 8];
+                            movesThisRound = movementTable[8, battleRound % 8];
                         }
 
                         bool moveThisPhase = true;
@@ -615,7 +618,7 @@ namespace Nova.Server
 
             foreach (Stack stack in battlingStacks)
             {
-                if (!stack.IsDestroyed) // skip destroyed stacks
+                if ( ! stack.IsDestroyed) 
                 {
                     // generate an attack for each weapon slot in the Design (all ships in the Token fire weapons in the same slot at the same time)
                     foreach (Weapon weaponSystem in stack.Token.Design.Weapons)
@@ -718,7 +721,7 @@ namespace Nova.Server
         /// All Defenses are gone. Remove the stack from the battle (which
         /// exists only during the battle) and, more importantly, remove the
         /// token from its "real" fleet. Also, generate a "destroy" event to
-        /// update the battle visualisation display.
+        /// update the battle visualization display.
         /// </summary>
         /// <param name="target"></param>
         private void DestroyStack(Stack attacker, Stack target)
@@ -736,7 +739,8 @@ namespace Nova.Server
             {
                 serverState.AllEmpires[target.Owner].OwnedFleets[target.ParentKey].Composition.Remove(target.Token.Key); // remove the token from the fleet
 
-                if (serverState.AllEmpires[target.Owner].OwnedFleets[target.ParentKey].Composition.Count == 0) // remove the fleet if no more tokens
+                // remove the fleet if no more tokens
+                if (serverState.AllEmpires[target.Owner].OwnedFleets[target.ParentKey].Composition.Count == 0) 
                 {
                     serverState.AllEmpires[target.Owner].OwnedFleets.Remove(target.ParentKey);
                     serverState.AllEmpires[target.Owner].FleetReports.Remove(target.ParentKey);
@@ -751,7 +755,7 @@ namespace Nova.Server
         /// <summary>
         /// Do beam weapon damage.
         /// </summary>
-        /// <param name="attacker">Token firing the beam</param>
+        /// <param name="attacker">Token firing the beam.</param>
         /// <param name="target">Weapon target.</param>
         /// <param name="hitPower">Damage done by the weapon.</param>
         private void FireBeam(Stack attacker, Stack target, double hitPower)
@@ -776,7 +780,7 @@ namespace Nova.Server
         /// <summary>
         /// Fire a missile weapon system.
         /// </summary>
-        /// <param name="attacker">token firing the missile</param>
+        /// <param name="attacker">Token firing the missile.</param>
         /// <param name="target">Missile weapon target.</param>
         /// <param name="hitPower">Damage the weapon can do.</param>
         /// <param name="accuracy">Missile accuracy.</param>
@@ -803,13 +807,12 @@ namespace Nova.Server
                 double minDamage = hitPower / 8;
                 DamageShields(attacker, target, minDamage);
             }
-
         }
 
         /// <summary>
         /// Attack the shields.
         /// </summary>
-        /// <param name="attacker">token firing a weapon</param>
+        /// <param name="attacker">Token firing a weapon.</param>
         /// <param name="target">Ship being fired on.</param>
         /// <param name="hitPower">Damage output of the weapon.</param>
         /// <returns>Residual damage after shields or zero.</returns>
@@ -829,7 +832,7 @@ namespace Nova.Server
             }
 
             // Calculate remianing weapon power, after damaging shields (if any)
-            double damageDone = (initialShields - target.Token.Shields);
+            double damageDone = initialShields - target.Token.Shields;
             double remainingPower = hitPower - damageDone;
             
             BattleStepWeapons battleStepReport = new BattleStepWeapons();
@@ -846,13 +849,13 @@ namespace Nova.Server
         /// <summary>
         /// Attack the Armor.
         /// </summary>
-        /// <param name="attacker">token making the attack</param>
+        /// <param name="attacker">Token making the attack.</param>
         /// <param name="target">Target being fired on.</param>
         /// <param name="hitPower">Weapon damage.</param>
         private void DamageArmor(Stack attacker, Stack target, double hitPower)
         {
             // FIXME (Priority 6) - damage is being spread over all ships in the stack. Should destroy whole ships first, then spread remaining damage.
-            target.Token.Armor -= (int) hitPower;
+            target.Token.Armor -= (int)hitPower;
 
             BattleStepWeapons battleStepReport = new BattleStepWeapons();
             battleStepReport.Damage = hitPower;

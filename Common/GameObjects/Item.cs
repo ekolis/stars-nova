@@ -95,7 +95,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Property for accessing the objects owner specific Id (eg, for use in generating the default name). 
+        /// Property for accessing the objects owner specific Id (e.g., for use in generating the default name). 
         /// Range is 1 - 0xFFFFFFFF, with 0 reserved for undefined Id.
         /// </summary>
         public uint Id
@@ -197,7 +197,6 @@ namespace Nova.Common
 
                 mainNode = mainNode.NextSibling;
             }
-
         }
                        
         
