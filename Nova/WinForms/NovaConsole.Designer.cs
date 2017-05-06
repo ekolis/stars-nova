@@ -71,8 +71,8 @@ namespace Nova.WinForms.Console
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.playerList);
             this.groupBox1.Location = new System.Drawing.Point(12, 40);
@@ -119,9 +119,9 @@ namespace Nova.WinForms.Console
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.runAiCheckBox);
             this.groupBox2.Controls.Add(this.autoGenerateCheckBox);
             this.groupBox2.Controls.Add(this.statusBox);
@@ -159,9 +159,9 @@ namespace Nova.WinForms.Console
             // 
             // statusBox
             // 
-            this.statusBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.statusBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.statusBox.Location = new System.Drawing.Point(9, 86);
             this.statusBox.Multiline = true;
             this.statusBox.Name = "statusBox";
@@ -335,7 +335,7 @@ namespace Nova.WinForms.Console
             // consoleTimer
             // 
             this.consoleTimer.Enabled = true;
-            this.consoleTimer.Interval = 5000;
+            this.consoleTimer.Interval = 2500;
             this.consoleTimer.Tick += new System.EventHandler(this.ConsoleTimer_Tick);
             // 
             // playerMenu

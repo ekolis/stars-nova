@@ -19,19 +19,19 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.Common.Commands;
-using Nova.Common.Components;
-using Nova.Common.Waypoints;
-
 namespace Nova.Ai
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.Common.Commands;
+    using Nova.Common.Components;
+    using Nova.Common.Waypoints;
+
     public class DefaultAi : AbstractAI
     {
         private Intel turnData;
@@ -52,7 +52,7 @@ namespace Nova.Ai
                         ProductionCommand clearProductionCommand = new ProductionCommand(CommandMode.Delete, productionOrderToclear, star.Key);
                         if (clearProductionCommand.IsValid(clientState.EmpireState))
                         {
-                            //clearProductionCommand.ApplyToState(clientState.EmpireState); // FIXME - can't change the state inside the for each loop.
+                            // Put the items to be cleared in a queue, as the actual cleanup can not be done while itterating the list.
                             clearProductionList.Enqueue(clearProductionCommand);
                             clientState.Commands.Push(clearProductionCommand);
                         }
@@ -219,8 +219,7 @@ namespace Nova.Ai
             // check if messages contains info about tech advence
             foreach (Message msg in clientState.Messages)
             {
-                
-                if ( ! String.IsNullOrEmpty(msg.Text) && msg.Text.Contains("Your race has advanced to Tech Level") == true)
+                if (!string.IsNullOrEmpty(msg.Text) && msg.Text.Contains("Your race has advanced to Tech Level") == true)
                 {
                     int minLevel = int.MaxValue;
                     Nova.Common.TechLevel.ResearchField targetResearchField = TechLevel.ResearchField.Weapons; // default to researching weapons
@@ -233,7 +232,7 @@ namespace Nova.Ai
                         }
                     }
 
-                    //Generate a research command to describe the changes.
+                    // Generate a research command to describe the changes.
                     ResearchCommand command = new ResearchCommand();
                     command.Budget = 0;
                     command.Topics.Zero();
@@ -244,7 +243,6 @@ namespace Nova.Ai
                         clientState.Commands.Push(command);
                         command.ApplyToState(clientState.EmpireState);
                     }
-  
                 }
             }
         }

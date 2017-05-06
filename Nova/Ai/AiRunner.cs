@@ -36,6 +36,7 @@
 namespace Nova.Ai
 {
     using System;
+    using System.IO;
 
     using Nova.Client;
     using Nova.Common;
@@ -44,6 +45,8 @@ namespace Nova.Ai
     public class Program
     {
         private static readonly AbstractAI AI = new DefaultAi();
+        private static Stream intelLock = null;
+
         public static void Main(string[] args)
         {
             string raceName;
@@ -68,7 +71,6 @@ namespace Nova.Ai
             {
                 Console.WriteLine("Usage: Nova --ai -r <race_name> -t <turn_number> -i <intel_file>");
                 return;
-                
             }
             // read in race data
             Console.WriteLine("Playing turn {0} for race \"{1}\".", turnNumber, raceName);
@@ -77,6 +79,19 @@ namespace Nova.Ai
                 // TODO (priority 6) - bypass password entry for AI.
                 // Note: passwords have currently been disabled completely, awaiting a new more effective implementation - Dan 02 Mar 10
                 // ClientState.Initialize(commandArguments.ToArray()); 
+
+                try
+                {
+                    intelLock = File.OpenWrite(raceName + "." + "lock");
+                }
+                catch (System.IO.IOException)
+                {
+                    // A copy of the AI seems to be already running, so quit.
+                    // Console.WriteLine("Unable to access turn {0} for {1}.", turnNumber, raceName);
+                    // Report.FatalError("Unable to access turn " + turnNumber + " for " + raceName + ".");
+                }
+
+
                 AI.Initialize(commandArguments);
             }
             catch
@@ -99,6 +114,8 @@ namespace Nova.Ai
                 Console.WriteLine("Nova_AI encountered an error writing its orders.");
             }
 
+            intelLock.Close();
+            intelLock.Dispose();
             return;
         }
     }

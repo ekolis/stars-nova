@@ -30,10 +30,11 @@ namespace Nova.Client
     using System.Xml;
 
     using Nova.Common;
-    using Nova.Common.Components;
     using Nova.Common.Commands;
+    using Nova.Common.Components;
+
     using Message = Nova.Common.Message;
-    
+
     /// <summary>
     /// Brings together references to all the data which the GUI needs
     /// and provides the means to persist that data between sessions. This is also
@@ -93,7 +94,7 @@ namespace Nova.Client
                             textNode = xmlnode.FirstChild;
                             while (textNode != null)
                             {
-                                switch(textNode.Attributes["Type"].Value.ToString().ToLower())
+                                switch (textNode.Attributes["Type"].Value.ToString().ToLower())
                                 {
                                     case "research":
                                         Commands.Push(new ResearchCommand(textNode));
@@ -124,7 +125,6 @@ namespace Nova.Client
                     }
                     
                     xmlnode = xmlnode.NextSibling;
-
                 }
                 catch (Exception e)
                 {
@@ -134,7 +134,7 @@ namespace Nova.Client
         }
 
         /// <summary>
-        /// initialize the data needed for the GUI to run.
+        /// Initialize the data needed for the GUI to run.
         /// </summary>
         /// <param name="argArray">The command line arguments.</param>
         public void Initialize(string[] argArray)
@@ -244,7 +244,7 @@ namespace Nova.Client
 
             // 2. the Nova GUI was started from the launcher open a game option. 
             //    There will be a .intel file listed in the argArray.
-            if (! isLoaded && intelFileName != null)
+            if ( ! isLoaded && intelFileName != null)
             {
                 if (File.Exists(intelFileName))
                 {
@@ -388,7 +388,8 @@ namespace Nova.Client
                             throw;
                         }
                     }
-                } while (waitForFile);
+                } 
+                while (waitForFile);
             }
             else
             {
@@ -437,7 +438,8 @@ namespace Nova.Client
                         throw;
                     }
                 }
-            } while (waitForFile);
+            } 
+            while (waitForFile);
         }
         
         private void ToXml(FileStream stream)
