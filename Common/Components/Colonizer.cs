@@ -31,6 +31,7 @@ namespace Nova.Common.Components
     [Serializable]
     public class Colonizer : ComponentProperty
     {
+        // Is this an AR orbital colonization module?
         public bool Orbital = false;
 
         /// <summary>

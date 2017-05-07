@@ -554,7 +554,7 @@ namespace Nova.Common.Components
                 return; // not much of a ship yet
             }
 
-            if (!Blueprint.Properties.ContainsKey("Hull"))
+            if ( ! Blueprint.Properties.ContainsKey("Hull"))
             {
                 return; // still not much of a ship.
             }
@@ -569,7 +569,7 @@ namespace Nova.Common.Components
             IntegerProperty cargo = new IntegerProperty(Hull.BaseCargo);
             Summary.Properties.Add("Cargo", cargo);
 
-            if (!Summary.Properties.ContainsKey("Fuel"))
+            if ( ! Summary.Properties.ContainsKey("Fuel"))
             {
                 Fuel fuel = new Fuel(Hull.FuelCapacity, 0);
                 Summary.Properties.Add("Fuel", fuel);
@@ -577,27 +577,25 @@ namespace Nova.Common.Components
             // Check any non Hull properties of the ShipHull
             foreach (string key in Blueprint.Properties.Keys)
             {
-                if (key == "Hull")
+                if (key != "Hull")
                 {
-                    continue;
-                }
                 SumProperty(Blueprint.Properties[key], key, 1);
+                }
             }
 
             // Then add all of the components fitted to the hull modules.
             foreach (HullModule module in Hull.Modules)
             {
-                if (module.AllocatedComponent == null)
+                if (module.AllocatedComponent != null)
                 {
-                    continue;
-                }
-                // Sumarise the mass & cost
-                Summary.Mass += module.AllocatedComponent.Mass;
-                Summary.Cost += module.AllocatedComponent.Cost;
-                // Summarise the properties
-                foreach (string key in module.AllocatedComponent.Properties.Keys)
-                {
-                    SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
+                    // Sumarise the mass & cost
+                    Summary.Mass += module.AllocatedComponent.Mass;
+                    Summary.Cost += module.AllocatedComponent.Cost;
+                    // Summarise the properties
+                    foreach (string key in module.AllocatedComponent.Properties.Keys)
+                    {
+                        SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
+                    }
                 }
             }
         }
