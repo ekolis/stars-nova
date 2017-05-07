@@ -28,7 +28,6 @@
         /// </Summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaLauncher));
             this.versionLabel = new System.Windows.Forms.Label();
             this.versionNumber = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,7 +44,7 @@
             this.versionLabel.AutoSize = true;
             this.versionLabel.BackColor = System.Drawing.Color.Transparent;
             this.versionLabel.ForeColor = System.Drawing.Color.White;
-            this.versionLabel.Location = new System.Drawing.Point(212, 140);
+            this.versionLabel.Location = new System.Drawing.Point(216, 127);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(45, 13);
             this.versionLabel.TabIndex = 0;
@@ -56,11 +55,11 @@
             this.versionNumber.AutoSize = true;
             this.versionNumber.BackColor = System.Drawing.Color.Transparent;
             this.versionNumber.ForeColor = System.Drawing.Color.White;
-            this.versionNumber.Location = new System.Drawing.Point(263, 140);
+            this.versionNumber.Location = new System.Drawing.Point(267, 127);
             this.versionNumber.Name = "versionNumber";
-            this.versionNumber.Size = new System.Drawing.Size(147, 13);
+            this.versionNumber.Size = new System.Drawing.Size(240, 13);
             this.versionNumber.TabIndex = 1;
-            this.versionNumber.Text = "NN.NN.NN - MMM DD YYYY";
+            this.versionNumber.Text = "Major.Milestone.Minor.Revision - MMM DD YYYY";
             // 
             // label1
             // 
@@ -102,13 +101,16 @@
             // 
             this.webLink.AutoSize = true;
             this.webLink.BackColor = System.Drawing.Color.Transparent;
+            this.webLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.webLink.ForeColor = System.Drawing.Color.White;
-            this.webLink.Location = new System.Drawing.Point(271, 208);
+            this.webLink.LinkArea = new System.Windows.Forms.LinkArea(0, 100);
+            this.webLink.Location = new System.Drawing.Point(361, 206);
             this.webLink.Name = "webLink";
-            this.webLink.Size = new System.Drawing.Size(83, 13);
+            this.webLink.Size = new System.Drawing.Size(146, 27);
             this.webLink.TabIndex = 6;
             this.webLink.TabStop = true;
             this.webLink.Text = "Nova Webpage";
+            this.webLink.UseCompatibleTextRendering = true;
             this.webLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.WebLink_LinkClicked);
             // 
             // continueGameButton
@@ -163,7 +165,6 @@
             this.Controls.Add(this.versionNumber);
             this.Controls.Add(this.versionLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "NovaLauncher";
             this.Text = "Nova Launcher";
@@ -179,10 +180,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button newGameButton;
         private System.Windows.Forms.Button openGameButton;
-        private System.Windows.Forms.LinkLabel webLink;
         private System.Windows.Forms.Button continueGameButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button raceDesignerButton;
+        private System.Windows.Forms.LinkLabel webLink;
     }
 }
 

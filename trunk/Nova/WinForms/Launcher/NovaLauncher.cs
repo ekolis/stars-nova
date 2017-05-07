@@ -23,6 +23,7 @@ namespace Nova.WinForms.Launcher
 {
     using System;
     using System.Diagnostics;
+    using System.Globalization;
     using System.IO;
     using System.Reflection;
     using System.Windows.Forms;
@@ -48,15 +49,15 @@ namespace Nova.WinForms.Launcher
             // Show the Nova version
             string version = Application.ProductVersion;
             string[] versionParts = version.Split('.');
-            string productVersion = string.Join(".", versionParts, 0, 3);
+            string productVersion = string.Join(".", versionParts, 0, 4);
 
             AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
             int buildNumber = assemblyName.Version.Build;
             int revision = assemblyName.Version.Revision;
-            DateTime start = new DateTime(2000, 1, 1);
-            DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
+            //DateTime start = new DateTime(2000, 1, 1);
+            //DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
 
-            versionNumber.Text = string.Format("{0}  -  {1}", productVersion, buildDate.ToShortDateString());
+            versionNumber.Text = string.Format("{0}  -  {1}", productVersion, DateTime.Now.ToString("MMM dd yyyy"));
 
             // look for a game in progress
             this.serverStateFile = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
