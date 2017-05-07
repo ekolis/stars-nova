@@ -100,7 +100,7 @@ namespace Nova.WinForms
             // New game dialog was OK, create a game
             
             // Make sure the location to save the game exists:
-            if (!Directory.Exists(gameFolder.Text))
+            if ( ! Directory.Exists(gameFolder.Text))
             {
                 Directory.CreateDirectory(gameFolder.Text);
             }

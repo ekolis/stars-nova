@@ -377,16 +377,9 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (!Directory.Exists(saveFilePath))
+                if ( ! Directory.Exists(saveFilePath))
                 {
                     saveFilePath = FileSearcher.GetComponentFile();
-                    if (!string.IsNullOrEmpty(saveFilePath))
-                    {
-                        using (Config conf = new Config())
-                        {
-                            conf[Global.ComponentFileName] = saveFilePath;
-                        }
-                    }
                 }
                 
                 return saveFilePath;
