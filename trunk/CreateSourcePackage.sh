@@ -8,7 +8,7 @@ if [ $# -lt 2 ]; then
 	echo Error: Missing command line parameters
 	echo
 	echo "Command line: $0 <svn path> <version>"
-	echo Example: $0 /branches/0.4 0.4.5
+	echo Example: $0 /trunk 0.4.5
 	exit
 fi 
 
@@ -23,10 +23,10 @@ if [ -d "$EXPORTPATH" ]; then
         rm -rf $EXPORTPATH >> $LOGFILE
 fi
 echo Exporting $1 from Subversion to Build/${EXPORTPATH}...
-svn export https://stars-nova.svn.sourceforge.net/svnroot/stars-nova${1} $EXPORTPATH >> $LOGFILE
+svn export https://svn.code.sf.net/p/stars-nova/svn${1} $EXPORTPATH >> $LOGFILE
 
 echo Creating $PACKAGFILE...
-if [ -f "$PACKAGFILE" ]; then 
+if [ -f "$PACKAGFILE" ]; then
         rm $PACKAGFILE >> $LOGFILE
 fi
 
