@@ -120,7 +120,7 @@ namespace Nova.Common
 
 
                 // or try the usual location NovaRoot\components.xml
-                if (!File.Exists(components))
+                if ( ! File.Exists(components))
                 {
                     updateConf = true;
                     components = Path.Combine(GetNovaRoot(), Global.ComponentFileName);
@@ -288,7 +288,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Find a folder. Use this if you are going to store something there. If you intend to open or use a file, use GetFile() instead.
+        /// Find a folder. Use this if you are going to store, or look for something there. If you intend to open or use a file, use GetFile() instead.
         /// </summary>
         /// <param name="configKey">The config file key we would like the folder path to be stored in.</param>
         /// <param name="defaultFolder">The default folder name, as in NovaRoot\defaultFolder, to use if the key is not set.</param>

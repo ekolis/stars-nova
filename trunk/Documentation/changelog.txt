@@ -1,55 +1,88 @@
-Things have recently kicked into high gear at the Stars! Nova project with a couple of new and very active developers getting involved. Henning and Bernado have joined the team and re-inspired some of the existing developers to add further contributions. Although we still have a lot of work to do to get to version 0.5, we hope to get a minor release out as soon as some high priority bugs get squashed. 
+Launcher & New Game Wizard:
+ - Updated the web link.
+ - New games are now created in their own folder.
+ - Major rebuild of the way stars are positioned on the map (density based star generation system). 
+ - Options added to the new game wizard for controlling star positioning.
+ - Races are renamed if two of the same name are selected.
+ - Added a starting scout ship and colony ship.
+ - HE starts with three mini colony ships.
+ - Starting population is now 25k / 100k for accelerated.
+ - Removed all use of windows registry values.
 
-Here is a summary of the work that has been going on since my last update:
+Console/Server:
+ - Fleets now have the correct amount of armor.
+ - Corrected planet growth calculations.
+ - Colonization now works!
+ - Can build starbases on new planets.
+ - Major revision of the fleet combat engine. Many bug fixes. Fleet combat is playable but not yet consistent with Stars!
+ - Minor improvements to turn order, still a long way from the proper Stars! turn order.
+ - Invasion now works.
+ - Ship's without scanner's no longer scan planets.
 
-A lot of general code clean up and improvements to the underlying code architecture.
+Client GUI:
+ - The research dialog now reports the correct number of resources required to reach the next tech level.
+ - Significant rework of research calculations.
+ - Significant rework of links between the map and the planet/fleet detail and summary displays.
+ - Added tooltips to the Fleet Detail control to display damage / armor remaining.
+ - Can delete ship designs.
+ - Can merge/split fleets! Still have some fuel glitches with merge/split.
+ - Added some more information to the battle viewer. Some of this is just for debugging and will be cleaned up later.
+ - Battle viewer now shows the step when weapons fire (in text).
+ - Population on the planet is now updated after beaming colonists up.
+ - Can build defenses.
+ - Major rebuild of the planetary production system.
+ - Added scanning.
+ - Added more messages.
+ - Added the ability to rename a fleet, however the new paint washes off quickly.
+ - Arrow keys now scroll the map.
+ - Added (working) cargo (and fuel) transfer dialog.
+ - Attempting to invade an empty planet now messages 'send a colony ship' to player.
+ - Added more ship icons!
+ - Added context menu selection (right click on map) for fleets/planets. (Can still cycle through them with left click.)
+ - Added mouse wheel zoom control.
+ - Improved map drawing, scrolling and zooming.
+ - Add a plasma background to the star map (can be turned off with the Bkg button above the map).
+ - Suposedly added a tooltip for planet population, but Dan can't find it. (Aeglos Rev# 506?)
+ - Fixed the warp speed slider.
+ - It's now possible to remove some items from a ship design (but not the last one). 
 
-New Game
-* Starting star base and ships added.
-- Fixed a runtime exception which occurred when starting a new game.
+Race Designer:
+ - Leftover points are now used instead of wasted.
+ - Some improvements to cost calculations - not quite there yet.
+ - Added immunities (at a fixed cost).
 
-Race Designer
-* Immunities introduced, but at a constant 841 point cost.
-- Research costs modifier now properly increase or decrease advantage points.
-- Changing the colonist growth rate now changes the point cost.
-- Advantage points are no longer affected by a previously loaded race.
+AI:
+ - Now conducts research.
+ - Now builds only as many factories as can be operated.
+ - Now builds 'sensible' mines.
+ - Now builds defenses.
+ - Added a lock file to prevent the AI from trying to do its turn twice or more.
 
-Console
-* Added starting star base and ships.
-- Research is now processed server side to prevent client exploits.
-- Race trait processing moved server side.
-- Fixed a crash if no stars have allocated research resources.
-- Made some adjustments to the turn order to be closer to the Stars! turn order for production, pop-growth, mining, resource production.
-- Fixed an issue where scrapping a ship overwrote the star's resources instead of adding to them.
-- Updated message and planetary scanners after researching new one.
-- Fixed an issue which caused an upgraded space station to disappear after one turn.
-- Colonisers now stay scrapped rather than reappearing after one turn.
-- Fixed an issue that caused an error message when more than one race tried to open its turn on the same computer (eg AI and Human).
-- Fixed an issue that caused a planet taken by invasion not to change owner.
+Common/Core:
+ - Fixed lots of game crash issues. Game should be a _lot_ more stable.
+ - Fleets can now hold more fuel / cargo than one ship. Still some issues filling up with fuel.
+ - All persistence files are now in human readable (with effort) XML format.
+ - File encription is currently disabled for debugging.
+ - Nova can now find all of the files it uses.
+ - Implemented a system of issuing orders from the client to the server, which will enable easier checking of their validity.
+ - Complete rework of the waypoint system.
+ - Can now delete selected waypoints & tasks (del / backspace).
+ - More integration of the original Nova applications into one program.
+ - Added the Super Fuel Transport hull. Fixed some other hull designs.
+ - Fixed research / tech advancement.
+ - Partial implementation of cheep engines LRT (but they are not cheap yet, just nasty).
+ - Player's home world no longer disappears.
+ - Player's now start with a starbase, and it doesn't evaporate.
+ - Player relations now default to enemy in two player game.
+ - Added original Stars! gravity values.
+ - Corrected Trans-Galactic drive fuel useage.
+ - Colony ships with no colonization module can no longer colonize.
 
-GUI
-* Added the ability to use different ship icons for ship designs.
-* Fixed various issues that caused the StarMap to flicker and/or leak memory, most noticeable under Linux/Mono.
-* Added the option of toggling the StarMap background, and a toggling a visible rectangle box marking the Universe borders.
-* Stars! gravity values are now used.
-* Added a planet population tooltip (on mouse down) which gives additional details.
-- StarMap now properly shows waypoints after adding them. Way-point list also updates on the fly for new waypoints added.
-- Stars can now be made to contribute only leftover resources to research via the production dialog.
-- PlanetDetail updates dynamically for research budget changes.
-- Planets now contribute leftover resources to research.
-- Fixed StarMap background to be properly aligned and match game universe size.
-- Created a new ResourcesOnHandDisplay control which extends ResourceDisplay, for specifically showing planetary resources with extended information.
-- Corrected research allocation written to orders file.
-- Resources on hand now matches resources available in research pane.
-- Fixed an issue which cause the time to complete research to become garbage when no resources were assigned.
-- Ships can now be deleted without crashing the program.
-- Fixed an issue that would cause the GUI to lock up when adding large build orders when limited resources were available.
-- Added a dashed line at 100% fuel on engine fuel graph.
-- Fixed an issue that caused the Nova GUI to crash when the first game message was posted with a null Type.
-- Planet population is now updated when loading colonists.
+Component Editor:
+ - Now calculates fastest free warp speed on the fly.
+ 
+Other:
+ - Added a file "command-line.txt" that lists the command line useage for Nova.exe
 
-Component Editor
-- Corrected fuel usage for Trans-Galactic drive.
 
-Tools
-- Removed GameFileInflator project as the gzip decompression functionality is available in many free applications (7-zip, gzip, etc.).
+

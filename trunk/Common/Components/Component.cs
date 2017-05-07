@@ -404,15 +404,16 @@ namespace Nova.Common.Components
             // Image - convert the ImageFile to a relative path, so this program runs in other locations
             XmlElement xmlelImage = xmldoc.CreateElement("Image");
             string graphicsPath = FileSearcher.GetGraphicsPath();
-            if (graphicsPath != null)
+            try
             {
                 XmlText xmltxtImage = xmldoc.CreateTextNode(Global.EvaluateRelativePath(FileSearcher.GetGraphicsPath(), this.ImageFile).Replace(Path.DirectorySeparatorChar, '/')); // Paths are always stored in external files using forward slashes.
                 xmlelImage.AppendChild(xmltxtImage);
                 xmlelComponent.AppendChild(xmlelImage);
             }
-            else
+            catch (Exception)
             {
-                // Nova! does not know where the graphics are, they probably have not been loaded. The image will not be saved.
+                // could be a null reference (graphicsPath == null) or a file IO Exception
+                // Nova! does not know where the graphics are, they probably have not been loaded. The image location will not be saved.
             }
 
             // Properties
