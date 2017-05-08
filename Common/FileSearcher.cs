@@ -99,10 +99,18 @@ namespace Nova.Common
                 }
             }
 
-            if (!File.Exists(settings))
+            if ( ! File.Exists(settings))
             {
                 // if all else fails, ask the user
                 settings = AskUserForFile("Your Game Name.settings");
+                // save it for later
+                if (File.Exists(settings))
+                {
+                    using (Config conf = new Config())
+                    {
+                        conf[Global.SettingsKey] = settings;
+                    }
+                }
             }
 
             return settings;
