@@ -150,6 +150,7 @@ namespace Nova.Server
             
             CleanupOrders();
         }
+        
 
         protected virtual void WriteIntel()
         {
