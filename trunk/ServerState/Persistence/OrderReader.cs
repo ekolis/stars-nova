@@ -130,6 +130,15 @@ namespace Nova.Server
                                 case "production":
                                     commands.Push(new ProductionCommand(subnode));
                                     break;
+                                    
+                                case "renamefleet":
+                                    commands.Push(new RenameFleetCommand(subnode));
+                                    break;
+            
+                                default:
+                                    Report.Error("The command \"" + subnode.Attributes["Type"].Value.ToString() + "\" was not recognised by the console.");
+                                    Report.Debug("Unrecognised Command in OrderReader.cs ReadPlayerTurn().");
+                                    break;
                             }
                             subnode = subnode.NextSibling;
                         }

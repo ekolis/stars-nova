@@ -114,6 +114,7 @@
     <Compile Include="Commands\ProductionCommand.cs" />
     <Compile Include="Commands\DesignCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\RenameFleetCommand.cs" />
     <Compile Include="Commands\ResearchCommand.cs" />
     <Compile Include="Commands\WaypointCommand.cs" />
     <Compile Include="Converters\HullModuleConverter.cs" />

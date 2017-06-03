@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace Nova.WinForms.Gui.Dialogs
+﻿namespace Nova.WinForms.Gui.Dialogs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Windows.Forms;
+
     public partial class RenameFleetDialog : Form
     {
         public RenameFleetDialog()

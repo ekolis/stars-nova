@@ -38,8 +38,8 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetDetail : System.Windows.Forms.UserControl
     {
-        private ClientData clientData;
         private readonly EmpireData empireState;
+        private ClientData clientData;
         private Stack<ICommand> commands;
 
         private Fleet selectedFleet;
@@ -127,7 +127,7 @@ namespace Nova.WinForms.Gui
                             (lastCommand as WaypointCommand).Waypoint.Position == editedWaypoint.Position &&
                             (lastCommand as WaypointCommand).Mode != CommandMode.Add)
                         {
-                            //Discard it.
+                            // Discard it.
                             commands.Pop();
                         }
                     }
@@ -178,13 +178,11 @@ namespace Nova.WinForms.Gui
                 }
 
                 meterCargo.CargoLevels = selectedFleet.Cargo;
-
             }
             catch
             {
                 Report.Debug("FleetDetail.cs : CargoButton_Click() - Failed to open cargo dialog.");
             }
-                
         }
         
         /// <Summary>
@@ -299,7 +297,7 @@ namespace Nova.WinForms.Gui
                         (lastCommand as WaypointCommand).Waypoint.Position == editedWaypoint.Position &&
                         (lastCommand as WaypointCommand).Mode != CommandMode.Add)
                     {
-                        //Discard it.
+                        // Discard it.
                         commands.Pop();
                     }
                 }
@@ -401,9 +399,9 @@ namespace Nova.WinForms.Gui
 
                                 * time;
 
-                legDistance.Text = String.Format("{0}", distance.ToString("f1"));
-                legFuel.Text = String.Format("{0}", fuelUsed.ToString("f1"));
-                legTime.Text = String.Format("{0}", time.ToString("f1"));
+                legDistance.Text = string.Format("{0}", distance.ToString("f1"));
+                legFuel.Text = string.Format("{0}", fuelUsed.ToString("f1"));
+                legTime.Text = string.Format("{0}", time.ToString("f1"));
             }
             else
             {
@@ -593,7 +591,7 @@ namespace Nova.WinForms.Gui
         /// <summary>
         /// Raise the Split/Merge fleet dialog.
         /// </summary>
-        /// <param name="otherFleet">The second fleet to merge with or split into (may be null)</param>
+        /// <param name="otherFleet">The second fleet to merge with or split into (may be null).</param>
         private void DoSplitMerge(Fleet otherFleet = null)
         {
             using (SplitFleetDialog splitFleet = new SplitFleetDialog())
@@ -605,9 +603,10 @@ namespace Nova.WinForms.Gui
                     int index = wayPoints.SelectedIndices[0];            
                     Waypoint waypoint = new Waypoint(selectedFleet.Waypoints[index]);
                     
-                    waypoint.Task = new SplitMergeTask(splitFleet.SourceComposition,                                                  
-                                                  splitFleet.OtherComposition,
-                                                  (otherFleet == null) ? 0 : otherFleet.Key);
+                    waypoint.Task = new SplitMergeTask(
+                        splitFleet.SourceComposition,                                                  
+                        splitFleet.OtherComposition,
+                        (otherFleet == null) ? 0 : otherFleet.Key);
                     
                     WaypointCommand command = new WaypointCommand(CommandMode.Add, selectedFleet.Key, index);
                     command.Waypoint = waypoint;
@@ -702,10 +701,18 @@ namespace Nova.WinForms.Gui
                 dia.FleetName = selectedFleet.Name;
                 if (dia.ShowDialog() == DialogResult.OK)
                 {
+                    // rename the fleet withing the GUI imediately
                     selectedFleet.Name = dia.FleetName;
 
+                    // create a command to rename the fleet permanantly
+                    RenameFleetCommand renameCommand = new RenameFleetCommand(selectedFleet, dia.FleetName);
+                    commands.Push(renameCommand);
+
+                    // Refresh the fleet detail.
                     Invalidate();
-                    //TODO (priority 2) - Implement a command for this.
+                    // Signal the change - rename the fleet in the top left selection panel. 
+                    // FIXME (priority 2) - renaming the fleet should also imediately rename the fleet in the right click context menu on the map.
+                    OnFleetSelectionChanged(new SelectionArgs(selectedFleet));
                 }
             }
         }
@@ -715,7 +722,8 @@ namespace Nova.WinForms.Gui
         {
             SetFleetDetails(selectedFleet);
             
-            if (FleetSelectionChanged != null) {
+            if (FleetSelectionChanged != null) 
+            {
                 FleetSelectionChanged(this, e);
             }
         }        
@@ -730,7 +738,8 @@ namespace Nova.WinForms.Gui
         
         protected virtual void OnStarmapChanged(EventArgs e)
         {
-            if (StarmapChanged != null) {
+            if (StarmapChanged != null) 
+            {
                 StarmapChanged(this, e);
             }
         }

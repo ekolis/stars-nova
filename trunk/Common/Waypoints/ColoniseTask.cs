@@ -1,5 +1,4 @@
-﻿using System.Linq;
-#region Copyright Notice
+﻿#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
 // Copyright (C) 2009-2012 The Stars-Nova Project
@@ -25,6 +24,7 @@ namespace Nova.Common.Waypoints
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Xml;
     
     using Nova.Common;
@@ -38,23 +38,28 @@ namespace Nova.Common.Waypoints
         
         public List<Message> Messages
         {
-            get{ return messages;}
+            get
+            { 
+                return messages;
+            }
         }
         
         public string Name
         {
-            get{return "Colonise";}
+            get
+            {
+                return "Colonise";
+            }
         }
         
         public ColoniseTask()
         {
-             
         }
         
         /// <summary>
         /// Load: Read in a ColoniseTask from and XmlNode representation.
         /// </summary>
-        /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
+        /// <param name="node">An <see cref="XmlNode"/> containing a representation of a <see cref="ProductionUnit"/>.</param>
         public ColoniseTask(XmlNode node)
         {
             if (node == null)

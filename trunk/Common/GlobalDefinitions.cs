@@ -27,13 +27,13 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.IO;
-using System.Xml;
-
 namespace Nova.Common
 {
-   public static class Global
+    using System;
+    using System.IO;
+    using System.Xml;
+
+    public static class Global
    {
        public const string NovaWebSite = "https://sourceforge.net/p/stars-nova/wiki/Home/";
 
@@ -216,10 +216,10 @@ namespace Nova.Common
        }
 
        /// <summary>
-       /// Add the local directory seperator character (\ or /) to a path, if required.
+       /// Add the local directory separator character (\ or /) to a path, if required.
        /// </summary>
        /// <param name="path">A file path. Must not be null.</param>
-       /// <returns>Returns path + the (local) directory seperater character added to the end, if required.</returns>
+       /// <returns>Returns path + the (local) directory separator character added to the end, if required.</returns>
        private static string AddDirSeparator(string path)
        {
            if (!path.EndsWith(Path.DirectorySeparatorChar + ""))

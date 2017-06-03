@@ -249,7 +249,7 @@ namespace Nova.Server
         /// Process the elapse of one year (turn) for a fleet.
         /// </summary>
         /// <param name="fleet">The fleet to process a turn for.</param>
-        /// <returns>Always returns false.</returns>
+        /// <returns>True if the fleet was destroyed.</returns>
         private bool ProcessFleet(Fleet fleet)
         {
             if (fleet == null)
@@ -277,7 +277,6 @@ namespace Nova.Server
                 serverState.AllMessages.Add(message);
             }
 
-            // ??? (priority 4) - why does this always return false?
             return false;
         }
 

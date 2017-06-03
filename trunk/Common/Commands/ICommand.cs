@@ -28,6 +28,9 @@ namespace Nova.Common.Commands
     /// <summary>
     /// Description of ICommand.
     /// </summary>
+    /// <remarks>
+    /// Note that OrderReader.cs ReadPlayersTurn() must be modified when new commands are added to recognize the command type in the xml.
+    /// </remarks>
     public interface ICommand
     {
         bool IsValid(EmpireData empire);

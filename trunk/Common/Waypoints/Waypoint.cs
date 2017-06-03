@@ -35,10 +35,29 @@ namespace Nova.Common.Waypoints
     /// </summary>
     public class Waypoint
     {
-        public NovaPoint Position {get; set;}
-        public int WarpFactor {get; set;}
-        public IWaypointTask Task {get; set;}
-        public string Destination {get; set;}
+        public NovaPoint Position 
+        {
+            get; 
+            set;
+        }
+
+        public int WarpFactor 
+        {
+            get; 
+            set;
+        }
+
+        public IWaypointTask Task 
+        {
+            get; 
+            set;
+        }
+
+        public string Destination 
+        {
+            get; 
+            set;
+        }
 
         
         /// <summary>
@@ -54,7 +73,7 @@ namespace Nova.Common.Waypoints
         /// Copies everything about another Waypoint, except the Task.
         /// Used for editing purposes.
         /// </summary>
-        /// <param name="other">Waypoint to semi clone</param>
+        /// <param name="other">Waypoint to semi clone.</param>
         public Waypoint(Waypoint other)
         {
             Position = other.Position;
@@ -112,7 +131,7 @@ namespace Nova.Common.Waypoints
             
             taskName.Replace(" ", "");
             
-            switch(taskName.ToLower())
+            switch (taskName.ToLower())
             {
                 case "cargotask":
                     Task = new CargoTask(node);

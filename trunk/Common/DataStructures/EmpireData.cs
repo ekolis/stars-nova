@@ -40,7 +40,7 @@ namespace Nova.Common
  
     /// <summary>
     /// Race specific data that may change from year-to-year that must be passed to
-    /// the Nova console. 
+    /// the Nova console/server. 
     /// </summary>
     [Serializable]
     public class EmpireData
