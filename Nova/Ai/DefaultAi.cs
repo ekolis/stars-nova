@@ -38,7 +38,7 @@ namespace Nova.Ai
 
         /// <summary>
         /// This is the entry point to the AI proper. 
-        /// Currently this does not use anything recognised by Computer Science as AI,
+        /// Currently this does not use anything recognized by Computer Science as AI,
         /// just functional programming to complete a list of tasks.
         /// </summary>
         public override void DoMove()
@@ -183,8 +183,6 @@ namespace Nova.Ai
 
             if (colonyShipsFleets.Count > 0)
             {
-
-
                 Fleet colonyFleet = colonyShipsFleets[0];
                 // check if there is any good star to colonize
                 foreach (StarIntel report in turnData.EmpireState.StarReports.Values)
@@ -235,7 +233,6 @@ namespace Nova.Ai
                             {
                                 // TODO (priority 5) - go get some colonists
                             }
-
                         }
 
                         SendFleet(report, colonyFleet, new ColoniseTask());

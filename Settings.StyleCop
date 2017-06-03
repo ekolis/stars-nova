@@ -4,6 +4,8 @@
       <Value>advfaq</Value>
       <Value>alphanum</Value>
       <Value>Cloneable</Value>
+      <Value>Colonisation</Value>
+      <Value>Colonise</Value>
       <Value>concentration</Value>
       <Value>conf</Value>
       <Value>Hab</Value>
@@ -303,6 +305,7 @@
           <Value>r</Value>
           <Value>sr</Value>
           <Value>up</Value>
+          <Value>wp</Value>
           <Value>x</Value>
           <Value>y</Value>
           <Value>z</Value>

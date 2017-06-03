@@ -165,7 +165,7 @@ namespace Nova.Common.Commands
         /// Save: Serialize this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Command.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelCom = xmldoc.CreateElement("Command");
