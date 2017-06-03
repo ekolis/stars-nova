@@ -343,7 +343,7 @@ namespace Nova.WinForms.Console
 
             // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
             serverState.GameFolder = System.IO.Path.GetDirectoryName(serverState.StatePathName);
-            folderPath.Text = serverState.GameFolder;            
+            folderPath.Text = serverState.GameFolder;
 
             if (File.Exists(serverState.StatePathName))
             {
@@ -359,6 +359,11 @@ namespace Nova.WinForms.Console
                 orderReader.ReadOrders();
                 SetPlayerList();
                 Invalidate();
+                // remember which game we are playing
+                using (Config conf = new Config())
+                {
+                    conf[Global.ServerStateKey] = serverState.StatePathName;
+                }
             }
             else
             {
