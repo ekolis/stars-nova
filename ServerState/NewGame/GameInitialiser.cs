@@ -140,7 +140,6 @@ namespace Nova.Server.NewGame
                         wolf.EmpireReports[lamb.Id].Relation = PlayerRelation.Enemy;
                     }
                 }
-
             }
         }
 

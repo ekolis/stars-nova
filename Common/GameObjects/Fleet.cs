@@ -606,7 +606,24 @@ namespace Nova.Common
 
             return fuelConsumption;
         }
-        
+
+        /// <summary>
+        /// Calculate the fuel required for this fleet to reach a given destination.
+        /// </summary>
+        /// <param name="warpFactor">The warp speed to travel at.</param>
+        /// <param name="race">The race operating the fleet.</param>
+        /// <param name="dest">The destination as a <see cref="NovaPoint"/>.</param>
+        /// <returns>The estimated fuel consumption.</returns>
+        /// <remarks>
+        /// FIXME (priority 4) - probably has rounding errors.
+        /// FIXME (priority 3) - should this account for final year slow down?.
+        /// </remarks>
+        public int GetFuelRequired(int warpFactor, Race race, NovaPoint dest)
+        {
+            double fuelConsumption = FuelConsumption(warpFactor, race);
+            double time = PointUtilities.DistanceSquare(this.Position, dest) / (warpFactor * warpFactor * warpFactor * warpFactor);
+            return (int)(time * fuelConsumption);
+        }
 
         /// <summary>
         /// Load: initializing constructor to load a fleet from an XmlNode (save file).

@@ -19,12 +19,14 @@
       <Value>Mini-Coloniser</Value>
       <Value>obj</Value>
       <Value>recursing</Value>
+      <Value>refuelling</Value>
       <Value>rhs</Value>
       <Value>starbase</Value>
       <Value>starsfaq</Value>
       <Value>terraform</Value>
       <Value>Terraformers</Value>
       <Value>Ts</Value>
+      <Value>xmldoc</Value>
       <Value>xmlel</Value>
     </CollectionProperty>
   </GlobalSettings>
