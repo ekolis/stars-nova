@@ -386,6 +386,7 @@ namespace Nova.Common.Components
 
         /// <summary>
         /// Get if this is a starbase that can provide unlimited fuel.
+        /// TODO (priority 4) - Fuel transports can refuel too. So can ships with an anti-mater generator (IT component?).
         /// </summary>
         public bool CanRefuel
         {

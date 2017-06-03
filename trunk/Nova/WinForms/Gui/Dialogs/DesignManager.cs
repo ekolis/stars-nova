@@ -93,7 +93,7 @@ namespace Nova.WinForms.Gui
             ComboBoxItem<int> item = this.comboDesignOwner.SelectedItem as ComboBoxItem<int>;
             if (item != null)
             {
-                return (ushort)(item.Tag);
+                return (ushort)item.Tag;
             }
             return 0;
         }
@@ -196,7 +196,6 @@ Are you sure you want to do this?";
             // fleets that are being displayed.
 
             OnStarmapChanged(EventArgs.Empty);
-
         }
 
         /// <Summary>
@@ -339,7 +338,8 @@ Are you sure you want to do this?";
         
         protected virtual void OnStarmapChanged(EventArgs e)
         {
-            if (StarmapChanged != null) {
+            if (StarmapChanged != null) 
+            {
                 StarmapChanged(this, e);
             }
         }

@@ -30,11 +30,17 @@ namespace Nova.Ai
     using Nova.Common;
     using Nova.Common.Commands;
     using Nova.Common.Components;
+    using Nova.Common.DataStructures;
     using Nova.Common.Waypoints;
 
     public class DefaultAi : AbstractAI
     {
         private Intel turnData;
+        private FleetList fuelStations = null;
+
+        private const int EarlyScouts = 5;
+        private const int LowProduction = 100;
+
 
         /// <summary>
         /// This is the entry point to the AI proper. 
@@ -56,7 +62,7 @@ namespace Nova.Ai
         /// </summary>
         private void HandleProduction()
         {
-            // Clear the current manufacturing queue (except for partially built ships/starbases.
+            // Clear the current manufacturing queue (except for partially built ships/starbases).
             Queue<ProductionCommand> clearProductionList = new Queue<ProductionCommand>();
             foreach (Star star in clientState.EmpireState.OwnedStars.Values)
             {
@@ -131,6 +137,26 @@ namespace Nova.Ai
                             clientState.Commands.Push(defenseCommand);
                         }
                     }
+
+                    // build ships - for now, build some additional scouts after the first few turns of factory building
+                    if (star.GetFutureResourceRate(0) > LowProduction && clientState.EmpireState.OwnedFleets.Count < EarlyScouts)
+                    {
+                        ShipDesign scoutDesign = null;
+                        foreach (ShipDesign design in clientState.EmpireState.Designs.Values)
+                        {
+                            if (design.Name.Contains("Scout"))
+                            {
+                                scoutDesign = design;  
+                            }
+                        }
+                        ProductionOrder scoutOrder = new ProductionOrder(1, new ShipProductionUnit(scoutDesign), false);
+                        ProductionCommand scoutCommand = new ProductionCommand(CommandMode.Add, scoutOrder, star.Key);
+                        if (scoutCommand.IsValid(clientState.EmpireState))
+                        {
+                            scoutCommand.ApplyToState(clientState.EmpireState);
+                                clientState.Commands.Push(scoutCommand);
+                        }
+                    }
                 }
             }
         }
@@ -140,7 +166,7 @@ namespace Nova.Ai
             List<Fleet> scoutFleets = new List<Fleet>();
             foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
-                if (fleet.Name.Contains("Scout") == true && fleet.Waypoints.Count == 1)
+                if (fleet.Name.Contains("Scout") == true)
                 {
                     scoutFleets.Add(fleet);
                 }
@@ -160,11 +186,44 @@ namespace Nova.Ai
             {
                 foreach (Fleet fleet in scoutFleets)
                 {
-                    StarIntel s = CloesestStar(fleet, excludedStars);
-                    if (s != null)
+                    StarIntel starToScout = CloesestStar(fleet, excludedStars);
+
+                    if (starToScout != null)
                     {
-                        excludedStars.Add(s);
-                        SendFleet(s, fleet, new NoTask());
+                        // Do we need fuel first?
+                        double fuelRequired = 0.0;
+                        Fleet nearestFuel = ClosestFuel(fleet);
+                        if (!fleet.CanRefuel)
+                        {
+                            // Can not make fuel, so how much fuel is required to scout and then refuel?
+                            if (nearestFuel != null)
+                            {
+                                int bestSpeed = 9; // FIXME (priority 4) - what speed to scout at?
+                                double speedSquared = bestSpeed * bestSpeed * bestSpeed * bestSpeed;
+                                double fuelConsumption = fleet.FuelConsumption(bestSpeed, turnData.EmpireState.Race);
+                                double distanceSquared = PointUtilities.DistanceSquare(fleet.Position, starToScout.Position); // to the stars
+                                distanceSquared += PointUtilities.DistanceSquare(starToScout.Position, nearestFuel.Position); // and back to fuel (minimum)
+                                double time = distanceSquared / speedSquared;
+                                fuelRequired = time * fuelConsumption;
+                            }
+                            else
+                            {
+                                // OMG there is no fuel! - just keep scouting then?
+                            }
+                        }
+
+
+                        if (fleet.FuelAvailable > fuelRequired)
+                        {
+                            // Fuel is no problem
+                            excludedStars.Add(starToScout);
+                            SendFleet(starToScout, fleet, new NoTask());
+                        }
+                        else
+                        {
+                            // Refuel before scouting further
+                            SendFleet(nearestFuel, fleet, new NoTask());
+                        }
                     }
                 }
             }
@@ -270,11 +329,95 @@ namespace Nova.Ai
             }
             return target;
         }
-        
+
+        /// <summary>
+        /// Return the closest refuelling point.
+        /// </summary>
+        /// <param name="fleet">The fleet looking for fuel.</param>
+        /// <returns>The closest fleet that can refuel (normally a star base).</returns>
+        private Fleet ClosestFuel(Fleet customer)
+        {
+            if (customer == null)
+            {
+                return null;
+            }
+
+            // initialise the list of fuel stations, if null.
+            if (fuelStations == null)
+            {
+                fuelStations = new FleetList();
+                foreach (Fleet pump in clientState.EmpireState.OwnedFleets.Values)
+                {
+                    if (pump.CanRefuel)
+                    {
+                        fuelStations.Add(pump);
+                    }
+                }
+            }
+
+            // if there are still no fuel stations, bug out
+            if (fuelStations.Count == 0)
+            {
+                return null;
+            }
+
+            Fleet closestFuelSoFar = null;
+            double minRefulerDistance = double.MaxValue;
+
+            foreach (Fleet pump in fuelStations.Values)
+            {
+                double distSquare = PointUtilities.DistanceSquare(pump.Position, customer.Position);
+                if (distSquare < minRefulerDistance)
+                {
+                    minRefulerDistance = distSquare;
+                    closestFuelSoFar = pump;
+                }
+            }
+
+            return closestFuelSoFar;
+        }
+
+        private void SendFleet(NovaPoint position, Fleet fleet, IWaypointTask task)
+        {
+            Waypoint w = new Waypoint();
+            w.Position = position;
+            w.Destination = position.ToString();
+            w.Task = task;
+
+            WaypointCommand command = new WaypointCommand(CommandMode.Add, w, fleet.Key);
+            command.ApplyToState(clientState.EmpireState);
+            clientState.Commands.Push(command);
+        }
+
+        private void SendFleet(FleetIntel target, Fleet fleet, IWaypointTask task)
+        {
+            Waypoint w = new Waypoint();
+            w.Position = target.Position;
+            w.Destination = target.Name;
+            w.Task = task;
+
+            WaypointCommand command = new WaypointCommand(CommandMode.Add, w, fleet.Key);
+            command.ApplyToState(clientState.EmpireState);
+            clientState.Commands.Push(command);
+        }
+
+        private void SendFleet(Fleet target, Fleet fleet, IWaypointTask task)
+        {
+            Waypoint w = new Waypoint();
+            w.Position = target.Position;
+            w.Destination = target.Name;
+            w.Task = task;
+
+            WaypointCommand command = new WaypointCommand(CommandMode.Add, w, fleet.Key);
+            command.ApplyToState(clientState.EmpireState);
+            clientState.Commands.Push(command);
+        }
+
         private void SendFleet(StarIntel star, Fleet fleet, IWaypointTask task)
         {
             Waypoint w = new Waypoint();
             w.Position = star.Position;
+            
             w.Destination = star.Name;
             w.Task = task;
             

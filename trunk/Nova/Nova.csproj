@@ -413,9 +413,6 @@
     <EmbeddedResource Include="WinForms\Gui\Dialogs\RenameFleetDialog.resx">
       <DependentUpon>RenameFleetDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\Launcher\NovaLauncher.resx">
-      <DependentUpon>NovaLauncher.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\NovaConsole.resx">
       <DependentUpon>NovaConsole.cs</DependentUpon>
       <SubType>Designer</SubType>

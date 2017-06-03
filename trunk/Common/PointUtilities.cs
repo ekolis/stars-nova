@@ -36,7 +36,7 @@ namespace Nova.Common
     /// Some general utilities for handling points.
     /// </summary>
     /// <remarks>
-    /// TODO (priority 4) - should these be merged with NovaPoint? - Dan 28 Nova 10
+    /// TODO (priority 4) - should these be merged with NovaPoint? - Dan 28 Nova 10.
     /// </remarks>
     public static class PointUtilities
     {
@@ -104,9 +104,9 @@ namespace Nova.Common
             double y1 = p1.Y;
             double y2 = p2.Y;
 
-            double f1 = Math.Pow((x2 - x1), 2);
-            double f2 = Math.Pow((y2 - y1), 2);
-            double f3 = Math.Pow((r2 + r1), 2);
+            double f1 = Math.Pow(x2 - x1, 2);
+            double f2 = Math.Pow(y2 - y1, 2);
+            double f3 = Math.Pow(r2 + r1, 2);
 
             if ((f1 + f2) < f3)
             {
@@ -150,7 +150,7 @@ namespace Nova.Common
         {
             double xo = start.X - end.X;
             double yo = start.Y - end.Y;
-            double distance = Math.Sqrt(((xo * xo) + (yo * yo)));
+            double distance = Math.Sqrt((xo * xo) + (yo * yo));
 
             return distance;
         }
@@ -158,7 +158,7 @@ namespace Nova.Common
         /// <summary>
         /// Find the square of the distance between two points. 
         /// <para>
-        /// This is much faster than finding the actual distance (as it avoids a sqare root calculation) and just as useful when making distance comparisons.
+        /// This is much faster than finding the actual distance (as it avoids a square root calculation) and just as useful when making distance comparisons.
         /// </para>
         /// </summary>
         /// <param name="start">A point.</param>
@@ -219,7 +219,7 @@ namespace Nova.Common
         /// Ships on the battle board always move one square at a time.
         /// </remarks>
         /// <param name="from">A starting position.</param>
-        /// <param name="to">The destingation position.</param>
+        /// <param name="to">The destination position.</param>
         /// <returns>A position 1 square closer to the destination (diagonal movement counts as 1).</returns>
         public static NovaPoint BattleMoveTo(NovaPoint from, NovaPoint to)
         {

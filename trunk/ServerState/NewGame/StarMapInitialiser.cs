@@ -30,7 +30,7 @@ namespace Nova.Server.NewGame
 
     /// <summary>
     /// This object contains static methods to initialize the star map. 
-    /// Note that SarsMapGenerator handles positioning of the stars.
+    /// Note that StarsMapGenerator handles positioning of the stars.
     /// </summary>
     public class StarMapinitializer
     {
@@ -96,7 +96,7 @@ namespace Nova.Server.NewGame
         
 
         /// <summary>
-        /// initialize the general game data for each player. E,g, picking a home
+        /// Initialize the general game data for each player. E,g, picking a home.
         /// planet, allocating initial resources, etc.
         /// </summary>
         public void GeneratePlayerAssets()
@@ -107,7 +107,7 @@ namespace Nova.Server.NewGame
                 
                 PrepareDesigns(empire, player);
                 PrepareResources();
-                initializeHomeStar(empire, player);
+                InitializeHomeStar(empire, player);
             }
 
             Nova.Common.Message welcome = new Nova.Common.Message();
@@ -119,7 +119,7 @@ namespace Nova.Server.NewGame
   
         
         /// <summary>
-        /// initialize some starting designs.
+        /// Initialize some starting designs.
         /// </summary>
         /// <param name="race">The <see cref="Race"/> of the player being initialized.</param>
         /// <param name="player">The player being initialized.</param>
@@ -317,12 +317,12 @@ namespace Nova.Server.NewGame
         
         /// <summary>
         /// Allocate a "home" star system for each player giving it some colonists and
-        /// initial resources. We use the space allocater helper class to ensure that
+        /// initial resources. We use the space allocator helper class to ensure that
         /// the home systems for each race are not too close together.
         /// </summary>
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
-        private void initializeHomeStar(EmpireData empire, string player)
+        private void InitializeHomeStar(EmpireData empire, string player)
         {
             if (map.Homeworlds.Count > 0)
             {
@@ -384,7 +384,7 @@ namespace Nova.Server.NewGame
                 {
                     ShipToken cs = new ShipToken(colonyShipDesign, 1);
                     Fleet fleet = new Fleet(cs, star, empire.GetNextFleetKey());                    
-                    fleet.Name = String.Format("{0} #{1}", colonyShipDesign.Name, i);                    
+                    fleet.Name = string.Format("{0} #{1}", colonyShipDesign.Name, i);                    
                     empire.AddOrUpdateFleet(fleet);
                 }
             }
@@ -414,7 +414,7 @@ namespace Nova.Server.NewGame
             
             ShipToken starbase = new ShipToken(starbaseDesign, 1);
             Fleet starbaseFleet = new Fleet(starbase, star, empire.GetNextFleetKey());            
-            starbaseFleet.Name = star.Name + " Starbase";;
+            starbaseFleet.Name = star.Name + " Starbase";
             star.Starbase = starbaseFleet;
             empire.AddOrUpdateFleet(starbaseFleet);
         }
