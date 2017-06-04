@@ -54,8 +54,8 @@ namespace Nova.WinForms.Launcher
             AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
             int buildNumber = assemblyName.Version.Build;
             int revision = assemblyName.Version.Revision;
-            //DateTime start = new DateTime(2000, 1, 1);
-            //DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
+            // DateTime start = new DateTime(2000, 1, 1);
+            // DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
 
             versionNumber.Text = string.Format("{0}  -  {1}", productVersion, DateTime.Now.ToString("MMM dd yyyy"));
 
@@ -196,7 +196,6 @@ namespace Nova.WinForms.Launcher
             {
                 Application.Exit();
             }
-           
         }
 
 
