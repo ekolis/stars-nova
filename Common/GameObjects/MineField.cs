@@ -29,11 +29,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Xml;
+
     [Serializable]
     public class Minefield : Mappable
     {
@@ -50,7 +50,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Determine the spacial radius of a Minefield. 
+        /// Determine the spatial radius of a Minefield. 
         /// </summary>
         public int Radius
         {
