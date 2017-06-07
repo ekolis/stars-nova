@@ -48,7 +48,10 @@ namespace Nova.Common
         /// </summary>
         public long Key
         {
-            get {return Design.Key;}
+            get 
+            {
+                return Design.Key;
+            }
         }
         
         /// <summary>
@@ -68,14 +71,14 @@ namespace Nova.Common
         {
             get 
             { 
-                return 100 * (this.Design.Armor * this.Quantity - this.Armor) / (this.Design.Armor * this.Quantity); 
+                return 100 * ((this.Design.Armor * this.Quantity) - this.Armor) / (this.Design.Armor * this.Quantity); 
             }
         }
         
         /// <summary>
         /// The current total shield strength of all ships in the ShipToken. 
         /// </summary>
-        /// <remarks>Placed here for consistency with Armor</remarks>
+        /// <remarks>Placed here for consistency with Armor.</remarks>
         public double Shields
         {
             get;
@@ -85,7 +88,7 @@ namespace Nova.Common
         /// <summary>
         /// Sets or Gets the amount of armor the Token has remaining.
         /// This is the total number of Armor points remaining for the whole Token (of Quantity ships), including Hull. Each ship has Armor / Quantity.
-        /// Note: Stars! stores armor damage as a percentage (with an 8 bit number) which causes some wierd rounding errors we do not want to replicate.
+        /// Note: Stars! stores armor damage as a percentage (with an 8 bit number) which causes some weird rounding errors we do not want to replicate.
         /// </summary>
         public double Armor
         {
@@ -94,11 +97,11 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Creates a Token of ships
+        /// Creates a Token of ships.
         /// </summary>
-        /// <param name="design">The ship design of this token</param>
-        /// <param name="quantity">The amount of ships in this token</param>
-        /// <param name="armor">The amount of armor remaining in this token</param>
+        /// <param name="design">The ship design of this token.</param>
+        /// <param name="quantity">The amount of ships in this token.</param>
+        /// <param name="armor">The amount of armor remaining in this token.</param>
         public ShipToken(ShipDesign design, int quantity, double armor) :
             this(design, quantity)
         {
@@ -106,10 +109,10 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Creates a token of ships
+        /// Creates a token of ships.
         /// </summary>
-        /// <param name="newDesign">The ship design of this token</param>
-        /// <param name="quantity">The amount of ships in this token</param>
+        /// <param name="newDesign">The ship design of this token.</param>
+        /// <param name="quantity">The amount of ships in this token.</param>
         public ShipToken(ShipDesign newDesign, int quantity)
         {
             Design = newDesign;
