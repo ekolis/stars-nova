@@ -37,7 +37,8 @@ namespace Nova.Ai
     {
         private Intel turnData;
         private FleetList fuelStations = null;
-
+        private DefaultAIPlanner aiPlan = null;
+        
         // Sub AIs to manage planets, fleets and stuff
         private Dictionary<string, DefaultPlanetAI> planetAIs = new Dictionary<string, DefaultPlanetAI>();
         private Dictionary<long, DefaultFleetAI> fleetAIs = new Dictionary<long, DefaultFleetAI>();
@@ -49,12 +50,14 @@ namespace Nova.Ai
         /// </summary>
         public override void DoMove()
         {
+            aiPlan = new DefaultAIPlanner(clientState);
+
             // create the helper AIs
             foreach (Star star in clientState.EmpireState.OwnedStars.Values)
             {
                 if (star.Owner == clientState.EmpireState.Id)
                 {
-                    DefaultPlanetAI planetAI = new DefaultPlanetAI(star, clientState);
+                    DefaultPlanetAI planetAI = new DefaultPlanetAI(star, clientState, this.aiPlan);
                     planetAIs.Add(star.Key, planetAI);
                 }
             }
@@ -63,6 +66,7 @@ namespace Nova.Ai
             {
                 if (fleet.Owner == clientState.EmpireState.Id)
                 {
+                    aiPlan.CountFleet(fleet);
                     DefaultFleetAI fleetAI = new DefaultFleetAI(fleet, clientState, fuelStations);
                     fleetAIs.Add(fleet.Id, fleetAI);
 
@@ -151,13 +155,13 @@ namespace Nova.Ai
                     {
                         // send fleet to colonise
                         fleetAIs[colonyFleet.Id].Colonise(report);
+                        colonyShipsFleets.RemoveAt(0);
+                        if (colonyShipsFleets.Count == 0)
+                        {
+                            break;
+                        }
+                        colonyFleet = colonyShipsFleets[0];
                     }
-                    colonyShipsFleets.RemoveAt(0);
-                    if (colonyShipsFleets.Count == 0)
-                    {
-                        break;
-                    }
-                    colonyFleet = colonyShipsFleets[0];
                 }
             }
         }

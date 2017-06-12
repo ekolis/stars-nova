@@ -63,7 +63,7 @@ namespace Nova.Common
         { 
             Arrived, InTransit 
         }
-        
+
         /// <summary>
         /// Return the total normal bombing capability.
         /// </summary>

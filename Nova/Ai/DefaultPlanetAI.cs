@@ -39,9 +39,10 @@ namespace Nova.Ai
     /// </summary>
     public class DefaultPlanetAI
     {
-        private const int EarlyScouts = 5;
-        private const int LowProduction = 100;
+        private const int FactoryProductionPrecedence = 0;
+        private const int MineProductionPrecedence = 1;
         private ClientData clientState;
+        private DefaultAIPlanner aiPlan = null;
 
         private Star planet;
 
@@ -49,14 +50,18 @@ namespace Nova.Ai
         /// Initializing constructor.
         /// </summary>
         /// <param name="newStar">The planet the ai is to manage.</param>
-        public DefaultPlanetAI(Star newStar, ClientData newState)
+        public DefaultPlanetAI(Star newStar, ClientData newState, DefaultAIPlanner newAIPlan)
         {
             planet = newStar;
             clientState = newState;
+            aiPlan = newAIPlan;
         }
 
         public void HandleProduction()
         {
+            // keep track of the position in the production queue
+            int productionIndex = 0;
+
             // Clear the current manufacturing queue (except for partially built ships/starbases).
             Queue<ProductionCommand> clearProductionList = new Queue<ProductionCommand>();
             foreach (ProductionOrder productionOrderToclear in this.planet.ManufacturingQueue.Queue)
@@ -70,6 +75,10 @@ namespace Nova.Ai
                         clearProductionList.Enqueue(clearProductionCommand);
                         clientState.Commands.Push(clearProductionCommand);
                     }
+                }
+                else
+                {
+                    productionIndex++;
                 }
             }
 
@@ -88,12 +97,16 @@ namespace Nova.Ai
                     factoriesToBuild = this.planet.GetOperableFactories() - this.planet.Factories;
                 }
 
-                ProductionOrder factoryOrder = new ProductionOrder(factoriesToBuild, new FactoryProductionUnit(clientState.EmpireState.Race), false);
-                ProductionCommand factoryCommand = new ProductionCommand(CommandMode.Add, factoryOrder, this.planet.Key);
-                if (factoryCommand.IsValid(clientState.EmpireState))
+                if (factoriesToBuild > 0)
                 {
-                    factoryCommand.ApplyToState(clientState.EmpireState);
-                    clientState.Commands.Push(factoryCommand);
+                    ProductionOrder factoryOrder = new ProductionOrder(factoriesToBuild, new FactoryProductionUnit(clientState.EmpireState.Race), false);
+                    ProductionCommand factoryCommand = new ProductionCommand(CommandMode.Add, factoryOrder, this.planet.Key, FactoryProductionPrecedence);
+                    productionIndex++;
+                    if (factoryCommand.IsValid(clientState.EmpireState))
+                    {
+                        factoryCommand.ApplyToState(clientState.EmpireState);
+                        this.clientState.Commands.Push(factoryCommand);
+                    }
                 }
             }
 
@@ -102,7 +115,8 @@ namespace Nova.Ai
             if (this.planet.Mines < maxMines)
             {
                 ProductionOrder mineOrder = new ProductionOrder(maxMines - this.planet.Mines, new MineProductionUnit(clientState.EmpireState.Race), false);
-                ProductionCommand mineCommand = new ProductionCommand(CommandMode.Add, mineOrder, this.planet.Key);
+                ProductionCommand mineCommand = new ProductionCommand(CommandMode.Add, mineOrder, this.planet.Key, Math.Min(MineProductionPrecedence, productionIndex));
+                productionIndex++;
                 if (mineCommand.IsValid(clientState.EmpireState))
                 {
                     mineCommand.ApplyToState(clientState.EmpireState);
@@ -110,39 +124,87 @@ namespace Nova.Ai
                 }
             }
 
+            // Build ships
+            productionIndex = BuildShips(productionIndex);
+
             // build defenses
             int defenseToBuild = Global.MaxDefenses - this.planet.Defenses;
             if (defenseToBuild > 0)
             {
                 ProductionOrder defenseOrder = new ProductionOrder(defenseToBuild, new DefenseProductionUnit(), false);
-                ProductionCommand defenseCommand = new ProductionCommand(CommandMode.Add, defenseOrder, this.planet.Key);
+                ProductionCommand defenseCommand = new ProductionCommand(CommandMode.Add, defenseOrder, this.planet.Key, productionIndex);
+                productionIndex++;
                 if (defenseCommand.IsValid(clientState.EmpireState))
                 {
                     defenseCommand.ApplyToState(clientState.EmpireState);
                     clientState.Commands.Push(defenseCommand);
                 }
             }
+        }
 
-            // build ships - for now, build some additional scouts after the first few turns of factory building
-            if (this.planet.GetFutureResourceRate(0) > LowProduction && clientState.EmpireState.OwnedFleets.Count < EarlyScouts)
+        /// <summary>
+        /// 
+        /// </summary>
+        private int BuildShips(int productionIndex)
+        {
+            productionIndex = BuildScout(productionIndex);
+            productionIndex = BuildColonizer(productionIndex);
+
+            return productionIndex;
+        } // Build ships
+
+        /// <summary>
+        /// Add a scout to the production que, if required and we can aford it.
+        /// </summary>
+        /// <param name="productionIndex">The current insertion point into the planet's production queue.</param>
+        /// <returns>The updated productionIndex.</returns>
+        private int BuildScout(int productionIndex)
+        {
+            if (this.planet.GetResourceRate() > DefaultAIPlanner.LowProduction && this.aiPlan.ScoutCount < DefaultAIPlanner.EarlyScouts)
             {
-                ShipDesign scoutDesign = null;
-                foreach (ShipDesign design in clientState.EmpireState.Designs.Values)
+                if (this.aiPlan.ScoutDesign != null)
                 {
-                    if (design.Name.Contains("Scout"))
+                    ProductionOrder scoutOrder = new ProductionOrder(1, new ShipProductionUnit(this.aiPlan.ScoutDesign), false);
+                    ProductionCommand scoutCommand = new ProductionCommand(CommandMode.Add, scoutOrder, this.planet.Key, productionIndex);
+                    if (scoutCommand.IsValid(clientState.EmpireState))
                     {
-                        scoutDesign = design;
+                        scoutCommand.ApplyToState(clientState.EmpireState);
+                        clientState.Commands.Push(scoutCommand);
+                        productionIndex++;
                     }
                 }
-                ProductionOrder scoutOrder = new ProductionOrder(1, new ShipProductionUnit(scoutDesign), false);
-                ProductionCommand scoutCommand = new ProductionCommand(CommandMode.Add, scoutOrder, this.planet.Key);
-                if (scoutCommand.IsValid(clientState.EmpireState))
+            }
+            return productionIndex;
+        } // BuildScouts()
+
+        /// <summary>
+        /// Add a colonizer to the production que, if required and we can aford it.
+        /// </summary>
+        /// <param name="productionIndex">The current insertion point into the planet's production queue.</param>
+        /// <returns>The updated productionIndex.</returns>
+        /// <remarks>
+        /// Always make one spare colonizer.
+        /// </remarks>
+        private int BuildColonizer(int productionIndex)
+        {
+            if (this.planet.GetResourceRate() > DefaultAIPlanner.LowProduction && this.aiPlan.ColonizerCount < (this.aiPlan.PlanetsToColonize - this.aiPlan.ColonizerCount + 1))
+            {
+                ShipDesign colonizerDesign = this.aiPlan.ColonizerDesign;
+                if (this.aiPlan.ColonizerDesign != null)
                 {
-                    scoutCommand.ApplyToState(clientState.EmpireState);
-                    clientState.Commands.Push(scoutCommand);
+                    ProductionOrder colonizerOrder = new ProductionOrder(1, new ShipProductionUnit(this.aiPlan.ColonizerDesign), false);
+                    ProductionCommand colonizerCommand = new ProductionCommand(CommandMode.Add, colonizerOrder, this.planet.Key, productionIndex);
+                    if (colonizerCommand.IsValid(clientState.EmpireState))
+                    {
+                        colonizerCommand.ApplyToState(clientState.EmpireState);
+                        clientState.Commands.Push(colonizerCommand);
+                        productionIndex++;
+                    }
                 }
             }
-        }
+            return productionIndex;
+        } // BuildScouts()
+
     }
 }
 

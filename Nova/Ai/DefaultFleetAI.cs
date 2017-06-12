@@ -167,6 +167,11 @@ namespace Nova.Ai
                     // TODO (priority 5) - go get some colonists
                 }
             }
+            else
+            {
+                // Already has colonists
+                SendFleet(targetStar, this.fleet, new ColoniseTask());
+            }
         }
 
         /// <summary>
