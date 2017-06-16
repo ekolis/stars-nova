@@ -33,16 +33,21 @@ namespace Nova.Ai
     using Nova.Common.DataStructures;
     using Nova.Common.Waypoints;
 
+ 
+
     /// <summary>
-    /// An AI sub-component to manage planning AI moves.
+    /// An AI sub-component to manage planning AI moves. 
     /// </summary>
+    /// <remarks>
+    /// The default AI is stateless - it does not persist any information between turns other than what is in an ordinary player's state.
+    /// </remarks>
     public class DefaultAIPlanner
     {
         public const int EarlyScouts = 5;
         public const int LowProduction = 100;
 
         /// <summary>
-        /// Minimum hab value for colonizing a planet
+        /// Minimum hab value for colonizing a planet.
         /// </summary>
         public const double MinHabValue = 0.05;
 
@@ -72,7 +77,9 @@ namespace Nova.Ai
         /// </remarks>
         private int planetsToColonize = -1;
         
-
+        /// <summary>
+        /// The current design to be used for building scouts.
+        /// </summary>
         public ShipDesign ScoutDesign
         {
             get
@@ -91,6 +98,9 @@ namespace Nova.Ai
             }
         }
 
+        /// <summary>
+        /// The current design to be used for building colonizers.
+        /// </summary>
         public ShipDesign ColonizerDesign
         {
             get
@@ -109,6 +119,9 @@ namespace Nova.Ai
             }
         }
 
+        /// <summary>
+        /// Track the number of known planets suitable for sending a colonizer too.
+        /// </summary>
         public int PlanetsToColonize
         {
             get
