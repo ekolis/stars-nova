@@ -154,7 +154,7 @@ namespace Nova.Ai
         } // Build ships
 
         /// <summary>
-        /// Add a scout to the production que, if required and we can aford it.
+        /// Add a scout to the production queue, if required and we can afford it.
         /// </summary>
         /// <param name="productionIndex">The current insertion point into the planet's production queue.</param>
         /// <returns>The updated productionIndex.</returns>
@@ -178,7 +178,7 @@ namespace Nova.Ai
         } // BuildScouts()
 
         /// <summary>
-        /// Add a colonizer to the production que, if required and we can aford it.
+        /// Add a colonizer to the production queue, if required and we can afford it.
         /// </summary>
         /// <param name="productionIndex">The current insertion point into the planet's production queue.</param>
         /// <returns>The updated productionIndex.</returns>
@@ -204,7 +204,6 @@ namespace Nova.Ai
             }
             return productionIndex;
         } // BuildScouts()
-
     }
 }
 

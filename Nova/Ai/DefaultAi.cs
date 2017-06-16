@@ -169,7 +169,6 @@ namespace Nova.Ai
 
         /// <Summary>
         /// Manage research.
-        /// Trivial implementation - research the lowest tech field.
         /// Only changes research field after completing the previous research level.
         /// </Summary>
         private void HandleResearch()
@@ -195,15 +194,134 @@ namespace Nova.Ai
                 // pick next topic
                 int minLevel = int.MaxValue;
                 Nova.Common.TechLevel.ResearchField targetResearchField = TechLevel.ResearchField.Weapons; // default to researching weapons
-                for (TechLevel.ResearchField field = TechLevel.FirstField; field <= TechLevel.LastField; field++)
+
+                if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Propulsion] < 3)
                 {
-                    if (clientState.EmpireState.ResearchLevels[field] < minLevel)
+                    // Prop 3 - Long Hump 6 - Warp 6 engine (or fuel mizer at Prop 2)
+                    targetResearchField = TechLevel.ResearchField.Propulsion;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Electronics] < 1)
+                {
+                    // Elec 1 - Rhino Scanner - 50 ly scan
+                    targetResearchField = TechLevel.ResearchField.Electronics;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Construction] < 3)
+                {
+                    // Cons 3 - Destroyer & Medium Freighter
+                    targetResearchField = TechLevel.ResearchField.Construction;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Electronics] < 5)
+                {
+                    // Elec 5 - Scanners
+                    targetResearchField = TechLevel.ResearchField.Electronics;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Weapons] < 6)
+                {
+                    // Wep 6 - Beta Torp (@5) and Yakimora Light Phaser
+                    targetResearchField = TechLevel.ResearchField.Weapons;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Propulsion] < 7)
+                {
+                    // Prop 7 - Warp 8 engine
+                    targetResearchField = TechLevel.ResearchField.Propulsion;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Construction] < 6)
+                {
+                    // Cons 6 - Frigate
+                    targetResearchField = TechLevel.ResearchField.Construction;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Biotechnology] < 4)
+                {
+                    // Bio 4 - Unlock terraform and prep for mines
+                    targetResearchField = TechLevel.ResearchField.Biotechnology;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Energy] < 3)
+                {
+                    // Energy 3 - Mines and shields
+                    targetResearchField = TechLevel.ResearchField.Energy;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Construction] < 9)
+                {
+                    // Cons 9 - Cruiser
+                    targetResearchField = TechLevel.ResearchField.Construction;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Energy] < 6)
+                {
+                    // Energy 6 - Shields
+                    targetResearchField = TechLevel.ResearchField.Energy;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Weapons] < 12)
+                {
+                    // Weapons 12 - Jihad Missile
+                    targetResearchField = TechLevel.ResearchField.Weapons;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Construction] < 13)
+                {
+                    // Cons 13 - Battleships
+                    targetResearchField = TechLevel.ResearchField.Construction;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Energy] < 11)
+                {
+                    // Energy 11 - Bear Neutrino at 10, and unlocks Syncro Sapper (need weapons 21)
+                    targetResearchField = TechLevel.ResearchField.Energy;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Electronics] < 11)
+                {
+                    // Elect 11 - Jammer 20 and Super Computer
+                    targetResearchField = TechLevel.ResearchField.Electronics;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Propulsion] < 12)
+                {
+                    // Prop 12 - Warp 10 and Overthruster
+                    targetResearchField = TechLevel.ResearchField.Propulsion;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Biotechnology] < 7)
+                {
+                    // Bio 7 maybe - scanners, Anti-matter generator, smart bombs
+                    targetResearchField = TechLevel.ResearchField.Biotechnology;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Weapons] < 24)
+                {
+                    // Weapons 24 - research all remaining weapons technologies
+                    targetResearchField = TechLevel.ResearchField.Weapons;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Construction] < 26)
+                {
+                    // Cons 26 - Nubian
+                    targetResearchField = TechLevel.ResearchField.Construction;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Electronics] < 19)
+                {
+                    // Elect 19 - Battle nexus
+                    targetResearchField = TechLevel.ResearchField.Electronics;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Energy] < 22)
+                {
+                    // Energy 22 - Complete Phase Shield
+                    targetResearchField = TechLevel.ResearchField.Energy;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Propulsion] < 23)
+                {
+                    // Prop 23 - Trans-Star 10
+                    targetResearchField = TechLevel.ResearchField.Propulsion;
+                }
+                else if (clientState.EmpireState.ResearchLevels[TechLevel.ResearchField.Biotechnology] < 10)
+                {
+                    // Bio 10 - RNA Scanner
+                    targetResearchField = TechLevel.ResearchField.Biotechnology;
+                }
+                else
+                {
+                    // research lowest tech field
+                    for (TechLevel.ResearchField field = TechLevel.FirstField; field <= TechLevel.LastField; field++)
                     {
-                        minLevel = clientState.EmpireState.ResearchLevels[field];
-                        targetResearchField = field;
+                        if (clientState.EmpireState.ResearchLevels[field] < minLevel)
+                        {
+                            minLevel = clientState.EmpireState.ResearchLevels[field];
+                            targetResearchField = field;
+                        }
                     }
                 }
-
                 command.Topics[targetResearchField] = 1;
             }
 
