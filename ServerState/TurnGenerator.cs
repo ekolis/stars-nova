@@ -181,7 +181,7 @@ namespace Nova.Server
                         }
                         else
                         {
-                            // Flag as cheater or something?
+                            // TODO (priority 4) - Flag invalid orders to all players. Preferably give some indication of why it is invalid for debugging custom clients/AIs.
                         }
                     }
                 }

@@ -65,7 +65,11 @@ namespace Nova.Common
         private Race        race                    = new Race(); // This empire's race.
         
         public int          ResearchBudget          = 10; // % of resources allocated to research
-        public TechLevel    ResearchLevels          = new TechLevel(); // current levels of technology
+
+        /// <summary>
+        /// Current levels of technology.
+        /// </summary>
+        public TechLevel    ResearchLevels          = new TechLevel(); 
         public TechLevel    ResearchResources       = new TechLevel(); // current cumulative resources on technologies
         public TechLevel    ResearchTopics          = new TechLevel(); // order of researching
         

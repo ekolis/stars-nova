@@ -149,6 +149,7 @@ namespace Nova.Ai
         {
             productionIndex = BuildScout(productionIndex);
             productionIndex = BuildColonizer(productionIndex);
+            productionIndex = BuildTransport(productionIndex);
 
             return productionIndex;
         } // Build ships
@@ -189,7 +190,6 @@ namespace Nova.Ai
         {
             if (this.planet.GetResourceRate() > DefaultAIPlanner.LowProduction && this.aiPlan.ColonizerCount < (this.aiPlan.PlanetsToColonize - this.aiPlan.ColonizerCount + 1))
             {
-                ShipDesign colonizerDesign = this.aiPlan.ColonizerDesign;
                 if (this.aiPlan.ColonizerDesign != null)
                 {
                     ProductionOrder colonizerOrder = new ProductionOrder(1, new ShipProductionUnit(this.aiPlan.ColonizerDesign), false);
@@ -203,7 +203,35 @@ namespace Nova.Ai
                 }
             }
             return productionIndex;
-        } // BuildScouts()
+        } // BuildColonizer()
+
+
+        /// <summary>
+        /// Add a transport to the production queue, if required and we can afford it.
+        /// </summary>
+        /// <param name="productionIndex">The current insertion point into the planet's production queue.</param>
+        /// <returns>The updated productionIndex.</returns>
+        /// <remarks>
+        /// How many transports do we need? - Let the aiPlan decide.
+        /// </remarks>
+        private int BuildTransport(int productionIndex)
+        {
+            if (this.planet.GetResourceRate() > DefaultAIPlanner.LowProduction && this.aiPlan.TotalTransportKt < this.aiPlan.TransportKtRequired)
+            {
+                if (this.aiPlan.TransportDesign != null)
+                {
+                    ProductionOrder transportOrder = new ProductionOrder(1, new ShipProductionUnit(this.aiPlan.TransportDesign), false);
+                    ProductionCommand transportCommand = new ProductionCommand(CommandMode.Add, transportOrder, this.planet.Key, productionIndex);
+                    if (transportCommand.IsValid(clientState.EmpireState))
+                    {
+                        transportCommand.ApplyToState(clientState.EmpireState);
+                        clientState.Commands.Push(transportCommand);
+                        productionIndex++;
+                    }
+                }
+            }
+            return productionIndex;
+        } // BuildTransport()
     }
 }
 

@@ -23,6 +23,7 @@ namespace Nova.Ai
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Linq;
     using System.Text;
 
@@ -57,6 +58,11 @@ namespace Nova.Ai
         public int BomberCount = 0;
         public int WarfleetCount = 0;
 
+        /// <summary>
+        /// Backing store for the TotalTransportKt property.
+        /// </summary>
+        private int totalTransportKt = 0;
+
         private ClientData clientState = null;
 
         /// <summary>
@@ -68,6 +74,11 @@ namespace Nova.Ai
         /// The ShipDesign to use for building colonizers.
         /// </summary>
         private ShipDesign colonizerDesign = null;
+
+        /// <summary>
+        /// The ShipDesign to use for building transports.
+        /// </summary>
+        private ShipDesign transportDesign = null;
 
         /// <summary>
         /// The number of scouted, unowned planets with > 5% habitability.
@@ -150,6 +161,112 @@ namespace Nova.Ai
         }
 
         /// <summary>
+        /// Property to track the total capacity of transport fleets.
+        /// </summary>
+        public int TotalTransportKt
+        {
+            get
+            {
+                return totalTransportKt;
+            }
+        }
+
+
+        public ShipDesign TransportDesign
+        {
+
+            // Tech order: Bio, Elec, Energy, Prop, Weap, Cons
+            get
+            {
+                Component freighterHull = null;
+                Component engine = null;
+
+                if (transportDesign != null)
+                {
+                    // already have a design set
+                    return transportDesign;
+                }
+                /* TODO - a better transport?
+                else if (clientState.EmpireState.ResearchLevels > new TechLevel(0, 0, 0, 11, 0, 8))
+                {
+                    // build a really good transport
+                    // Super Freighter (Cons 13)? - Not cost effective
+                    // Large Freighter (cons 8), Interspace 10 engine (prop 11), 
+                }
+                 */
+                else if (clientState.EmpireState.ResearchLevels > new TechLevel(0, 0, 0, 7, 0, 8))
+                {
+                    // build a good transport
+                    // Large Freighter (cons 8), Alpha Drive 8 (prop 7)
+
+                    if (!clientState.EmpireState.AvailableComponents.TryGetValue("Large Freighter", out freighterHull))
+                    {
+                        throw new System.NotImplementedException();
+                    }
+                    if (!clientState.EmpireState.AvailableComponents.TryGetValue("Alpha Drive 8", out engine))
+                    {
+                        throw new System.NotImplementedException();
+                    }
+
+                    transportDesign = new ShipDesign(clientState.EmpireState.GetNextDesignKey());
+                    transportDesign.Blueprint = freighterHull;
+                    foreach (HullModule module in transportDesign.Hull.Modules)
+                    {
+                        if (module.ComponentType == "Engine")
+                        {
+                            module.AllocatedComponent = engine;
+                            module.ComponentCount = 2;
+                        } /* TODO Cargo Pod?
+                        else if (module.ComponentType == "Mechanical")
+                        {
+                            module.AllocatedComponent = cargoPod;
+                            module.ComponentCount = 1;
+                        }*/
+                    }
+                    transportDesign.Icon = new ShipIcon(freighterHull.ImageFile, (Bitmap)freighterHull.ComponentImage);
+
+                    transportDesign.Type = ItemType.Ship;
+                    transportDesign.Name = "Large Freighter";
+                    transportDesign.Update();
+
+                    // add the design - done by the command???
+                    // clientState.EmpireState.Designs[transportDesign.Key] = transportDesign;
+
+                    DesignCommand command = new DesignCommand(CommandMode.Add, transportDesign);
+
+                    if (command.IsValid(clientState.EmpireState))
+                    {
+                        clientState.Commands.Push(command);
+                        command.ApplyToState(clientState.EmpireState);
+                    }
+
+                    return transportDesign;
+                }
+                    /* TODO - a medium transport?
+                else if (clientState.EmpireState.ResearchLevels > new TechLevel(0, 0, 0, 3, 0, 3))
+                {
+                    // build a minimal transport
+                    // Medium Freighter (cons 3), Long Hump 6 (prop 3)
+                }
+                     */
+                else
+                {
+                    // do not build transports - tech too low
+                    return null;
+                }
+            }
+        }
+
+        public int TransportKtRequired
+        {
+            get
+            {
+                // TODO come up with a better way to determine how much transport to build.
+                return 5000;
+            }
+        }
+
+        /// <summary>
         /// Count and classify owned fleets.
         /// </summary>
         /// <param name="fleet"></param>
@@ -171,6 +288,7 @@ namespace Nova.Ai
             else if (fleet.TotalCargoCapacity > 0)
             {
                 this.TransportCount++;
+                this.totalTransportKt += fleet.TotalCargoCapacity;
             }
             else if (fleet.IsArmed)
             {
