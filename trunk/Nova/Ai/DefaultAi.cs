@@ -183,7 +183,8 @@ namespace Nova.Ai
             bool hasAdvanced = false;
             foreach (Message msg in clientState.Messages)
             {
-                if (!string.IsNullOrEmpty(msg.Text) && msg.Text.Contains("Your race has advanced to Tech Level") == true)
+                if (!string.IsNullOrEmpty(msg.Type) && msg.Type == "TechAdvance")
+////                if (!string.IsNullOrEmpty(msg.Type) && msg.Text.Contains("Your race has advanced to Tech Level") == true)  // can be removed if the previous line works
                 {
                     hasAdvanced = true;
                 }

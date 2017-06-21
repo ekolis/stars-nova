@@ -31,13 +31,13 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Xml;
+
     /// <summary>
     /// Enumeration of the ways a given trait can affect the availability of a component.
     /// </summary>

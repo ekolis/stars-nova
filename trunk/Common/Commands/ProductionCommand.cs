@@ -110,7 +110,14 @@ namespace Nova.Common.Commands
                     // it's actual cost.
                     if (ProductionOrder.Unit is ShipProductionUnit)
                     {
-                        if (!(ProductionOrder.Unit.Cost >= empire.Designs[(ProductionOrder.Unit as ShipProductionUnit).DesignKey].Cost)) 
+                        try
+                        {
+                            if (!(ProductionOrder.Unit.Cost >= empire.Designs[(ProductionOrder.Unit as ShipProductionUnit).DesignKey].Cost))
+                            {
+                                return false;
+                            }
+                        }
+                        catch (System.Collections.Generic.KeyNotFoundException)
                         {
                             return false;
                         }
