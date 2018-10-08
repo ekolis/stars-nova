@@ -121,7 +121,7 @@ namespace Nova.WinForms.Gui
                 
                     // Make sure it's the same waypoint except for speed/task, and that it's not a freshly added
                     // waypoint.
-                    if (lastCommand is WaypointCommand)
+                    if (lastCommand is WaypointCommand && (lastCommand as WaypointCommand).Waypoint != null)
                     {
                         if ((lastCommand as WaypointCommand).Waypoint.Destination == editedWaypoint.Destination &&
                             (lastCommand as WaypointCommand).Waypoint.Position == editedWaypoint.Position &&
@@ -429,6 +429,11 @@ namespace Nova.WinForms.Gui
                 }
                 previous = waypoint;
             }
+
+            System.Drawing.Color color = fuelRequired > selectedFleet.FuelAvailable ? System.Drawing.Color.Red : System.Drawing.Color.Black;
+            routeFuelUse.ForeColor = color;
+            label3.ForeColor = color;
+            label5.ForeColor = color;
 
             routeFuelUse.Text = fuelRequired.ToString("f1");
         }
