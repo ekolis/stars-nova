@@ -569,4 +569,7 @@
   <ItemGroup>
     <None Include="Resources\smallplus.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Diamond_Button.png" />
+  </ItemGroup>
 </Project>
