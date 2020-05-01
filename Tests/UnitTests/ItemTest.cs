@@ -36,8 +36,8 @@ namespace Nova.Tests.UnitTests
         /// </summary>
         /// <param name="testOwner">The value to be set as the Owner of the <see cref="Item"/>.</param>
         /// <returns>The value read back from the Owner property of the <see cref="Item"/>.</returns>
-        [TestCase(1, Result = 1)]
-        [TestCase(255, Result = 255)]
+        [TestCase(1, ExpectedResult = 1)]
+        [TestCase(255, ExpectedResult = 255)]
         public ushort Test1ValidOwner(int testOwner)
         {
             Item testItem = new Item();
@@ -50,8 +50,8 @@ namespace Nova.Tests.UnitTests
         /// </summary>
         /// <param name="testId">The value to be set as the Id of the <see cref="Item"/>.</param>
         /// <returns>The value read back from the Id property of the <see cref="Item"/>.</returns>
-        [TestCase(1, Result = 1)]
-        [TestCase(0xFFFFFFFF, Result = 0xFFFFFFFF)]
+        [TestCase(1, ExpectedResult = 1)]
+        [TestCase(0xFFFFFFFF, ExpectedResult = 0xFFFFFFFF)]
         public uint Test2ValidId(long testId)
         {
             Item testItem = new Item();
@@ -65,10 +65,10 @@ namespace Nova.Tests.UnitTests
         /// <param name="testOwner">The value to be set as the Owner of the <see cref="Item"/>.</param>
         /// <param name="testId">The value to be set as the Id of the <see cref="Item"/>.</param>
         /// <returns>The value read back from the Key property of the <see cref="Item"/>.</returns>
-        [TestCase(1, 1, Result = 0x0100000001)]
-        [TestCase(255, 1, Result = 0xFF00000001)]
-        [TestCase(1, 0xFFFFFFFF, Result = 0x01FFFFFFFF)]
-        [TestCase(255, 0xFFFFFFFF, Result = 0xFFFFFFFFFF)]
+        [TestCase(1, 1, ExpectedResult = 0x0100000001)]
+        [TestCase(255, 1, ExpectedResult = 0xFF00000001)]
+        [TestCase(1, 0xFFFFFFFF, ExpectedResult = 0x01FFFFFFFF)]
+        [TestCase(255, 0xFFFFFFFF, ExpectedResult = 0xFFFFFFFFFF)]
         public long Test3ValidKey(int testOwner, long testId)
         {
             Item testItem = new Item();
