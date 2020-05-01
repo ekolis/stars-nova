@@ -2,3 +2,4 @@
 bin
 obj
 build
+nova.conf
