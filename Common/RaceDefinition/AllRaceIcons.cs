@@ -81,8 +81,12 @@ namespace Nova.Common
                 {
                     using(Config conf = new Config())
                     {
+                        var graphicFolder = FileSearcher.GetGraphicsPath();
+
+
+
                         // load the icons
-                        DirectoryInfo info = new DirectoryInfo(Path.Combine(conf[Global.GraphicsFolderKey], "Race"));
+                        DirectoryInfo info = new DirectoryInfo(Path.Combine(graphicFolder, "Race"));
                         foreach (FileInfo fi in info.GetFiles())
                         {
                             Bitmap i = new Bitmap(Path.Combine(fi.DirectoryName, fi.Name));
