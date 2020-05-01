@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "ControlLibrary\ControlLibrary.csproj", "{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}"
@@ -8,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "Graphics\Graphics.csproj", "{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova", "Nova\Nova.csproj", "{184F17D9-28F2-4784-B5F0-8E9538A31BF7}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Windows Setup", "Setup\Windows\Setup.vdproj", "{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "ServerState\Server.csproj", "{0C92C1D5-9084-4E4A-82F1-889B74019A33}"
 EndProject
@@ -35,10 +35,6 @@ Global
 		{184F17D9-28F2-4784-B5F0-8E9538A31BF7}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{184F17D9-28F2-4784-B5F0-8E9538A31BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{184F17D9-28F2-4784-B5F0-8E9538A31BF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}.Debug|Any CPU.ActiveCfg = Release
-		{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}.Debug|Any CPU.Build.0 = Release
-		{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}.Release|Any CPU.ActiveCfg = Release
-		{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}.Release|Any CPU.Build.0 = Release
 		{0C92C1D5-9084-4E4A-82F1-889B74019A33}.Debug|Any CPU.ActiveCfg = Release|Any CPU
 		{0C92C1D5-9084-4E4A-82F1-889B74019A33}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{0C92C1D5-9084-4E4A-82F1-889B74019A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,6 +42,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D666D953-73BA-453E-9BF4-9046B35623B9}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
