@@ -184,7 +184,7 @@ namespace Nova.WinForms.RaceDesigner
             this.iconIndex.Text = Path.GetFileNameWithoutExtension(this.currentRaceIcon.Source);
 
             // Can't trust the windows designer generate code to set the environment range before setting the environment value, so set it here to be sure.
-            this.temperatureTolerance.MinimumValue = 15;
+            this.temperatureTolerance.MinimumValue = 15;            
             this.temperatureTolerance.MaximumValue = 85;
             this.temperatureTolerance.ActivateRangeChange();
 
