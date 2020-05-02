@@ -131,7 +131,7 @@ namespace Nova.WinForms.Gui
 
             RadioButton button = sender as RadioButton;
 
-            if (button.Checked == true)
+            if (button  != null && button.Checked == true)
             {
                 try
                 {
@@ -156,8 +156,8 @@ namespace Nova.WinForms.Gui
 
             foreach (Nova.Common.Components.Component component in allComponents.GetAll.Values)
             {
-                if (component.RequiredTech > oldResearchLevel &&
-                    component.RequiredTech <= newResearchLevel)
+                if (!oldResearchLevel.Meets(component.RequiredTech) &&
+                   newResearchLevel.Meets(component.RequiredTech))
                 {
                     string available = component.Name + " " + component.Type;
                     researchBenefits.Items.Add(available);
@@ -257,6 +257,11 @@ namespace Nova.WinForms.Gui
                 }
             }
             return totalEnergy;
+        }
+
+        private void ResearchDialog_Load(object sender, EventArgs e)
+        {
+            CheckChanged(sender, e);
         }
     }
 }
