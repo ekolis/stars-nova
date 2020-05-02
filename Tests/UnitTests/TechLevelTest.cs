@@ -32,6 +32,7 @@ namespace Nova.Tests.UnitTests
 		private TechLevel allGreater = new TechLevel(4);
 		private TechLevel mixed = new TechLevel(1, 2, 3, 4, 5, 6);
 
+		[Test]
 		public void GreaterThan()
 		{
 			Assert.IsFalse(target > target);
@@ -40,6 +41,7 @@ namespace Nova.Tests.UnitTests
 			Assert.IsFalse(mixed > target);
 		}
 
+		[Test]
 		public void GreaterThanOrEqual()
 		{
 			Assert.IsTrue(target >= target);
@@ -47,6 +49,8 @@ namespace Nova.Tests.UnitTests
 			Assert.IsTrue(allGreater >= target);
 			Assert.IsFalse(mixed >= target);
 		}
+
+		[Test]
 		public void LessThan()
 		{
 			Assert.IsFalse(target < target);
@@ -55,6 +59,7 @@ namespace Nova.Tests.UnitTests
 			Assert.IsTrue(mixed < target);
 		}
 
+		[Test]
 		public void LessThanOrEqual()
 		{
 			Assert.IsTrue(target <= target);
