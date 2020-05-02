@@ -157,7 +157,7 @@ namespace Nova.WinForms.Gui
             foreach (Nova.Common.Components.Component component in allComponents.GetAll.Values)
             {
                 if (component.RequiredTech > oldResearchLevel &&
-                    component.RequiredTech <= newResearchLevel)
+                   newResearchLevel >= component.RequiredTech)
                 {
                     string available = component.Name + " " + component.Type;
                     researchBenefits.Items.Add(available);

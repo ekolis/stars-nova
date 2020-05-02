@@ -67,5 +67,14 @@ namespace Nova.Tests.UnitTests
 			Assert.IsFalse(allGreater <= target);
 			Assert.IsTrue(mixed <= target);
 		}
+
+		[Test]
+		public void Meets()
+		{
+			Assert.IsTrue(target.Meets(target));
+			Assert.IsFalse(allLess.Meets(target));
+			Assert.IsTrue(allGreater.Meets(target));
+			Assert.IsFalse(mixed.Meets(target));
+		}
 	}
 }
