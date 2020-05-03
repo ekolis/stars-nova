@@ -44,7 +44,7 @@ using System.Security.Permissions;
 
 [assembly: AssemblyProduct("Stars! Nova")]
 [assembly: AssemblyCompany("The Stars-Nova Project")]
-[assembly: AssemblyCopyright("Copyright (C) 2017 The Stars-Nova Project")]
+[assembly: AssemblyCopyright("Copyright (C) 2020 The Stars-Nova Project")]
 [assembly: AssemblyCulture("")]
 
 // Version information for an assembly consists of the following four values:
@@ -52,13 +52,13 @@ using System.Security.Permissions;
 //      Major Version
 //      Minor Version 
 //      Build Number
-//      Revision
+//      Revision (optional)
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.4.2.889")]
+[assembly: AssemblyVersion(VersionInfo.VersionNumber)]
 #if !PocketPC && !Smartphone
-[assembly: AssemblyFileVersion("0.4.2.889")]
+[assembly: AssemblyFileVersion(VersionInfo.VersionNumber)]
 #endif
 
 // Set the assembly to CLS compliant.
@@ -70,3 +70,11 @@ using System.Security.Permissions;
 [assembly: ComVisible(false)]
 
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
+
+public static class VersionInfo
+{
+	/// <summary>
+	/// The current version number of Nova.
+	/// </summary>
+	public const string VersionNumber = "0.4.2";
+}

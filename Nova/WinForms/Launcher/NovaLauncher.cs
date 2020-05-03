@@ -49,7 +49,7 @@ namespace Nova.WinForms.Launcher
             // Show the Nova version
             string version = Application.ProductVersion;
             string[] versionParts = version.Split('.');
-            string productVersion = string.Join(".", versionParts, 0, 4);
+            string productVersion = string.Join(".", versionParts, 0, 3);
 
             AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
             int buildNumber = assemblyName.Version.Build;
