@@ -53,10 +53,13 @@ namespace Nova.WinForms.Gui
             clientState.Initialize(argArray);
             
             InitializeComponent();
-            
+
+            this.selectionDetail = new Nova.WinForms.Gui.SelectionDetail(clientState.EmpireState, clientState);
+            this.selectionSummary = new Nova.WinForms.Gui.SelectionSummary(clientState.EmpireState);
+
             initializeControls();
-            
-             // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
+
+            // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
             // for now so it works again
 
             SelectionDetail.FleetDetail.StarmapChanged += MapControl.RefreshStarMap;
@@ -72,8 +75,6 @@ namespace Nova.WinForms.Gui
             MapControl.WaypointChanged += SelectionDetail.FleetDetail.UpdateWaypointList;
 
             this.Text = "Stars! Nova - " + clientState.EmpireState.Race.PluralName;
-            this.selectionDetail = new Nova.WinForms.Gui.SelectionDetail(clientState.EmpireState, clientState);
-            this.selectionSummary = new Nova.WinForms.Gui.SelectionSummary(clientState.EmpireState);
             this.Controls.Add(this.selectionDetail);
             this.Controls.Add(this.selectionSummary);
             // 
