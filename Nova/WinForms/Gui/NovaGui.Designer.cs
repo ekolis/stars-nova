@@ -32,8 +32,6 @@
             this.aboutToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
             
             this.messages           = new Nova.WinForms.Gui.Messages();
-            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(clientState.EmpireState, clientState);
-            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(clientState.EmpireState);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
 
             this.groupBox2.SuspendLayout();
@@ -230,39 +228,18 @@
             this.messages.TabIndex = 18;
             this.messages.Year = Global.StartingYear;
             // 
-            // selectionDetail
-            // 
-            this.selectionDetail.Location = new System.Drawing.Point(8, 24);
-            this.selectionDetail.Margin = new System.Windows.Forms.Padding(0);
-            this.selectionDetail.Name = "selectionDetail";
-            this.selectionDetail.Size = new System.Drawing.Size(360, 406);
-            this.selectionDetail.TabIndex = 21;
-            this.selectionDetail.Value = null;
-            // 
-            // selectionSummary
-            // 
-            this.selectionSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.selectionSummary.Location = new System.Drawing.Point(8, 534);
-            this.selectionSummary.Name = "selectionSummary";
-            this.selectionSummary.Size = new System.Drawing.Size(360, 191);
-            this.selectionSummary.TabIndex = 19;
-            this.selectionSummary.Value = null;
-            // 
             // NovaGUI
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(993, 732);
             this.Controls.Add(this.messages);
             this.Controls.Add(this.mainMenu);
-            this.Controls.Add(this.selectionDetail);
-            this.Controls.Add(this.selectionSummary);
             this.Controls.Add(this.groupBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(928, 770);
             this.Name = "NovaGUI";
-            this.Text = "Stars! Nova - " + clientState.EmpireState.Race.PluralName;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NovaGUI_FormClosing);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.groupBox2.ResumeLayout(false);

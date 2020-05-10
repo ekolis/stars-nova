@@ -70,6 +70,30 @@ namespace Nova.WinForms.Gui
             MapControl.SelectionRequested += SelectionDetail.CurrentSelection;            
             MapControl.SelectionChanged += SelectionDetail.DetailChangeSelection;
             MapControl.WaypointChanged += SelectionDetail.FleetDetail.UpdateWaypointList;
+
+            this.Text = "Stars! Nova - " + clientState.EmpireState.Race.PluralName;
+            this.selectionDetail = new Nova.WinForms.Gui.SelectionDetail(clientState.EmpireState, clientState);
+            this.selectionSummary = new Nova.WinForms.Gui.SelectionSummary(clientState.EmpireState);
+            this.Controls.Add(this.selectionDetail);
+            this.Controls.Add(this.selectionSummary);
+            // 
+            // selectionDetail
+            // 
+            this.selectionDetail.Location = new System.Drawing.Point(8, 24);
+            this.selectionDetail.Margin = new System.Windows.Forms.Padding(0);
+            this.selectionDetail.Name = "selectionDetail";
+            this.selectionDetail.Size = new System.Drawing.Size(360, 406);
+            this.selectionDetail.TabIndex = 21;
+            this.selectionDetail.Value = null;
+            // 
+            // selectionSummary
+            // 
+            this.selectionSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selectionSummary.Location = new System.Drawing.Point(8, 534);
+            this.selectionSummary.Name = "selectionSummary";
+            this.selectionSummary.Size = new System.Drawing.Size(360, 191);
+            this.selectionSummary.TabIndex = 19;
+            this.selectionSummary.Value = null;
         }
 
         public SelectionDetail SelectionDetail
