@@ -3023,13 +3023,13 @@ This scanner is capable of determining a planets basics statistics at a range up
         <CellNumber>6</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>7</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>10</CellNumber>
@@ -3047,13 +3047,13 @@ This scanner is capable of determining a planets basics statistics at a range up
         <CellNumber>16</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>17</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Type>Hull</Type>
     </Property>
@@ -3583,7 +3583,7 @@ This scanner is capable of determining a planets basics statistics at a range up
         <CellNumber>7</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>11</CellNumber>
@@ -3601,7 +3601,7 @@ This scanner is capable of determining a planets basics statistics at a range up
         <CellNumber>17</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Type>Hull</Type>
     </Property>
@@ -3880,13 +3880,13 @@ This scanner is capable of determining a planets basics statistics at a range up
         <CellNumber>6</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>4</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>7</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>10</CellNumber>
@@ -3904,13 +3904,13 @@ This scanner is capable of determining a planets basics statistics at a range up
         <CellNumber>16</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>4</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>17</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Type>Hull</Type>
     </Property>
@@ -7478,7 +7478,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
         <CellNumber>12</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Type>Hull</Type>
     </Property>
@@ -7841,13 +7841,13 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
         <CellNumber>6</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>4</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>7</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>10</CellNumber>
@@ -7865,13 +7865,13 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
         <CellNumber>16</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>4</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Module>
         <CellNumber>17</CellNumber>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
+        <ComponentType>Mining Robot</ComponentType>
       </Module>
       <Type>Hull</Type>
     </Property>
