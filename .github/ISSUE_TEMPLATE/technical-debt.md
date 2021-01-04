@@ -7,6 +7,10 @@ assignees: ''
 
 ---
 
-** Describe what needs to be improved. **
+**Describe what needs to be improved.**
 
-** Describe how this change could impact the quality of the code. **
+All your base are belong to us.
+
+**Describe how this change could impact the quality of the code.**
+
+You are on the road to destruction, you have no chance to survive make your time.
