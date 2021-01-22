@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ROOT>
+  <Race>
+    <GravityTolerance>
+      <MinInternal>0</MinInternal>
+      <MaxInternal>30</MaxInternal>
+      <MinTolerance>0,13g</MinTolerance>
+      <MaxTolerance>0,55g</MaxTolerance>
+      <Immune>False</Immune>
+    </GravityTolerance>
+    <RadiationTolerance>
+      <MinInternal>70</MinInternal>
+      <MaxInternal>100</MaxInternal>
+      <MinTolerance>70mR</MinTolerance>
+      <MaxTolerance>100mR</MaxTolerance>
+      <Immune>False</Immune>
+    </RadiationTolerance>
+    <TemperatureTolerance>
+      <MinInternal>0</MinInternal>
+      <MaxInternal>100</MaxInternal>
+      <MinTolerance>-200°C</MinTolerance>
+      <MaxTolerance>200°C</MaxTolerance>
+      <Immune>False</Immune>
+    </TemperatureTolerance>
+    <Tech>
+      <Biotechnology>50</Biotechnology>
+      <Electronics>50</Electronics>
+      <Energy>50</Energy>
+      <Propulsion>50</Propulsion>
+      <Weapons>175</Weapons>
+      <Construction>50</Construction>
+    </Tech>
+    <PRT>SD</PRT>
+    <LRT>ARM</LRT>
+    <LRT>MA</LRT>
+    <LRT>CE</LRT>
+    <LRT>NRS</LRT>
+    <LRT>NAS</LRT>
+    <MineBuildCost>10</MineBuildCost>
+    <PluralName>Antertherals</PluralName>
+    <Name>Antetheral</Name>
+    <Password>B2F5FF47436671B6E533D8DC3614845D</Password>
+    <RaceIconName>11.jpg</RaceIconName>
+    <FactoryBuildCost>10</FactoryBuildCost>
+    <ColonistsPerResource>700</ColonistsPerResource>
+    <FactoryProduction>11</FactoryProduction>
+    <OperableFactories>18</OperableFactories>
+    <MineProductionRate>10</MineProductionRate>
+    <OperableMines>10</OperableMines>
+    <MaxPopulation>1000000</MaxPopulation>
+    <GrowthRate>7</GrowthRate>
+    <LeftoverPoints>Surface minerals</LeftoverPoints>
+  </Race>
+</ROOT>

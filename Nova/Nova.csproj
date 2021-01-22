@@ -9,6 +9,7 @@
     <StartupObject>Nova.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Assets\Assets.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj" />
     <ProjectReference Include="..\ServerState\Server.csproj" />

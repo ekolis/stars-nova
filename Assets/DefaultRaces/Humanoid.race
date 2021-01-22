@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ROOT>
+  <Race>
+    <GravityTolerance>
+      <MinInternal>15</MinInternal>
+      <MaxInternal>85</MaxInternal>
+      <MinTolerance>0,23g</MinTolerance>
+      <MaxTolerance>4,40g</MaxTolerance>
+      <Immune>False</Immune>
+    </GravityTolerance>
+    <RadiationTolerance>
+      <MinInternal>15</MinInternal>
+      <MaxInternal>85</MaxInternal>
+      <MinTolerance>15mR</MinTolerance>
+      <MaxTolerance>85mR</MaxTolerance>
+      <Immune>False</Immune>
+    </RadiationTolerance>
+    <TemperatureTolerance>
+      <MinInternal>15</MinInternal>
+      <MaxInternal>85</MaxInternal>
+      <MinTolerance>-140°C</MinTolerance>
+      <MaxTolerance>140°C</MaxTolerance>
+      <Immune>False</Immune>
+    </TemperatureTolerance>
+    <Tech>
+      <Biotechnology>100</Biotechnology>
+      <Electronics>100</Electronics>
+      <Energy>100</Energy>
+      <Propulsion>100</Propulsion>
+      <Weapons>100</Weapons>
+      <Construction>100</Construction>
+    </Tech>
+    <PRT>JOAT</PRT>
+    <MineBuildCost>5</MineBuildCost>
+    <PluralName>Humanoids</PluralName>
+    <Name>Humanoid</Name>
+    <Password>B2F5FF47436671B6E533D8DC3614845D</Password>
+    <RaceIconName>06.jpg</RaceIconName>
+    <FactoryBuildCost>10</FactoryBuildCost>
+    <ColonistsPerResource>1000</ColonistsPerResource>
+    <FactoryProduction>10</FactoryProduction>
+    <OperableFactories>10</OperableFactories>
+    <MineProductionRate>10</MineProductionRate>
+    <OperableMines>10</OperableMines>
+    <MaxPopulation>1200000</MaxPopulation>
+    <GrowthRate>15</GrowthRate>
+    <LeftoverPoints>Surface minerals</LeftoverPoints>
+  </Race>
+</ROOT>
