@@ -47,7 +47,7 @@ namespace ComponentEditor
             this.ArmourStrength = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.DeleteButton = new System.Windows.Forms.Button();
-            this.CommonProperties = new ComponentEditor.CommonProperties();
+            this.CommonProperties = new Nova.WinForms.ComponentEditor.CommonProperties();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Shielding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ArmourStrength)).BeginInit();
@@ -146,7 +146,7 @@ namespace ComponentEditor
             this.CommonProperties.Name = "CommonProperties";
             this.CommonProperties.Size = new System.Drawing.Size(581, 458);
             this.CommonProperties.TabIndex = 0;
-            this.CommonProperties.Value = ((NovaCommon.Component)(resources.GetObject("CommonProperties.Value")));
+            this.CommonProperties.Value = ((Nova.Common.Components.Component)(resources.GetObject("CommonProperties.Value")));
             // 
             // ArmourDialog
             // 
@@ -173,7 +173,7 @@ namespace ComponentEditor
 
         #endregion
 
-        private CommonProperties CommonProperties;
+        private Nova.WinForms.ComponentEditor.CommonProperties CommonProperties;
         private System.Windows.Forms.Button DoneButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.GroupBox groupBox1;
