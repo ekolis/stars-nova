@@ -4,3 +4,4 @@ obj
 build
 nova.conf
 packages
+*.user
