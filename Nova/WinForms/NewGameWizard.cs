@@ -221,7 +221,7 @@ namespace Nova.WinForms
         {
             try
             {
-                Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.RaceDesignerSwitch);
+                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"), CommandArguments.Option.RaceDesignerSwitch);
             }
             catch
             {

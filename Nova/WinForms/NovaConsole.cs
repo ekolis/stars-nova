@@ -541,7 +541,7 @@ namespace Nova.WinForms.Console
                         args.Add(CommandArguments.Option.IntelFileName, Path.Combine(serverState.GameFolder, settings.RaceName + Global.IntelExtension));
                         try
                         {
-                            Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
+                            Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"), args.ToString());
                         }
                         catch
                         {

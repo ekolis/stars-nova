@@ -95,7 +95,7 @@ namespace Nova.WinForms.Launcher
         {
             try
             {
-                Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.RaceDesignerSwitch);
+                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"), CommandArguments.Option.RaceDesignerSwitch);
                 Application.Exit();
             }
             catch
@@ -153,7 +153,7 @@ namespace Nova.WinForms.Launcher
 
             try
             {
-                Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
+                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"), args.ToString());
                 gameLaunched = true;
             }
             catch
@@ -183,7 +183,7 @@ namespace Nova.WinForms.Launcher
 
                 try
                 {
-                    Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
+                    Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"), args.ToString());
                     gameLaunched = true;
                 }
                 catch
