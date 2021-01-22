@@ -44,7 +44,7 @@ using System.Security.Permissions;
 
 [assembly: AssemblyProduct("Stars! Nova")]
 [assembly: AssemblyCompany("The Stars-Nova Project")]
-[assembly: AssemblyCopyright("Copyright (C) 2020 The Stars-Nova Project")]
+[assembly: AssemblyCopyright("Copyright (C) 2021 The Stars-Nova Project")]
 [assembly: AssemblyCulture("")]
 
 // Version information for an assembly consists of the following four values:
