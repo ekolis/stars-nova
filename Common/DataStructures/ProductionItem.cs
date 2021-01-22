@@ -52,8 +52,8 @@ namespace Nova.Common
         /// Initialising constructor.
         /// </summary>
         /// <param name="quantity">The number of items to produce.</param>
-        /// <param name="design">The <see cref="Design"/> to build.</param>
-        public ProductionItem(int quantity, Design design)
+        /// <param name="design">The <see cref="ShipDesign"/> to build.</param>
+        public ProductionItem(int quantity, ShipDesign design)
         {
             Name = design.Name;
             Quantity = quantity;
@@ -67,7 +67,7 @@ namespace Nova.Common
         /// <returns></returns>
         public Resources NeededResources()
         {
-            Resources unitResources = this.unit.NeededResources();
+      Resources unitResources = this.unit.RemainingCost;
             return new Resources(
                 (int)unitResources.Ironium * Quantity,
                 (int)unitResources.Boranium * Quantity,
