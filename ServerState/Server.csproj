@@ -6,6 +6,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Nova.Server</RootNamespace>
     <Nullable>enable</Nullable>
+    <Version>0.4.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />

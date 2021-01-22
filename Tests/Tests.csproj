@@ -6,6 +6,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Nova.Tests</RootNamespace>
     <Nullable>enable</Nullable>
+    <Version>0.4.2</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.0" />
