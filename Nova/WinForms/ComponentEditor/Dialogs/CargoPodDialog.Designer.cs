@@ -29,7 +29,7 @@ namespace ComponentEditor
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CargoPodDialog));
-            this.commonProperties1 = new ComponentEditor.CommonProperties();
+            this.commonProperties1 = new Nova.WinForms.ComponentEditor.CommonProperties();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.DoneButton = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@ namespace ComponentEditor
             this.commonProperties1.Name = "commonProperties1";
             this.commonProperties1.Size = new System.Drawing.Size(583, 449);
             this.commonProperties1.TabIndex = 0;
-            this.commonProperties1.Value = ((NovaCommon.Component)(resources.GetObject("commonProperties1.Value")));
+            this.commonProperties1.Value = ((Nova.Common.Components.Component)(resources.GetObject("commonProperties1.Value")));
             // 
             // DeleteButton
             // 
@@ -141,7 +141,7 @@ namespace ComponentEditor
 
         #endregion
 
-        private CommonProperties commonProperties1;
+        private Nova.WinForms.ComponentEditor.CommonProperties commonProperties1;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button DoneButton;

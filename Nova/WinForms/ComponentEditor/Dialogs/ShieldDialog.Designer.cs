@@ -9,6 +9,9 @@
 // Software Foundation.
 // ============================================================================
 
+using Nova.Common.Components;
+using Nova.WinForms.ComponentEditor;
+
 namespace ComponentEditor
 {
    partial class ShieldDialog
@@ -45,7 +48,7 @@ namespace ComponentEditor
           this.label2 = new System.Windows.Forms.Label();
           this.ShieldStrength = new System.Windows.Forms.NumericUpDown();
           this.label1 = new System.Windows.Forms.Label();
-          this.CommonProperties = new ComponentEditor.CommonProperties();
+          this.CommonProperties = new CommonProperties();
           this.DeleteButton = new System.Windows.Forms.Button();
           this.SaveButton = new System.Windows.Forms.Button();
           this.DoneButton = new System.Windows.Forms.Button();
@@ -117,7 +120,7 @@ namespace ComponentEditor
           this.CommonProperties.Name = "CommonProperties";
           this.CommonProperties.Size = new System.Drawing.Size(581, 458);
           this.CommonProperties.TabIndex = 1;
-          this.CommonProperties.Value = ((NovaCommon.Component)(resources.GetObject("CommonProperties.Value")));
+          this.CommonProperties.Value = ((Component)(resources.GetObject("CommonProperties.Value")));
           // 
           // DeleteButton
           // 

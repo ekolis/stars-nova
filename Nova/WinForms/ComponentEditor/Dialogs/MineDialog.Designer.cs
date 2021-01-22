@@ -29,7 +29,7 @@ namespace ComponentEditor.Dialogs
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MineDialog));
-            this.commonProperties1 = new ComponentEditor.CommonProperties();
+            this.commonProperties1 = new Nova.WinForms.ComponentEditor.CommonProperties();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.DamagePerEngine = new System.Windows.Forms.NumericUpDown();
@@ -65,7 +65,7 @@ namespace ComponentEditor.Dialogs
             this.commonProperties1.Name = "commonProperties1";
             this.commonProperties1.Size = new System.Drawing.Size(585, 449);
             this.commonProperties1.TabIndex = 0;
-            this.commonProperties1.Value = ((NovaCommon.Component)(resources.GetObject("commonProperties1.Value")));
+            this.commonProperties1.Value = ((Nova.Common.Components.Component)(resources.GetObject("commonProperties1.Value")));
             // 
             // groupBox1
             // 
@@ -302,7 +302,7 @@ namespace ComponentEditor.Dialogs
 
         #endregion
 
-        private CommonProperties commonProperties1;
+        private Nova.WinForms.ComponentEditor.CommonProperties commonProperties1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown SafeSpeed;
         private System.Windows.Forms.NumericUpDown MinesLayed;
